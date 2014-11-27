@@ -76,11 +76,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DirectXRenderer.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DirectXRenderer.cpp" />
     <ClCompile Include="EngineKB01.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

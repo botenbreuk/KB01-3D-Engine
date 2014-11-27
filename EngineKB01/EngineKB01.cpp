@@ -1,11 +1,12 @@
 #include <iostream>
-#include <d3d9.h>
-#include <d3dx9.h>
-
+#include "Renderer.h"
 #include "Log.h"
+#include "DirectXRenderer.h"
 
 int main()
 {
+	Renderer* renderer = new DirectXRenderer();
+
 	Log* log = new Log();
 	const char* logContent = "Test";
 	log->WriteLog(logContent, Log::MessageType::Info);
