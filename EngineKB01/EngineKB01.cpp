@@ -1,6 +1,6 @@
-#include "Renderer.h"
 #include "Log.h"
 #include "DirectXRenderer.h"
+#include "Scene.h"
 
 
 /*
@@ -8,8 +8,6 @@ Starts up the engine.
 */
 int main()
 {
-	Renderer* renderer = new DirectXRenderer();
-
 	//Test code for the logger.
 	Log* log = new Log();
 	const char* logContent = "Test";
@@ -21,5 +19,4 @@ int main()
 
 	//Cleans up the memory before quitting the application.
 	delete log;
-	delete renderer;
 }
