@@ -9,7 +9,7 @@ Scene::Scene(void)
 
 Scene::~Scene(void)
 {
-	EntityList->~list();//Destroys the list and it's content.
+	delete EntityList;//Destroys the list, it's content and the pointer.
 }
 
 /*
