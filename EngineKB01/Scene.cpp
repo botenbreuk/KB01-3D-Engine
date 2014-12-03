@@ -16,7 +16,7 @@ Scene::~Scene(void)
 Renders the scene and the entities in it.
 renderer: A pointer to the renderer used.
 */
-void Scene::Render(Renderer* renderer)
+void Scene::RenderScene(Renderer* renderer)
 {
 	//TOTO: Implement
 }

@@ -6,5 +6,5 @@ class Entity
 public:
 	Entity(void);
 	~Entity(void);
-	void Render(Renderer* renderer);// Makes the entity render itself using a renderer.
+	void RenderEntity(Renderer* renderer);// Makes the entity render itself using a renderer.
 };
