@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="DirectXRenderer.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Heightmap.h" />
@@ -84,11 +85,14 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Rescource.h" />
     <ClInclude Include="RescourceManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DirectXRenderer.cpp" />
     <ClCompile Include="EngineKB01.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -100,7 +104,11 @@
     <ClCompile Include="RescourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EngineKB01.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
