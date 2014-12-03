@@ -78,7 +78,9 @@
   <ItemGroup>
     <ClInclude Include="DirectXRenderer.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Heightmap.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Rescource.h" />
     <ClInclude Include="RescourceManager.h" />
@@ -90,7 +92,9 @@
     <ClCompile Include="DirectXRenderer.cpp" />
     <ClCompile Include="EngineKB01.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Heightmap.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Rescource.cpp" />
     <ClCompile Include="RescourceManager.cpp" />
