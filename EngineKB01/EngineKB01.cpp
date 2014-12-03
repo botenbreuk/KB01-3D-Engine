@@ -8,6 +8,8 @@ Starts up the engine.
 */
 int main()
 {
+	Renderer* renderer = new DirectXRenderer();
+
 	//Test code for the logger.
 	Log* log = new Log();
 	const char* logContent = "Test";
