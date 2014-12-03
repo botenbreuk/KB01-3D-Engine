@@ -8,7 +8,8 @@ enum MessageType {Error, Warning, Info};
 
 /*
 Method to write message to log.
-logMessage: the message, mt: MessageType enum.
+logMessage: the message,
+mt: MessageType enum.
 File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
 */
 void Log::WriteLog(const char* logMessage, MessageType mt)
@@ -36,6 +37,7 @@ void Log::WriteLog(const char* logMessage, MessageType mt)
 
 /*
 Convert value of enum to char*
+mt: Specific MessageType to be converted.
 */
 const char* Log::MtToChar(MessageType mt)
 {

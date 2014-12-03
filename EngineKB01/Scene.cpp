@@ -14,6 +14,7 @@ Scene::~Scene(void)
 
 /*
 Renders the scene and the entities in it.
+renderer: A pointer to the renderer used.
 */
 void Scene::Render(Renderer* renderer)
 {
@@ -22,6 +23,7 @@ void Scene::Render(Renderer* renderer)
 
 /*
 Adds an entity to the scene.
+entity: A pointer to the entity that is to be added.
 */
 void Scene::AddEntity(Entity* entity)
 {
@@ -30,6 +32,7 @@ void Scene::AddEntity(Entity* entity)
 
 /*
 Removes a specific entity from the scene.
+entity: A pointer to the entity that is to be removed.
 */
 void Scene::RemoveEntity(Entity* entity)
 {
