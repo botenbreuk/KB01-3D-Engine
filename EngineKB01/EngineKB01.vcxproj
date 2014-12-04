@@ -95,7 +95,6 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DirectXRenderer.cpp" />
-    <ClCompile Include="EngineKB01.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Heightmap.cpp" />
     <ClCompile Include="Kernel.cpp" />
