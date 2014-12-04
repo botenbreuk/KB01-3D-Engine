@@ -40,12 +40,16 @@ mt: Specific MessageType to be converted.
 */
 const char* Log::MtToChar(MessageType mt)
 {
+	//Checks the existing MessageTypes and returns the characterised version.
 	switch (mt)
     {
         case Error:		return "Error";
         case Warning:	return "Warning";
 		case Info:		return "Info";
 	}
+
+	//If the value somehow is not found in the switch statement above, this will return an errormessage to the log.
+	return "Failed to translate messagetype to Char* ";
 }
 
 Log::~Log(void)
