@@ -18,10 +18,7 @@ renderer: A pointer to the renderer used.
 */
 void Scene::RenderScene(Renderer* renderer)
 {
-	for(int i = 0; i < EntityList->size(); i++)
-	{
-		EntityList->get_allocator().allocate(i);
-	}
+	//TOTO: Implement
 }
 
 /*
