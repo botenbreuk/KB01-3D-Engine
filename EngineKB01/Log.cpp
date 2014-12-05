@@ -40,16 +40,22 @@ mt: Specific MessageType to be converted.
 */
 const char* Log::MtToChar(MessageType mt)
 {
-	//Checks the existing MessageTypes and returns the characterised version.
+	//Initialises the returnPointer to the errormessage of not having found the correct way to translage mt;
+	char* returnPointer = "Failed to translate messagetype to Char* ";
+
+	//Checks the existing MessageTypes and changes returnPointer accordingly. If no correct translation can be found, the returnpointer will remain set to the errormessage.
 	switch (mt)
     {
-        case Error:		return "Error";
-        case Warning:	return "Warning";
-		case Info:		return "Info";
+        case Error:		returnPointer = "Error";
+			break;
+        case Warning:	returnPointer = "Warning";
+			break;
+		case Info:		returnPointer = "Info";
+			break;
 	}
 
-	//If the value somehow is not found in the switch statement above, this will return an errormessage to the log.
-	return "Failed to translate messagetype to Char* ";
+	//Returns the returnPointer.
+	return returnPointer;
 }
 
 Log::~Log(void)
