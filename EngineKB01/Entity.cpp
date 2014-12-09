@@ -18,6 +18,7 @@ Entity::~Entity(void)
 /*
 Makes the entity render itself using a renderer.
 renderer: A pointer to the renderer used.
+rsm: A pointer to the rescource manager used
 */
 void Entity::RenderEntity(Renderer* renderer, RescourceManager* rsm)
 {
