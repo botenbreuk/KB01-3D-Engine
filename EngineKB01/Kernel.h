@@ -12,5 +12,5 @@ private:
 	Renderer* Renderer;
 	Log* Logger;
 	void TestLog();
-	void TestRescourceManager();
+	void TestRescourceManagers();
 };
