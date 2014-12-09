@@ -4,7 +4,8 @@
 class Texture : Rescource
 {
 public:
-	Texture(void);
+	Texture(std::string filePath);
 	~Texture(void);
+	std::string GetFilePath();
 };
 
