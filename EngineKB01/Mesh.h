@@ -4,7 +4,8 @@
 class Mesh : Rescource
 {
 public:
-	Mesh(void);
+	Mesh(std::string filePath);
 	~Mesh(void);
+	std::string GetFilePath();
 };
 

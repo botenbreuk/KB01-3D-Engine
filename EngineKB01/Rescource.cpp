@@ -4,12 +4,12 @@ Rescource::~Rescource(void)
 {
 }
 
-std::string Rescource::GetFilepath()
+std::string Rescource::GetFilePath()
 {
-	return filePath;
+	return FilePath;
 }
 
 void Rescource::SetFilePath(std::string filePath)
 {
-	this->filePath = filePath;
+	this->FilePath = filePath;
 }

@@ -5,12 +5,12 @@ class Rescource
 {
 public:
 	virtual ~Rescource(void);
-	std::string GetFilepath();
+	std::string GetFilePath();
 
 private:
 	
 protected:
-	std::string filePath;
+	std::string FilePath;
 	void SetFilePath(std::string filePath);
 };
 

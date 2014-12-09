@@ -7,9 +7,6 @@ int main()
 {
 	//Creates a new kernel to initialise the engine.
 	Kernel* kernel = new Kernel();
-	
-	//Tests the logger.
-	kernel->TestLog();
 
 	//Makes it so the system waits for imput before shutting down the application.
 	system("pause");

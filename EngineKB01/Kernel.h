@@ -7,10 +7,10 @@ class Kernel
 public:
 	Kernel(void);
 	~Kernel(void);
-	static int main();
-	void TestLog();
 
 private:
 	Renderer* Renderer;
 	Log* Logger;
+	void TestLog();
+	void TestRescourceManager();
 };
