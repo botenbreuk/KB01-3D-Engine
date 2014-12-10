@@ -8,4 +8,3 @@ public:
 	~Window(void);
 	void RenderWindow(Renderer* renderer);
 };
-

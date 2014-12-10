@@ -12,4 +12,3 @@ public:
 	void AddEntity(Entity* entity);//Adds an entity to the scene.
 	void RemoveEntity(Entity* entity);//Removes a specific entity from the scene.
 };
-

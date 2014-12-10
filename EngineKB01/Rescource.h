@@ -13,4 +13,3 @@ protected:
 	std::string FilePath;
 	void SetFilePath(std::string filePath);
 };
-

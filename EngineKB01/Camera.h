@@ -7,4 +7,3 @@ public:
 	Camera(void);
 	~Camera(void);
 };
-

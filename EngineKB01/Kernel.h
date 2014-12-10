@@ -11,6 +11,6 @@ public:
 private:
 	Renderer* Renderer;
 	Log* Logger;
-	void TestLog();
-	void TestRescourceManagers();
+	void TestLog();//Testcode for the Log
+	void TestRescourceManagers();//Testcode for the RescourceManagers.
 };

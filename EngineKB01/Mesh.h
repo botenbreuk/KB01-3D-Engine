@@ -8,4 +8,3 @@ public:
 	~Mesh(void);
 	std::string GetFilePath();
 };
-

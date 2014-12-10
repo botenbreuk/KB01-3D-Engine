@@ -5,4 +5,3 @@ public:
 	Vertex(void);
 	~Vertex(void);
 };
-

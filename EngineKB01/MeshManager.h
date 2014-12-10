@@ -13,4 +13,3 @@ public:
 private:
 	std::map<std::string, Mesh*> Meshes;//A Key Value pair list of meshes with the associated names.
 };
-

@@ -12,4 +12,3 @@ public:
 private:
 	std::map<std::string, Texture*> Textures;//A Key Value pair list of textures with the associated names.
 };
-

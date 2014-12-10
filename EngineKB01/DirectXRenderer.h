@@ -11,4 +11,3 @@ public:
 	void RenderMesh(std::string meshPath);//Renders a given mesh using DirectX.
 	void RenderTexture(std::string texturePath);//Renders a given texture using DirectX.
 };
-

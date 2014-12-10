@@ -21,7 +21,7 @@ Kernel::~Kernel()
 }
 
 /*
-Testcode for the log
+Testcode for the Log
 */
 void Kernel::TestLog()
 {
@@ -31,7 +31,7 @@ void Kernel::TestLog()
 }
 
 /*
-Testcode for the Rescource Managers
+Testcode for the RescourceManagers
 */
 void Kernel::TestRescourceManagers()
 {

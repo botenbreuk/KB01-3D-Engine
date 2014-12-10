@@ -12,5 +12,3 @@ public:
 private:
 	const char* MtToChar(MessageType mt);//Converts the value of the MessageType mt to char*.
 };
-
-

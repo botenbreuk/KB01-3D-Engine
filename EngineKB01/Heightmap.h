@@ -7,4 +7,3 @@ public:
 	Heightmap(void);
 	~Heightmap(void);
 };
-
