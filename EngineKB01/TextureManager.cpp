@@ -13,8 +13,8 @@ TextureManager::~TextureManager(void)
 }
 
 /*
-Returns a pointer to the texture with the given name.
-textureName: The name of the texture to be returned.
+Returns a pointer to the Texture with the given name.
+textureName: The name of the Texture to be returned.
 */
 Texture* TextureManager::GetTexture(std::string textureName)
 {
@@ -22,16 +22,16 @@ Texture* TextureManager::GetTexture(std::string textureName)
 }
 
 /*
-Loads in a texture.
-textureName: The Key name of the texture.
-filePath: The filepath to the textrue.
+Loads in a Texture.
+textureName: The Key name of the Texture.
+filePath: The filepath to the Textrue.
 */
 void TextureManager::AddTexture(std::string textureName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
-	std::string succesString = "Texture: " + textureName + " loaded in as " + filePath + ".";//Gets in the log if the Texture is loaded in without any problems.
-	std::string failString1 = "A Texture with the name: " + textureName + " already exists.";//Gets in the log if that Key value is already taken in the list.
-	std::string failString2 = "That Texture is already loaded in with the name: ";//Gets in the log if that Texture is already loaded in.
+	std::string succesString = "Texture: '" + textureName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Texture is loaded in without any problems.
+	std::string failString1 = "A Texture with the name: '" + textureName + "' already exists.";//Gets in the log if that Key value is already taken in the list.
+	std::string failString2 = "That Texture is already loaded in with the name: '";//Gets in the log if that Texture is already loaded in.
 
 	//Initialises the char* that will be written to the log.
 	char* message;
@@ -51,7 +51,7 @@ void TextureManager::AddTexture(std::string textureName, std::string filePath)
 		else
 		{
 			//Converts failString2 to a Char* and writes it to the log.
-			message = strcat(StringToChar(failString2), StringToChar(GetTextureName(filePath)));
+			message = strcat(StringToChar(failString2), StringToChar(GetTextureName(filePath) + "'."));
 			Logger->WriteLog(message, Log::MessageType::Error);
 		}
 

@@ -13,8 +13,8 @@ MeshManager::~MeshManager(void)
 }
 
 /*
-Returns a pointer to the mesh with the given name.
-meshName: The name of the mesh to be returned.
+Returns a pointer to the Mesh with the given name.
+meshName: The name of the Mesh to be returned.
 */
 Mesh* MeshManager::GetMesh(std::string meshName)
 {
@@ -22,16 +22,16 @@ Mesh* MeshManager::GetMesh(std::string meshName)
 }
 
 /*
-Loads in a mesh.
-meshName: The Key name of the mesh.
-filePath: The filepath to the mesh.
+Loads in a Mesh.
+meshName: The Key name of the Mesh.
+filePath: The filepath to the Mesh.
 */
 void MeshManager::AddMesh(std::string meshName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
-	std::string succesString = "Mesh: " + meshName + " loaded in as " + filePath + ".";//Gets in the log if the Mesh is loaded in without any problems.
-	std::string failString1 = "A Mesh with the name: " + meshName + " already exists.";//Gets in the log if that Key value is already taken in the list.
-	std::string failString2 = "That Mesh is already loaded in with the name: ";//Gets in the log if that Mesh is already loaded in.
+	std::string succesString = "Mesh: '" + meshName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Mesh is loaded in without any problems.
+	std::string failString1 = "A Mesh with the name: '" + meshName + "' already exists.";//Gets in the log if that Key value is already taken in the list.
+	std::string failString2 = "That Mesh is already loaded in with the name: '";//Gets in the log if that Mesh is already loaded in.
 
 	//Initialises the char* that will be written to the log.
 	char* message;
@@ -51,7 +51,7 @@ void MeshManager::AddMesh(std::string meshName, std::string filePath)
 		else
 		{
 			//Converts failString2 to a Char* and writes it to the log.
-			message = strcat(StringToChar(failString2), StringToChar(GetMeshName(filePath)));
+			message = strcat(StringToChar(failString2), StringToChar(GetMeshName(filePath) + "'."));
 			Logger->WriteLog(message, Log::MessageType::Error);
 		}
 

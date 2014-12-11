@@ -7,8 +7,8 @@ class MeshManager : RescourceManager
 public:
 	MeshManager(Log* logger);
 	~MeshManager(void);
-	Mesh* GetMesh(std::string meshName);//Returns a pointer to the mesh with the given name.
-	void AddMesh(std::string meshName, std::string filePath);//Loads in a mesh.
+	Mesh* GetMesh(std::string meshName);//Returns a pointer to the Mesh with the given name.
+	void AddMesh(std::string meshName, std::string filePath);//Loads in a Mesh.
 
 private:
 	std::map<std::string, Mesh*> Meshes;//A Key Value pair list of meshes with the associated names.
