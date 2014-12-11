@@ -13,5 +13,5 @@ public:
 private:
 	std::map<std::string, Mesh*> Meshes;//A Key Value pair list of meshes with the associated names.
 	bool MeshLoadedIn(std::string filePath);//Checks if the specific Mesh is already loaded in.
-	std::string GetMeshName(std::string filePath);//Gives the name of the loaded in 
+	std::string GetMeshName(std::string filePath);//Gives the name of the loaded in Mesh.
 };

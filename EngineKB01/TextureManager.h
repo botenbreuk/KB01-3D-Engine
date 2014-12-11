@@ -11,4 +11,6 @@ public:
 
 private:
 	std::map<std::string, Texture*> Textures;//A Key Value pair list of textures with the associated names.
+	bool TextureLoadedIn(std::string filePath);//Checks if the specific Texture is already loaded in.
+	std::string GetTextureName(std::string filePath);//Gives the name of the loaded in Texture.
 };

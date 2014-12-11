@@ -30,15 +30,15 @@ void MeshManager::AddMesh(std::string meshName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
 	std::string succesString = "Mesh: " + meshName + " loaded in as " + filePath + ".";//Gets in the log if the Mesh is loaded in without any problems.
-	std::string failString1 = "A mesh with the name: " + meshName + " already exists.";//Gets in the log if that Key value is already taken in the list.
-	std::string failString2 = "That mesh is already loaded in with the name: ";//Gets in the log if that mesh is already loaded in.
+	std::string failString1 = "A Mesh with the name: " + meshName + " already exists.";//Gets in the log if that Key value is already taken in the list.
+	std::string failString2 = "That Mesh is already loaded in with the name: ";//Gets in the log if that Mesh is already loaded in.
 
 	//Initialises the char* that will be written to the log.
 	char* message;
 
-	if(NULL == Meshes[meshName])//Checks if there is alreay a mesh with that name.
+	if(NULL == Meshes[meshName])//Checks if there is alreay a Mesh with that name.
 	{
-		if(!MeshLoadedIn(filePath))//Checks if the specific mesh is already loaded in.
+		if(!MeshLoadedIn(filePath))//Checks if the specific Mesh is already loaded in.
 		{
 			//Loads in the Mesh.
 			Mesh* m = new Mesh(filePath);
@@ -66,7 +66,7 @@ void MeshManager::AddMesh(std::string meshName, std::string filePath)
 
 /*
 Checks if the specific Mesh is already loaded in.
-filePath: The filepath to the Mesh 
+filePath: The filepath to the Mesh.
 */
 bool MeshManager::MeshLoadedIn(std::string filePath)
 {
@@ -86,6 +86,10 @@ bool MeshManager::MeshLoadedIn(std::string filePath)
 	return loadedIn;
 }
 
+/*
+Gives the name of the loaded in Mesh.
+filePath: The filepath to the loaded in Mesh.
+*/
 std::string MeshManager::GetMeshName(std::string filePath)
 {
 	std::map<std::string, Mesh*>::iterator it;
