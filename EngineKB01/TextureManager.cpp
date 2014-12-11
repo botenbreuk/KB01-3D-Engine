@@ -1,13 +1,15 @@
 #include "TextureManager.h"
 
 
-TextureManager::TextureManager(void)
+TextureManager::TextureManager(Log* logger)
 {
+	Logger = logger;
 }
 
 
 TextureManager::~TextureManager(void)
 {
+	delete Logger;
 }
 
 /*

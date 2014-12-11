@@ -4,7 +4,7 @@
 class TextureManager : RescourceManager
 {
 public:
-	TextureManager(void);
+	TextureManager(Log* logger);
 	~TextureManager(void);
 	Texture* GetTexture(std::string textureName);//Returns a pointer to the texture with the given name.
 	void AddTexture(std::string textureName, std::string filePath);//Loads in a texture.
