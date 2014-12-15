@@ -1,10 +1,23 @@
-#pragma once
-#include "Renderer.h"
+#ifndef __WINDOW_H__
+#define __WINDOW_H__
+
+#include <iostream>
+#include <windows.h>
+#include <windowsx.h>
+
+#include "Scene.h"
 
 class Window
 {
 public:
-	Window(void);
-	~Window(void);
-	void RenderWindow(Renderer* renderer);
+	Window();
+	~Window(); 
+
+private:
+	void InitWindow();
+	static LRESULT CALLBACK MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+	
+	Scene* scene;
 };
+
+#endif

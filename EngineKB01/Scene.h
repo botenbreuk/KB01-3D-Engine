@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __SCENE_H__
+#define __SCENE_H__
+
 #include "entity.h"
 #include <list>
 
@@ -12,3 +14,5 @@ public:
 	void AddEntity(Entity* entity);//Adds an entity to the scene.
 	void RemoveEntity(Entity* entity);//Removes a specific entity from the scene.
 };
+
+#endif

@@ -148,6 +148,7 @@ csx/
 AppPackages/
 
 # Others
+sql/
 *.Cache
 ClientBin/
 [Ss]tyle[Cc]op.*
@@ -182,4 +183,4 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-*.sdf
+EngineKB01.sdf
