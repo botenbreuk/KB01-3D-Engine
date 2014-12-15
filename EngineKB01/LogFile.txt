@@ -25,3 +25,21 @@
 12.12.2014 13:28:22 - Info: Texture: 'tiger' loaded in as 'C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Samples\C++\Direct3D\Tutorials\Tut06_Meshes\tiger.bmp'.
 12.12.2014 13:28:22 - Error: A Texture with the name: 'tiger' already exists.
 12.12.2014 13:28:22 - Error: That Texture is already loaded in with the name: 'tiger'.
+12.12.2014 13:38:24 - Info: Mesh: 'tiger' loaded in as 'C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Samples\C++\Direct3D\Tutorials\Tut06_Meshes\tiger.x'.
+12.12.2014 13:38:24 - Error: A Mesh with the name: 'tiger' already exists.
+12.12.2014 13:38:24 - Error: That Mesh is already loaded in with the name: 'tiger'.
+12.12.2014 13:38:24 - Info: Texture: 'tiger' loaded in as 'C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Samples\C++\Direct3D\Tutorials\Tut06_Meshes\tiger.bmp'.
+12.12.2014 13:38:24 - Error: A Texture with the name: 'tiger' already exists.
+12.12.2014 13:38:24 - Error: That Texture is already loaded in with the name: 'tiger'.
+12.12.2014 13:51:27 - Info: Mesh: 'tiger' loaded in as 'C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Samples\C++\Direct3D\Tutorials\Tut06_Meshes\tiger.x'.
+12.12.2014 13:51:27 - Error: A Mesh with the name: 'tiger' already exists.
+12.12.2014 13:51:27 - Error: That Mesh is already loaded in with the name: 'tiger'.
+12.12.2014 13:51:27 - Info: Texture: 'tiger' loaded in as 'C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Samples\C++\Direct3D\Tutorials\Tut06_Meshes\tiger.bmp'.
+12.12.2014 13:51:27 - Error: A Texture with the name: 'tiger' already exists.
+12.12.2014 13:51:27 - Error: That Texture is already loaded in with the name: 'tiger'.
+15.12.2014 11:17:28 - Info: Mesh: 'tiger' loaded in as 'C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Samples\C++\Direct3D\Tutorials\Tut06_Meshes\tiger.x'.
+15.12.2014 11:17:28 - Error: A Mesh with the name: 'tiger' already exists.
+15.12.2014 11:17:28 - Error: That Mesh is already loaded in with the name: 'tiger'.
+15.12.2014 11:17:28 - Info: Texture: 'tiger' loaded in as 'C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Samples\C++\Direct3D\Tutorials\Tut06_Meshes\tiger.bmp'.
+15.12.2014 11:17:28 - Error: A Texture with the name: 'tiger' already exists.
+15.12.2014 11:17:28 - Error: That Texture is already loaded in with the name: 'tiger'.

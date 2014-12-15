@@ -1,4 +1,3 @@
-#pragma once
 #include "entity.h"
 #include <list>
 
