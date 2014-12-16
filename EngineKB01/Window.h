@@ -5,19 +5,17 @@
 #include <windows.h>
 #include <windowsx.h>
 
-#include "Scene.h"
 
 class Window
 {
 public:
 	Window();
-	~Window(); 
-
-private:
-	void InitWindow();
+	~Window();
+	void SetWinClass();
+	void CreateWnd();
+	void StartWnd();
 	static LRESULT CALLBACK MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
-	
-	Scene* scene;
+
 };
 
 #endif

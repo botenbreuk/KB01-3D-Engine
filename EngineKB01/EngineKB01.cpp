@@ -11,7 +11,9 @@ int main()
 	Kernel* kernel = new Kernel();
     
 	Window* window = new Window();
-
+	window->CreateWnd();
+	window->CreateWnd();
+	window->StartWnd();
 
 	delete kernel, window;
 }

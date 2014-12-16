@@ -184,3 +184,4 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 EngineKB01.sdf
+EngineKB01/LogFile.txt
