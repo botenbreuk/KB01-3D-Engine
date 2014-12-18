@@ -1,11 +1,12 @@
-#pragma once
-#include "RescourceManager.h"
+#ifndef __TEXTUREMANAGER_H__
+#define __TEXTUREMANAGER_H__
+#include "ResourceManager.h"
 
-class TextureManager : RescourceManager
+class TextureManager : ResourceManager
 {
 public:
 	TextureManager(Log* logger);
-	~TextureManager(void);
+	~TextureManager();
 	Texture* GetTexture(std::string textureName);//Returns a pointer to the Texture with the given name.
 	void AddTexture(std::string textureName, std::string filePath);//Loads in a Texture.
 
@@ -14,3 +15,5 @@ private:
 	bool TextureLoadedIn(std::string filePath);//Checks if the specific Texture is already loaded in.
 	std::string GetTextureName(std::string filePath);//Gives the name of the loaded in Texture.
 };
+
+#endif

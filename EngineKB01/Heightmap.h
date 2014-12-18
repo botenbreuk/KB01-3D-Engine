@@ -1,9 +1,13 @@
-#pragma once
-#include "Rescource.h"
+#ifndef __HEIGHTMAP_H__
+#define __HEIGHTMAP_H__
 
-class Heightmap : Rescource
+#include "Resource.h"
+
+class Heightmap : Resource
 {
 public:
-	Heightmap(void);
-	~Heightmap(void);
+	Heightmap();
+	~Heightmap();
 };
+
+#endif

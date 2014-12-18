@@ -11,11 +11,11 @@ class Window
 public:
 	Window();
 	~Window();
-	void SetWinClass();
-	void CreateWnd();
-	void StartWnd();
 	static LRESULT CALLBACK MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
+private:
+	void SetWinClass();
+	void Initialize();
 };
 
 #endif

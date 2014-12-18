@@ -13,5 +13,5 @@ Mesh::~Mesh(void)
 
 std::string Mesh::GetFilePath()
 {
-	return Rescource::GetFilePath();
+	return Resource::GetFilePath();
 }

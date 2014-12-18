@@ -1,7 +1,11 @@
-#pragma once
+#ifndef __VERTEX_H__
+#define __VERTEX_H__
+
 class Vertex
 {
 public:
-	Vertex(void);
-	~Vertex(void);
+	Vertex();
+	~Vertex();
 };
+
+#endif

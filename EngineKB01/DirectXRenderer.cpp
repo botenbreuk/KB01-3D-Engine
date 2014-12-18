@@ -1,11 +1,11 @@
 #include "DirectXRenderer.h"
 
-DirectXRenderer::DirectXRenderer(void)
+DirectXRenderer::DirectXRenderer()
 {
 }
 
 
-DirectXRenderer::~DirectXRenderer(void)
+DirectXRenderer::~DirectXRenderer()
 {
 }
 

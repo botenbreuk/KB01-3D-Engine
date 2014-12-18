@@ -3,6 +3,7 @@
 Window::Window()
 {
 	SetWinClass();
+	Initialize();
 }
 
 
@@ -20,7 +21,7 @@ void Window::SetWinClass()
     RegisterClassEx(&wndclass);
 }
 
-void Window::CreateWnd()
+void Window::Initialize()
 {
     HWND window = CreateWindowEx( 0, L"WindowClass", L"title",
         WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
@@ -28,18 +29,6 @@ void Window::CreateWnd()
 
 	ShowWindow(window, SW_SHOWDEFAULT);
 	UpdateWindow( window );
-}
-
-void Window::StartWnd()
-{
-	MSG msg;
-    ZeroMemory( &msg, sizeof( msg ) );
-
-	while(GetMessage(&msg, NULL, 0, 0) > 0)
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
 }
 
 LRESULT CALLBACK Window::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )

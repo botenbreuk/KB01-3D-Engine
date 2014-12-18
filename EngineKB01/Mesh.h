@@ -1,10 +1,14 @@
-#pragma once
-#include "Rescource.h"
+#ifndef __MESH_H__
+#define __MESH_H__
 
-class Mesh : Rescource
+#include "Resource.h"
+
+class Mesh : Resource
 {
 public:
 	Mesh(std::string filePath);
-	~Mesh(void);
+	~Mesh();
 	std::string GetFilePath();
 };
+
+#endif

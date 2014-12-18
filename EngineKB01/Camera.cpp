@@ -1,11 +1,11 @@
 #include "Camera.h"
 
 
-Camera::Camera(void)
+Camera::Camera()
 {
 }
 
 
-Camera::~Camera(void)
+Camera::~Camera()
 {
 }

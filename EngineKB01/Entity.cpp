@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include <iostream>
 
 Entity::Entity()
 {
@@ -12,7 +11,7 @@ Entity::Entity(std::string meshName, std::string textureName)
 }
 
 
-Entity::~Entity(void)
+Entity::~Entity()
 {
 }
 

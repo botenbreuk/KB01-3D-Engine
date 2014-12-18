@@ -1,12 +1,15 @@
-#pragma once
-#include "Mesh.h"
-#include "RescourceManager.h"
+#ifndef __MESHMANAGER_H__
+#define __MESHMANAGER_H__
 
-class MeshManager : RescourceManager
+#include "Mesh.h"
+#include "ResourceManager.h"
+
+class MeshManager : ResourceManager
 {
 public:
+	MeshManager();
 	MeshManager(Log* logger);
-	~MeshManager(void);
+	~MeshManager();
 	Mesh* GetMesh(std::string meshName);//Returns a pointer to the Mesh with the given name.
 	void AddMesh(std::string meshName, std::string filePath);//Loads in a Mesh.
 
@@ -15,3 +18,5 @@ private:
 	bool MeshLoadedIn(std::string filePath);//Checks if the specific Mesh is already loaded in.
 	std::string GetMeshName(std::string filePath);//Gives the name of the loaded in Mesh.
 };
+
+#endif

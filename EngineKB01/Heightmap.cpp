@@ -1,11 +1,11 @@
 #include "Heightmap.h"
 
 
-Heightmap::Heightmap(void)
+Heightmap::Heightmap()
 {
 }
 
 
-Heightmap::~Heightmap(void)
+Heightmap::~Heightmap()
 {
 }

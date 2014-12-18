@@ -1,10 +1,14 @@
-#pragma once
-#include "Rescource.h"
+#ifndef __TEXTURE_H__
+#define __TEXTURE_H__
 
-class Texture : Rescource
+#include "Resource.h"
+
+class Texture : Resource
 {
 public:
 	Texture(std::string filePath);
-	~Texture(void);
+	~Texture();
 	std::string GetFilePath();
 };
+
+#endif

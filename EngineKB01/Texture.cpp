@@ -7,11 +7,11 @@ Texture::Texture(std::string filePath)
 }
 
 
-Texture::~Texture(void)
+Texture::~Texture()
 {
 }
 
 std::string Texture::GetFilePath()
 {
-	return Rescource::GetFilePath();
+	return Resource::GetFilePath();
 }

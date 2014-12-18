@@ -1,11 +1,11 @@
 #include "Vertex.h"
 
 
-Vertex::Vertex(void)
+Vertex::Vertex()
 {
 }
 
 
-Vertex::~Vertex(void)
+Vertex::~Vertex()
 {
 }

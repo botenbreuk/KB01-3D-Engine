@@ -1,6 +1,6 @@
 #include "Log.h"
 
-Log::Log(void)
+Log::Log()
 {
 }
 
@@ -58,6 +58,6 @@ const char* Log::MtToChar(MessageType mt)
 	return returnPointer;
 }
 
-Log::~Log(void)
+Log::~Log()
 {
 }

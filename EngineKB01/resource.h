@@ -1,14 +1,19 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by EngineKB01.rc
+#ifndef __RESOURCE_H__
+#define __RESOURCE_H__
 
-// Next default values for new objects
-// 
-#ifdef APSTUDIO_INVOKED
-#ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        101
-#define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1001
-#define _APS_NEXT_SYMED_VALUE           101
-#endif
+#include <iostream>
+
+class Resource
+{
+public:
+	virtual ~Resource(void);
+	std::string GetFilePath();
+
+private:
+	
+protected:
+	std::string FilePath;
+	void SetFilePath(std::string filePath);
+};
+
 #endif

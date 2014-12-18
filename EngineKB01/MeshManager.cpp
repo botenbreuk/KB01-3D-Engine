@@ -1,5 +1,9 @@
 #include "MeshManager.h"
 
+MeshManager::MeshManager()
+{
+
+}
 
 MeshManager::MeshManager(Log* logger)
 {
@@ -7,7 +11,7 @@ MeshManager::MeshManager(Log* logger)
 }
 
 
-MeshManager::~MeshManager(void)
+MeshManager::~MeshManager()
 {
 	delete Logger;
 }

@@ -7,7 +7,7 @@ TextureManager::TextureManager(Log* logger)
 }
 
 
-TextureManager::~TextureManager(void)
+TextureManager::~TextureManager()
 {
 	delete Logger;
 }
