@@ -2,7 +2,6 @@
 #define __DIRECTXRENDERER_H__
 #include "Renderer.h"
 #include "Mesh.h"
-#include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <list>
@@ -22,6 +21,7 @@ public:
 	LPDIRECT3DDEVICE9 Get3DDevice();
 
 	void LoadMesh(std::string filePath, std::string name);
+	void LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath);
 
 	LPD3DXMESH* GetMesh(std::string name);
 
@@ -33,7 +33,7 @@ private:
 	LPDIRECT3D9         g_pD3D; // Used to create the D3DDevice
 	LPDIRECT3DDEVICE9   g_pd3dDevice; // Our rendering device
 
-	DWORD g_dwNumMaterials;
+	std::map<std::string, DWORD> g_dwNumMaterials;
 
 	std::wstring s2ws(const std::string& s);
 };
