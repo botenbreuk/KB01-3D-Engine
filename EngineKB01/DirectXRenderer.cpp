@@ -125,21 +125,24 @@ HRESULT DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
 void DirectXRenderer::LoadMesh(std::string filePath, std::string name){
 	// Load the mesh from the specified file
 
+	std::wstring temp = std::wstring(filePath.begin(), filePath.end());
+	LPCWSTR fileP = temp.c_str();
+
 	LPD3DXBUFFER pD3DXMtrlBuffer;
-	if( FAILED( D3DXLoadMeshFromX( s2ws(filePath).c_str(), D3DXMESH_SYSTEMMEM,
+	if( FAILED( D3DXLoadMeshFromX( fileP, D3DXMESH_SYSTEMMEM,
                                    g_pd3dDevice, NULL,
                                    &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
-								   Meshes[name]* ) ))
-    {
+								   &Meshes[name] ) ))
+	{
         // If model is not in current folder, try parent folder
-        if( FAILED( D3DXLoadMeshFromX( s2ws(filePath).c_str(), D3DXMESH_SYSTEMMEM,
+        if( FAILED( D3DXLoadMeshFromX( fileP, D3DXMESH_SYSTEMMEM,
                                        g_pd3dDevice, NULL,
                                        &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
-                                       Meshes[name]* ) ) )
-        {
-            MessageBox( NULL, L"Could not find tiger.x", L"Meshes.exe", MB_OK );
-        }
-    }
+                                       &Meshes[name] ) ) )
+		{
+			MessageBox( NULL, L"Could not find tiger.x", L"Meshes.exe", MB_OK );
+		}
+	}
 
 }
 

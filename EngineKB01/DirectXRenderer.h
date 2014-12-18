@@ -1,6 +1,8 @@
 #ifndef __DIRECTXRENDERER_H__
 #define __DIRECTXRENDERER_H__
 #include "Renderer.h"
+#include "Mesh.h"
+#include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <list>
