@@ -21,7 +21,8 @@ public:
 	LPDIRECT3DDEVICE9 Get3DDevice();
 
 	void LoadMesh(std::string filePath, std::string name);
-	void LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath);
+	void LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath, D3DXMATERIAL* d3dxMaterials);
+	void LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials);
 
 	LPD3DXMESH* GetMesh(std::string name);
 

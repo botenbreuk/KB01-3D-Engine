@@ -64,37 +64,15 @@ HRESULT DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
 {
     
 	LPD3DXBUFFER pD3DXMtrlBuffer;
+	D3DXMATERIAL* d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBuffer->GetBufferPointer();
 
     // Load the mesh from the specified file
 	std::list<Mesh*>::const_iterator iter;
 	for(iter = meshes.begin(); iter != meshes.end(); iter++)
 	{
-		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath());	
-		LoadMaterial(pD3DXMtrlBuffer, (*iter)->GetFilePath());
-		
-		Textures[(*iter)->GetFilePath()][i] = NULL;
-				if( d3dxMaterials[i].pTextureFilename != NULL &&
-            lstrlenA( d3dxMaterials[i].pTextureFilename ) > 0 )
-			{
-				// Create the texture
-					if( FAILED( D3DXCreateTextureFromFileA( g_pd3dDevice,
-                                                    d3dxMaterials[i].pTextureFilename,
-                                                    &Textures[(*iter)->GetFilePath()][i] ) ) )
-				{
-					// If texture is not in current folder, try parent folder
-					const CHAR* strPrefix = "..\\";
-					CHAR strTexture[MAX_PATH];
-					strcpy_s( strTexture, MAX_PATH, strPrefix );
-					strcat_s( strTexture, MAX_PATH, d3dxMaterials[i].pTextureFilename );
-					// If texture is not in current folder, try parent folder
-					if( FAILED( D3DXCreateTextureFromFileA( g_pd3dDevice,
-                                                        strTexture,
-                                                        &Textures[(*iter)->GetFilePath()][i] ) ) )
-					{
-						MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );
-					}
-				}
-			}
+		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath());//Load in the mesh.
+		LoadMaterial(pD3DXMtrlBuffer, (*iter)->GetFilePath(), d3dxMaterials);//Load in the materials associated with the mesh.
+		LoadTextures((*iter)->GetFilePath(), d3dxMaterials);
 	}
     // Done with the material buffer
     pD3DXMtrlBuffer->Release();
@@ -106,17 +84,14 @@ void DirectXRenderer::LoadMesh(std::string filePath, std::string name)
 {
 	// Load the mesh from the specified file
 
-	std::wstring temp = std::wstring(filePath.begin(), filePath.end());
-	LPCWSTR fileP = temp.c_str();
-
 	LPD3DXBUFFER pD3DXMtrlBuffer;
-	if( FAILED( D3DXLoadMeshFromX( fileP, D3DXMESH_SYSTEMMEM,
+	if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM,
                                    g_pd3dDevice, NULL,
                                    &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath],
 								   &Meshes[name] ) ))
 	{
         // If model is not in current folder, try parent folder
-        if( FAILED( D3DXLoadMeshFromX( fileP, D3DXMESH_SYSTEMMEM,
+		if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM,
                                        g_pd3dDevice, NULL,
                                        &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath],
                                        &Meshes[name] ) ) )
@@ -127,18 +102,12 @@ void DirectXRenderer::LoadMesh(std::string filePath, std::string name)
 
 }
 
-void DirectXRenderer::LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath)
+void DirectXRenderer::LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath, D3DXMATERIAL* d3dxMaterials)
 {
 	// We need to extract the material properties and texture names from the 
 	// pD3DXMtrlBuffer
-	D3DXMATERIAL* d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBuffer->GetBufferPointer();
 	Materials[filePath] = new D3DMATERIAL9[g_dwNumMaterials[filePath]];
 	if( Materials[filePath] == NULL )
-	{
-		return;
-	}
-	Textures[filePath] = new LPDIRECT3DTEXTURE9[g_dwNumMaterials[filePath]];
-	if( Textures[filePath] == NULL )
 	{
 		return;
 	}
@@ -149,6 +118,27 @@ void DirectXRenderer::LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string fil
 		Materials[filePath][i] = d3dxMaterials[i].MatD3D;
 		// Set the ambient color for the material (D3DX does not do this)
 		Materials[filePath][i].Ambient = Materials[filePath][i].Diffuse;
+	}
+}
+
+void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials)
+{
+	Textures[filePath] = new LPDIRECT3DTEXTURE9[g_dwNumMaterials[filePath]];
+	if( Textures[filePath] == NULL )
+	{
+		return;
+	}
+	Textures[filePath] = NULL;
+	for( DWORD i = 0; i < g_dwNumMaterials[filePath]; i++ )
+	{
+        if(Textures[filePath] != NULL && lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
+        {
+            // Create the texture
+			if(FAILED(D3DXCreateTextureFromFileA(g_pd3dDevice, d3dxMaterials[i].pTextureFilename, Textures[filePath])))
+			{
+                    MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );
+            }
+        }
 	}
 }
 
