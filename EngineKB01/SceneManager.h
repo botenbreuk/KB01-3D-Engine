@@ -9,8 +9,8 @@ class SceneManager
 public:
 	SceneManager();
 	~SceneManager();
-	void RenderAllScenes(Renderer* renderer);
-	void UpdateAllScenes();
+	void RenderAllScenes(Renderer* renderer);//Renders all the Scenes this Manager knows.
+	void UpdateAllScenes();//Updates all the Scenes this Manager knows.
 
 private:
 	std::list<Scene*> Scenes;

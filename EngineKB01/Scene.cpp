@@ -13,7 +13,7 @@ Scene::~Scene()
 }
 
 /*
-Renders the scene and the entities in it.
+Renders the Entities in the Scene.
 renderer: A pointer to the renderer used.
 Tells all entities in this scene to render themselves
 */
@@ -39,6 +39,9 @@ void Scene::RenderScene(Renderer* renderer)
 	renderer->Present();
 }
 
+/*
+Updates the Entities in the Scene.
+*/
 void Scene::UpdateScene(){
 	std::list<Entity*>::const_iterator iter;
 	for(iter = EntityList.begin(); iter != EntityList.end(); iter++)
