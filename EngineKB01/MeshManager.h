@@ -8,6 +8,7 @@
 class MeshManager : ResourceManager
 {
 public:
+	MeshManager();
 	MeshManager(Log* logger, DirectXRenderer* renderer);
 	~MeshManager();
 	Mesh* GetMesh(std::string meshName);//Returns a pointer to the Mesh with the given name.
