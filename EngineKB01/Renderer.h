@@ -2,6 +2,9 @@
 #define __RENDERER_H__
 
 #include <string>
+#include <Windows.h>
+#include "Mesh.h"
+#include <list>
 
 class Renderer
 {
@@ -22,6 +25,10 @@ public:
 	//Present the backbuffer contents to the display
 	virtual void Present() = 0;
 	
+	virtual void RenderModel(std::string filePath) = 0;
+
+	virtual void Init3D(HWND hWnd) = 0;
+	virtual void InitGeometry(std::list<Mesh*> meshes) = 0;
 };
 
 #endif

@@ -2,7 +2,8 @@
 
 MeshManager::MeshManager()
 {
-
+	Mesh* dummy = new Mesh("Tiger.x");
+	Meshes["Tiger.x"] = dummy;
 }
 
 MeshManager::MeshManager(Log* logger, DirectXRenderer* renderer)
@@ -11,6 +12,18 @@ MeshManager::MeshManager(Log* logger, DirectXRenderer* renderer)
 	Renderer = renderer;
 }
 
+void MeshManager::LoadMeshes(){
+
+	std::list<Mesh*> meshList;
+
+	std::map<std::string, Mesh*>::const_iterator iter;
+	for(iter = Meshes.begin(); iter != Meshes.end(); iter++)
+	{
+		meshList.push_front(iter->second);
+	}
+
+	Renderer->InitGeometry(meshList);
+}
 
 MeshManager::~MeshManager()
 {

@@ -12,6 +12,10 @@ Window::~Window()
 
 }
 
+HWND Window::GetHWND()
+{
+	return _window;
+}
 void Window::SetWinClass()
 {
 	WNDCLASSEX wndclass = { sizeof(WNDCLASSEX), CS_DBLCLKS, MsgProc,
@@ -23,12 +27,12 @@ void Window::SetWinClass()
 
 void Window::Initialize()
 {
-    HWND window = CreateWindowEx( 0, L"WindowClass", L"title",
+    _window = CreateWindowEx( 0, L"WindowClass", L"title",
         WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
         CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, GetModuleHandle(0), 0 );
 
-	ShowWindow(window, SW_SHOWDEFAULT);
-	UpdateWindow( window );
+	ShowWindow(_window, SW_SHOWDEFAULT);
+	UpdateWindow( _window );
 }
 
 LRESULT CALLBACK Window::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )

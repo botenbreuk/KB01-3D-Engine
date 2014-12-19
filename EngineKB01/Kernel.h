@@ -7,8 +7,10 @@
 #include "ResourceManager.h"
 #include "MeshManager.h"
 #include "WindowManager.h"
+#include "SceneManager.h"
 #include "DirectXRenderer.h"
 #include "Scene.h"
+#include "Log.h"
 
 class Kernel
 {
@@ -24,6 +26,7 @@ private:
 	ResourceManager* _resourceManager;
 	MeshManager* _meshManager;
 	WindowManager* _windowManager;
+	SceneManager* _sceneManager;
 };
 
 #endif

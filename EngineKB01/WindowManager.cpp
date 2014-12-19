@@ -10,7 +10,8 @@ WindowManager::~WindowManager()
 
 }
 
-void WindowManager::CreateNewWindow()
+HWND WindowManager::CreateNewWindow()
 {
 	Window* window = new Window();
+	return window->GetHWND();
 }
