@@ -27,6 +27,24 @@ void DirectXRenderer::RenderTexture(std::string texturePath)
 	//TOTO: Implement
 }
 
+// Clear the backbuffer and the zbuffer
+void DirectXRenderer::ClearScreen(){
+	g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                         D3DCOLOR_XRGB( 0, 0, 255 ), 1.0f, 0 );
+}
+
+void DirectXRenderer::BeginScene(){
+	g_pd3dDevice->BeginScene();
+}
+
+void DirectXRenderer::EndScene(){
+	g_pd3dDevice->EndScene();
+}
+
+void DirectXRenderer::Present(){
+	g_pd3dDevice->Present( NULL, NULL, NULL, NULL );
+}
+
 HRESULT DirectXRenderer::Init3D( HWND hWnd )
 {
     // Create the D3D object.

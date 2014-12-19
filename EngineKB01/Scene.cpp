@@ -3,24 +3,50 @@
 
 Scene::Scene()
 {
-	this->EntityList = new std::list<Entity>;//Defines the list of entities.
+	//this->EntityList = new std::list<Entity*>;//Defines the list of entities.
 }
 
 
 Scene::~Scene()
 {
-	delete EntityList;//Destroys the list, it's content and the pointer.
+	//delete EntityList;//Destroys the list, it's content and the pointer.
 }
 
 /*
 Renders the scene and the entities in it.
 renderer: A pointer to the renderer used.
+Tells all entities in this scene to render themselves
 */
 void Scene::RenderScene(Renderer* renderer)
 {
-	//TOTO: Implement
+
+	//Clear buffers and begin rendering
+	renderer->ClearScreen();
+	renderer->BeginScene();
+	
+	renderer->SetupMatrices();
+
+	std::list<Entity*>::const_iterator iter;
+	for(iter = EntityList.begin(); iter != EntityList.end(); iter++)
+	{
+		//(iter)->Render();
+		
+		//To Do: call entities to render themselves
+	}
+
+	//Ends rendering
+	renderer->EndScene();
+	renderer->Present();
 }
 
+void Scene::UpdateScene(){
+	std::list<Entity*>::const_iterator iter;
+	for(iter = EntityList.begin(); iter != EntityList.end(); iter++)
+	{
+		//(iter)->Update();
+		//To Do: implement
+	}
+}
 /*
 Adds an entity to the scene.
 entity: A pointer to the entity that is to be added.
