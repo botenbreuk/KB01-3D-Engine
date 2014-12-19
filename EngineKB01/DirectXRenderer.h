@@ -24,7 +24,19 @@ public:
 	void LoadMesh(std::string filePath, std::string name);
 	void LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath, D3DXMATERIAL* d3dxMaterials);
 	void LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials);
+	
+	//Setup matrices
 	void SetupMatrices();
+	
+	//Clear the backbuffer and the zbuffer
+	void ClearScreen();
+
+	//Begin and end rendering
+	void BeginScene();
+	void EndScene();
+
+	//Present the backbuffer contents to the display
+	void Present();
 
 	LPD3DXMESH* GetMesh(std::string name);
 
