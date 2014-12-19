@@ -41,7 +41,17 @@ int main()
         {
             ShowWindow( window, SW_SHOWDEFAULT ) ;
             MSG msg ;
-            while( GetMessage( &msg, 0, 0, 0 ) ) DispatchMessage(&msg) ;
+            while( msg.message != WM_QUIT )
+            {
+                if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ) )
+                {
+                    TranslateMessage( &msg );
+                    DispatchMessage( &msg );
+                }
+                else{
+					//renderen
+				}
+            }
         }
     }
 

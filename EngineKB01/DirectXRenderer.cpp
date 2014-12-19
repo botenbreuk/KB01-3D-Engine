@@ -142,18 +142,6 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	}
 }
 
-std::wstring DirectXRenderer::s2ws(const std::string& s)
-{
-    int len;
-    int slength = (int)s.length() + 1;
-    len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0); 
-    wchar_t* buf = new wchar_t[len];
-    MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
-    std::wstring r(buf);
-    delete[] buf;
-    return r;
-}
-
 LPDIRECT3DDEVICE9 DirectXRenderer::Get3DDevice(){
 	return g_pd3dDevice;
 }
@@ -161,4 +149,33 @@ LPDIRECT3DDEVICE9 DirectXRenderer::Get3DDevice(){
 LPD3DXMESH* DirectXRenderer::GetMesh(std::string name)
 {
 	return &Meshes[name];
+}
+
+void DirectXRenderer::SetupMatrices()
+{
+    // Set up world matrix
+    D3DXMATRIXA16 matWorld;
+    D3DXMatrixRotationY( &matWorld, timeGetTime() / 1000.0f );
+    g_pd3dDevice->SetTransform( D3DTS_WORLD, &matWorld );
+
+    // Set up our view matrix. A view matrix can be defined given an eye point,
+    // a point to lookat, and a direction for which way is up. Here, we set the
+    // eye five units back along the z-axis and up three units, look at the 
+    // origin, and define "up" to be in the y-direction.
+    D3DXVECTOR3 vEyePt( 0.0f, 3.0f,-5.0f );
+    D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
+    D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
+    D3DXMATRIXA16 matView;
+    D3DXMatrixLookAtLH( &matView, &vEyePt, &vLookatPt, &vUpVec );
+    g_pd3dDevice->SetTransform( D3DTS_VIEW, &matView );
+
+    // For the projection matrix, we set up a perspective transform (which
+    // transforms geometry from 3D view space to 2D viewport space, with
+    // a perspective divide making objects smaller in the distance). To build
+    // a perpsective transform, we need the field of view (1/4 pi is common),
+    // the aspect ratio, and the near and far clipping planes (which define at
+    // what distances geometry should be no longer be rendered).
+    D3DXMATRIXA16 matProj;
+    D3DXMatrixPerspectiveFovLH( &matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f );
+    g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );
 }
