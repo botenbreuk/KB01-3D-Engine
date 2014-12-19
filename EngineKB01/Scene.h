@@ -12,10 +12,10 @@ public:
 	Scene();
 	~Scene();
 	std::list<Entity*> EntityList;//The list of Entities this scene holds.
-	void RenderScene(Renderer* renderer);//Renders the Entities in the Scene.
+	void Render(Renderer* renderer);//Renders the Entities in the Scene.
 	void AddEntity(Entity* entity);//Adds an Entity to the scene.
 	void RemoveEntity(Entity* entity);//Removes a specific Entity from the scene.
-	void UpdateScene();//Updates the Entities in the Scene,
+	void Update();//Updates the Entities in the Scene,
 };
 
 #endif

@@ -13,7 +13,7 @@ public:
 	void UpdateAllScenes();//Updates all the Scenes this Manager knows.
 
 private:
-	std::list<Scene*> Scenes;
+	std::list<Scene*> Scenes;//All the Scenes this Manager knows.
 };
 
 #endif

@@ -11,7 +11,7 @@ public:
 	Entity();
 	Entity(std::string meshName, std::string textureName);
 	~Entity();
-	void RenderEntity(Renderer* renderer, MeshManager* msm, TextureManager* txm);// Makes the entity render itself.
+	void Update();//Updates the entity.
 
 private:
 	std::string MeshName;//The name of the mesh this entity uses.
