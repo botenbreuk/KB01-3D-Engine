@@ -5,9 +5,10 @@ MeshManager::MeshManager()
 
 }
 
-MeshManager::MeshManager(Log* logger)
+MeshManager::MeshManager(Log* logger, DirectXRenderer* renderer)
 {
 	Logger = logger;
+	Renderer = renderer;
 }
 
 
@@ -30,7 +31,7 @@ Loads in a Mesh.
 meshName: The Key name of the Mesh.
 filePath: The filepath to the Mesh.
 */
-void MeshManager::AddMesh(std::string meshName, std::string filePath)
+void MeshManager::LoadMesh(std::string meshName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
 	std::string succesString = "Mesh: '" + meshName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Mesh is loaded in without any problems.
