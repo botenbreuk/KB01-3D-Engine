@@ -13,12 +13,12 @@ SceneManager::~SceneManager()
 /*
 Renders all the Scenes this Manager knows.
 */
-void SceneManager::RenderAllScenes(Renderer* renderer)
+void SceneManager::RenderAllScenes(Renderer* renderer, MeshManager* msm)
 {
 	std::list<Scene*>::const_iterator iter;
-	for(iter = Scenes.begin(); iter != Scenes.end(); iter++)
+	for(iter = _scenes.begin(); iter != _scenes.end(); iter++)
 	{
-		(*iter)->RenderScene(renderer);
+		(*iter)->Render(renderer, msm);
 	}
 }
 
@@ -28,8 +28,15 @@ Renders all the Scenes this Manager knows.
 void SceneManager::UpdateAllScenes()
 {
 	std::list<Scene*>::const_iterator iter;
-	for(iter = Scenes.begin(); iter != Scenes.end(); iter++)
+	for(iter = _scenes.begin(); iter != _scenes.end(); iter++)
 	{
-		(*iter)->UpdateScene();
+		(*iter)->Update();
 	}
+}
+
+Scene* SceneManager::AddScene()
+{
+	Scene* newScene = new Scene();
+	_scenes.push_front(newScene);
+	return newScene;
 }

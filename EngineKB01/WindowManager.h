@@ -8,7 +8,7 @@ class WindowManager
 public:
 	WindowManager();
 	~WindowManager();
-	void CreateNewWindow();
+	HWND CreateNewWindow();
 };
 
 #endif

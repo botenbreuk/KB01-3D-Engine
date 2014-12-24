@@ -17,7 +17,7 @@ Renders the Entities in the Scene.
 renderer: A pointer to the renderer used.
 Tells all entities in this scene to render themselves
 */
-void Scene::RenderScene(Renderer* renderer)
+void Scene::Render(Renderer* renderer, MeshManager* msm)
 {
 
 	//Clear buffers and begin rendering
@@ -26,10 +26,10 @@ void Scene::RenderScene(Renderer* renderer)
 	
 	renderer->SetupMatrices();
 
-	std::list<Entity*>::const_iterator iter;
-	for(iter = EntityList.begin(); iter != EntityList.end(); iter++)
+	std::list<Model*>::const_iterator iter;
+	for(iter = ModelList.begin(); iter != ModelList.end(); iter++)
 	{
-		//(iter)->Render();
+		(*iter)->Render(renderer, msm);
 		
 		//To Do: call entities to render themselves
 	}
@@ -42,12 +42,11 @@ void Scene::RenderScene(Renderer* renderer)
 /*
 Updates the Entities in the Scene.
 */
-void Scene::UpdateScene(){
+void Scene::Update(){
 	std::list<Entity*>::const_iterator iter;
 	for(iter = EntityList.begin(); iter != EntityList.end(); iter++)
 	{
-		//(iter)->Update();
-		//To Do: implement
+		(*iter)->Update();
 	}
 }
 /*
@@ -66,4 +65,11 @@ entity: A pointer to the entity that is to be removed.
 void Scene::RemoveEntity(Entity* entity)
 {
 	//TODO: Implement
+}
+
+void Scene::AddModel(std::string _meshName)
+{
+	Model* mod = new Model();
+	mod->SetMeshName("Tiger.x");
+	ModelList.push_front(mod);
 }

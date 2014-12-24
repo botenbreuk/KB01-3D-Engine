@@ -12,10 +12,12 @@ public:
 	Window();
 	~Window();
 	static LRESULT CALLBACK MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+	HWND GetHWND();
 
 private:
 	void SetWinClass();
 	void Initialize();
+	HWND _window;
 };
 
 #endif

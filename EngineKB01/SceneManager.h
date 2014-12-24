@@ -9,11 +9,12 @@ class SceneManager
 public:
 	SceneManager();
 	~SceneManager();
-	void RenderAllScenes(Renderer* renderer);//Renders all the Scenes this Manager knows.
+	void RenderAllScenes(Renderer* renderer, MeshManager* msm);//Renders all the Scenes this Manager knows.
 	void UpdateAllScenes();//Updates all the Scenes this Manager knows.
+	Scene* AddScene();
 
 private:
-	std::list<Scene*> Scenes;
+	std::list<Scene*> _scenes;//All the Scenes this Manager knows.
 };
 
 #endif
