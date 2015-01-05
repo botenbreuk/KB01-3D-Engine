@@ -2,14 +2,16 @@
 
 MeshManager::MeshManager()
 {
-	Mesh* dummy = new Mesh("Tiger.x");
-	Meshes["Tiger.x"] = dummy;
+	Mesh* dummy = new Mesh("tiger.x");
+	Meshes["tiger.x"] = dummy;
 }
 
 MeshManager::MeshManager(Log* logger, DirectXRenderer* renderer)
 {
 	Logger = logger;
 	Renderer = renderer;
+	Mesh* dummy = new Mesh("tiger.x");
+	Meshes["tiger.x"] = dummy;
 }
 
 void MeshManager::LoadMeshes(){
