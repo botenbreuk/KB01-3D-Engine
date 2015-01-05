@@ -30,7 +30,7 @@ void DirectXRenderer::RenderTexture(std::string texturePath)
 // Clear the backbuffer and the zbuffer
 void DirectXRenderer::ClearScreen(){
 	g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-                         D3DCOLOR_XRGB( 0, 0, 255 ), 1.0f, 0 );
+                         D3DCOLOR_XRGB( 255, 0, 0 ), 1.0f, 0 );
 }
 
 void DirectXRenderer::BeginScene(){
@@ -145,13 +145,13 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	{
 		return;
 	}
-	Textures[filePath] = NULL;
+	//Textures[filePath] = NULL;
 	for( DWORD i = 0; i < g_dwNumMaterials[filePath]; i++ )
 	{
         if(Textures[filePath] != NULL && lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
         {
             // Create the texture
-			if(FAILED(D3DXCreateTextureFromFileA(g_pd3dDevice, d3dxMaterials[i].pTextureFilename, Textures[filePath])))
+			if(FAILED(D3DXCreateTextureFromFileA(g_pd3dDevice, d3dxMaterials[i].pTextureFilename, &Textures[filePath][i])))
 			{
                     MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );
             }
