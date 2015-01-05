@@ -82,44 +82,42 @@ void DirectXRenderer::Init3D( HWND hWnd )
 
 void DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
 {
-    
-	LPD3DXBUFFER pD3DXMtrlBuffer;
-	D3DXMATERIAL* d3dxMaterials;
 
     // Load the mesh from the specified file
 	std::list<Mesh*>::const_iterator iter;
 	for(iter = meshes.begin(); iter != meshes.end(); iter++)
 	{
-		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath(), &d3dxMaterials, &pD3DXMtrlBuffer);//Load in the mesh.
-		LoadMaterial(pD3DXMtrlBuffer, (*iter)->GetFilePath(), d3dxMaterials);//Load in the materials associated with the mesh.
+		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath());//Load in the mesh.
+		D3DXMATERIAL* d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBuffer->GetBufferPointer();
+		LoadMaterial((*iter)->GetFilePath(), d3dxMaterials);//Load in the materials associated with the mesh.
+		
 		LoadTextures((*iter)->GetFilePath(), d3dxMaterials);
 	}
     // Done with the material buffer
     pD3DXMtrlBuffer->Release();
 }
 
-void DirectXRenderer::LoadMesh(std::string filePath, std::string name, D3DXMATERIAL** d3dxMaterials, LPD3DXBUFFER* pD3DXMtrlBufferptr)
+void DirectXRenderer::LoadMesh(std::string filePath, std::string name)
 {
 	// Load the mesh from the specified file
 
 	if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM,
                                    g_pd3dDevice, NULL,
-                                   pD3DXMtrlBufferptr, NULL, &g_dwNumMaterials[filePath],
+                                   &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath],
 								   &Meshes[name] ) ))
 	{
         // If model is not in current folder, try parent folder
 		if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM,
                                        g_pd3dDevice, NULL,
-                                       pD3DXMtrlBufferptr, NULL, &g_dwNumMaterials[filePath],
+                                       &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath],
                                        &Meshes[name] ) ) )
 		{
 			MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );
 		}
 	}
-	*d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBufferptr;
 }
 
-void DirectXRenderer::LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath, D3DXMATERIAL* d3dxMaterials)
+void DirectXRenderer::LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMaterials)
 {
 	// We need to extract the material properties and texture names from the 
 	// pD3DXMtrlBuffer

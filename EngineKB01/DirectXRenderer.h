@@ -21,8 +21,8 @@ public:
 
 	LPDIRECT3DDEVICE9 Get3DDevice();
 
-	void LoadMesh(std::string filePath, std::string name, D3DXMATERIAL** d3dxMaterials, LPD3DXBUFFER* pD3DXMtrlBuffer);
-	void LoadMaterial(LPD3DXBUFFER pD3DXMtrlBuffer, std::string filePath, D3DXMATERIAL* d3dxMaterials);
+	void LoadMesh(std::string filePath, std::string name);
+	void LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMaterials);
 	void LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials);
 	
 	//Setup matrices
@@ -49,7 +49,9 @@ private:
 	
 	LPDIRECT3D9         g_pD3D; // Used to create the D3DDevice
 	LPDIRECT3DDEVICE9   g_pd3dDevice; // Our rendering device
+
 	LPD3DXBUFFER pD3DXMtrlBuffer;
+
 	std::map<std::string, DWORD> g_dwNumMaterials;
 
 	std::wstring s2ws(const std::string& s);
