@@ -9,24 +9,6 @@ DirectXRenderer::~DirectXRenderer()
 {
 }
 
-/*
-Renders a given mesh using DirectX.
-meshPath: Filepath to used mesh.
-*/
-void DirectXRenderer::RenderMesh(std::string meshPath)
-{
-	//TOTO: Implement
-}
-
-/*
-Renders a given texture using DirectX.
-texturePath: Filepath to used texture.
-*/
-void DirectXRenderer::RenderTexture(std::string texturePath)
-{
-	//TOTO: Implement
-}
-
 // Clear the backbuffer and the zbuffer
 void DirectXRenderer::ClearScreen(){
 	g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
@@ -157,18 +139,21 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	}
 }
 
-void DirectXRenderer::RenderModel(std::string filePath){
-	for( DWORD i = 0; i < g_dwNumMaterials[filePath]; i++ )
-        {
-            // Set the material and texture for this subset
-			g_pd3dDevice->SetMaterial( &Materials[filePath][i] );
-            g_pd3dDevice->SetTexture( 0, Textures[filePath][i] );
-
-            // Draw the mesh subset
-			Meshes[filePath]->DrawSubset( i );
-        }
+void DirectXRenderer::SetMaterial(std::string filePath, DWORD i)
+{
+	g_pd3dDevice->SetMaterial( &Materials[filePath][i] );
 }
 
+void DirectXRenderer::SetTexture(std::string filePath, DWORD i)
+{
+	g_pd3dDevice->SetTexture( 0, Textures[filePath][i] );
+}
+
+// Draw the mesh subset
+void DirectXRenderer::DrawSubset(std::string filePath, DWORD i)
+{
+		Meshes[filePath]->DrawSubset( i );
+}
 
 LPDIRECT3DDEVICE9 DirectXRenderer::Get3DDevice(){
 	return g_pd3dDevice;
@@ -206,4 +191,9 @@ void DirectXRenderer::SetupMatrices()
     D3DXMATRIXA16 matProj;
     D3DXMatrixPerspectiveFovLH( &matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f );
     g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );
+}
+
+DWORD DirectXRenderer::GetNumberOfMaterials(std::string filePath)
+{
+	return g_dwNumMaterials[filePath];
 }

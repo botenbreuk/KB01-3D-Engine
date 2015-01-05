@@ -1,12 +1,12 @@
 #include "Model.h"
 
 
-Model::Model(void)
+Model::Model()
 {
 }
 
 
-Model::~Model(void)
+Model::~Model()
 {
 }
 
@@ -18,10 +18,20 @@ void Model::Render(Renderer* renderer, MeshManager* msm)
 {
 	//TOTO: Implement
 	Mesh* modelMesh = msm->GetMesh(_meshName);
-	renderer->RenderModel(modelMesh->GetFilePath());
+	for( DWORD i = 0; i < renderer->GetNumberOfMaterials(modelMesh->GetFilePath()); i++ )
+	{
+		PrepareModel(modelMesh->GetFilePath(), renderer, i);
+		renderer->DrawSubset(modelMesh->GetFilePath(), i);
+	}
 }
 
 void Model::SetMeshName(std::string meshName)
 {
 	_meshName = meshName;
+}
+
+void Model::PrepareModel(std::string filePath, Renderer* renderer, DWORD i){
+			// Set the material and texture for this subset
+			renderer->SetMaterial(filePath, i);
+			renderer->SetTexture(filePath, i);
 }

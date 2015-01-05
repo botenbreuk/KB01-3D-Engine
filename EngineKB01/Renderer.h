@@ -10,8 +10,6 @@ class Renderer
 {
 public:
 	virtual ~Renderer();
-	virtual void RenderMesh(std::string meshPath) = 0;//Method called to render a mesh, implementation happens in subclasses.
-	virtual void RenderTexture(std::string texturePath) = 0;//Method called to render a texture, implementation happens in subclasses.
 	//Setup matrices
 	virtual void SetupMatrices() = 0;
 
@@ -24,11 +22,16 @@ public:
 	
 	//Present the backbuffer contents to the display
 	virtual void Present() = 0;
-	
-	virtual void RenderModel(std::string filePath) = 0;
 
 	virtual void Init3D(HWND hWnd) = 0;
 	virtual void InitGeometry(std::list<Mesh*> meshes) = 0;
+
+	virtual DWORD GetNumberOfMaterials(std::string filePath) = 0;
+
+	virtual void SetTexture(std::string filePath, DWORD i) = 0;
+	virtual void SetMaterial(std::string filePath, DWORD i) = 0;
+
+	virtual void DrawSubset(std::string filePath, DWORD i) = 0;
 };
 
 #endif

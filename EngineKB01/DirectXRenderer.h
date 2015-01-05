@@ -13,8 +13,6 @@ class DirectXRenderer : public Renderer
 public:
 	DirectXRenderer();
 	~DirectXRenderer();
-	void RenderMesh(std::string meshPath);//Renders a given mesh using DirectX.
-	void RenderTexture(std::string texturePath);//Renders a given texture using DirectX.
 
 	void Init3D(HWND hWnd);
 	void InitGeometry(std::list<Mesh*> meshes);
@@ -38,9 +36,14 @@ public:
 	//Present the backbuffer contents to the display
 	void Present();
 
-	void RenderModel(std::string filePath);
-
 	LPD3DXMESH* GetMesh(std::string name);
+	
+	void SetMaterial(std::string filePath, DWORD i);
+	void SetTexture(std::string filePath, DWORD i);
+
+	void DrawSubset(std::string filePath, DWORD i);
+
+	DWORD GetNumberOfMaterials(std::string filePath);
 
 private:
 	std::map<std::string, LPD3DXMESH> Meshes;
