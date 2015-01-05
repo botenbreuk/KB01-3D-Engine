@@ -7,7 +7,7 @@ Mesh::Mesh(std::string filePath)
 }
 
 
-Mesh::~Mesh(void)
+Mesh::~Mesh()
 {
 }
 

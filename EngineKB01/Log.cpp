@@ -35,6 +35,22 @@ void Log::WriteLog(const char* logMessage, MessageType mt)
 }
 
 /*
+Method to write message to log using a string.
+calls WriteLog(const char* logMessage, MessageType mt).
+logMessage: the message,
+mt: MessageType enum.
+File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
+*/
+void Log::WriteLog(std::string logMessage, MessageType mt)
+{
+	char* returnChar = new char[logMessage.size() + 1];
+	std::copy(logMessage.begin(), logMessage.end(), returnChar);
+	returnChar[logMessage.size()] = '\0';
+
+	WriteLog(returnChar, mt);
+}
+
+/*
 Convert value of enum to char*
 mt: Specific MessageType to be converted.
 */
@@ -45,10 +61,10 @@ const char* Log::MtToChar(MessageType mt)
 
 	//Checks the existing MessageTypes and changes returnPointer accordingly. If no correct translation can be found, the returnpointer will remain set to the errormessage.
 	switch (mt)
-    {
-        case Error:		returnPointer = "Error";
+	{
+		case Error:		returnPointer = "Error";
 			break;
-        case Warning:	returnPointer = "Warning";
+		case Warning:	returnPointer = "Warning";
 			break;
 		case Info:		returnPointer = "Info";
 			break;

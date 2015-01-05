@@ -63,24 +63,21 @@ void MeshManager::LoadMesh(std::string meshName, std::string filePath)
 			//Loads in the Mesh.
 			Mesh* m = new Mesh(filePath);
 			Meshes[meshName] = m;
-
+			
 			//Converts succesString to a Char* and writes it to the log.
-			message = StringToChar(succesString);
-			Logger->WriteLog(message, Log::MessageType::Info);
+			Logger->WriteLog(succesString, Log::MessageType::Info);
 		}
 		else
 		{
-			//Converts failString2 to a Char* and writes it to the log.
-			message = strcat(StringToChar(failString2), StringToChar(GetMeshName(filePath) + "'."));
-			Logger->WriteLog(message, Log::MessageType::Error);
+			//Texture already loaded in
+			Logger->WriteLog(failString2 + " " + GetMeshName(filePath) + "'.", Log::MessageType::Error);
 		}
 
 	}
 	else
 	{
-		//Converts failString1 to a Char* and writes it to the log.
-		message = StringToChar(failString1);
-		Logger->WriteLog(message, Log::MessageType::Error);
+		//texture already loaded with that name
+		Logger->WriteLog(failString1, Log::MessageType::Error);
 	}
 }
 
