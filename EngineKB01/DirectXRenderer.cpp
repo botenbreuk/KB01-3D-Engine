@@ -9,34 +9,49 @@ DirectXRenderer::~DirectXRenderer()
 {
 }
 
-// Clear the backbuffer and the zbuffer
-void DirectXRenderer::ClearScreen(){
-	g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-                         D3DCOLOR_XRGB( 255, 0, 0 ), 1.0f, 0 );
+/*
+Clear the backbuffer and the zbuffer.
+*/
+void DirectXRenderer::ClearScreen()
+{
+	g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB( 255, 0, 0 ), 1.0f, 0 );
 }
-
-void DirectXRenderer::BeginScene(){
+/*
+Begin rendering.
+*/
+void DirectXRenderer::BeginScene()
+{
 	g_pd3dDevice->BeginScene();
 }
 
-void DirectXRenderer::EndScene(){
+/*
+End rendering.
+*/
+void DirectXRenderer::EndScene()
+{
 	g_pd3dDevice->EndScene();
 }
 
-void DirectXRenderer::Present(){
+/*
+Present the backbuffer contents to the display.
+*/
+void DirectXRenderer::Present()
+{
 	g_pd3dDevice->Present( NULL, NULL, NULL, NULL );
 }
 
-
-//TO DO: Clean up code!
+/*
+Initialises DirectX.
+*/
 void DirectXRenderer::Init3D( HWND hWnd )
 {
     // Create the D3D object.
     if( NULL == ( g_pD3D = Direct3DCreate9( D3D_SDK_VERSION ) ) )
+	{
         return;
+	}
 
-    // Set up the structure used to create the D3DDevice. Since we are now
-    // using more complex geometry, we will create a device with a zbuffer.
+    // Set up the structure used to create the D3DDevice.
     D3DPRESENT_PARAMETERS d3dpp;
     ZeroMemory( &d3dpp, sizeof( d3dpp ) );
     d3dpp.Windowed = TRUE;
@@ -46,9 +61,7 @@ void DirectXRenderer::Init3D( HWND hWnd )
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 
     // Create the D3DDevice
-    if( FAILED( g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
-                                      D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-                                      &d3dpp, &g_pd3dDevice ) ) )
+    if( FAILED( g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &g_pd3dDevice ) ) )
     {
         return;
     }
@@ -58,51 +71,45 @@ void DirectXRenderer::Init3D( HWND hWnd )
 
     // Turn on ambient lighting 
     g_pd3dDevice->SetRenderState( D3DRS_AMBIENT, 0xffffffff );
-
-    return;
 }
 
+/*
+Initialises the geometry for a Scene.
+meshes: The Models that appear in the Scene.
+*/
 void DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
 {
-
-    // Load the mesh from the specified file
+    //Load the mesh from the specified file
 	std::list<Mesh*>::const_iterator iter;
 	for(iter = meshes.begin(); iter != meshes.end(); iter++)
 	{
-		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath());//Load in the mesh.
+		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath());//Load in the Mesh.
 		D3DXMATERIAL* d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBuffer->GetBufferPointer();
-		LoadMaterial((*iter)->GetFilePath(), d3dxMaterials);//Load in the materials associated with the mesh.
-		
-		LoadTextures((*iter)->GetFilePath(), d3dxMaterials);
+		LoadMaterial((*iter)->GetFilePath(), d3dxMaterials);//Load in the Materials associated with the Mesh.
+		LoadTextures((*iter)->GetFilePath(), d3dxMaterials);//Load in the Textures for the Mesh.
 	}
-    // Done with the material buffer
+    //Done with the material buffer
     pD3DXMtrlBuffer->Release();
 }
 
+/*
+Loads in a Mesh.
+*/
 void DirectXRenderer::LoadMesh(std::string filePath, std::string name)
 {
 	// Load the mesh from the specified file
-
-	if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM,
-                                   g_pd3dDevice, NULL,
-                                   &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath],
-								   &Meshes[name] ) ))
+	if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath], &Meshes[name] ) ))
 	{
-        // If model is not in current folder, try parent folder
-		if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM,
-                                       g_pd3dDevice, NULL,
-                                       &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath],
-                                       &Meshes[name] ) ) )
-		{
-			MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );
-		}
+		MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );//Gives a Message box with an error message.
 	}
 }
 
+/*
+Loads in a Material.
+*/
 void DirectXRenderer::LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMaterials)
 {
-	// We need to extract the material properties and texture names from the 
-	// pD3DXMtrlBuffer
+	// We need to extract the material properties and texture names from the pD3DXMtrlBuffer
 	Materials[filePath] = new D3DMATERIAL9[g_dwNumMaterials[filePath]];
 	if( Materials[filePath] == NULL )
 	{
@@ -111,13 +118,14 @@ void DirectXRenderer::LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMater
 
 	for( DWORD i = 0; i < g_dwNumMaterials[filePath]; i++ )
 	{
-		// Copy the material
-		Materials[filePath][i] = d3dxMaterials[i].MatD3D;
-		// Set the ambient color for the material (D3DX does not do this)
-		Materials[filePath][i].Ambient = Materials[filePath][i].Diffuse;
+		Materials[filePath][i] = d3dxMaterials[i].MatD3D;// Copy the material
+		Materials[filePath][i].Ambient = Materials[filePath][i].Diffuse;//Set the ambient color for the material (D3DX does not do this)
 	}
 }
 
+/*
+Loads in a Texture.
+*/
 void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials)
 {
 	Textures[filePath] = new LPDIRECT3DTEXTURE9[g_dwNumMaterials[filePath]];
@@ -125,45 +133,64 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	{
 		return;
 	}
-	//Textures[filePath] = NULL;
 	for( DWORD i = 0; i < g_dwNumMaterials[filePath]; i++ )
 	{
         if(Textures[filePath] != NULL && lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
         {
-            // Create the texture
+            // Create the Texture
 			if(FAILED(D3DXCreateTextureFromFileA(g_pd3dDevice, d3dxMaterials[i].pTextureFilename, &Textures[filePath][i])))
 			{
-                    MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );
+                    MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );//Gives a Message box with an error message.
             }
         }
 	}
 }
 
+/*
+Prepares a Material for rendering.
+*/
 void DirectXRenderer::SetMaterial(std::string filePath, DWORD i)
 {
 	g_pd3dDevice->SetMaterial( &Materials[filePath][i] );
 }
 
+/*
+Prepares a Texture for rendering.
+*/
 void DirectXRenderer::SetTexture(std::string filePath, DWORD i)
 {
 	g_pd3dDevice->SetTexture( 0, Textures[filePath][i] );
 }
 
-// Draw the mesh subset
+/*
+Draw the Mesh subset
+filePath: The file path to the Mesh.
+i: The index for the subset to be drawn.
+*/
 void DirectXRenderer::DrawSubset(std::string filePath, DWORD i)
 {
 		Meshes[filePath]->DrawSubset( i );
 }
 
+/*
+Returns the 3DDevice.
+*/
 LPDIRECT3DDEVICE9 DirectXRenderer::Get3DDevice(){
 	return g_pd3dDevice;
 }
 
+/*
+Returns a Mesh.
+name: The Key to which the Mesh belongs.
+*/
 LPD3DXMESH* DirectXRenderer::GetMesh(std::string name)
 {
 	return &Meshes[name];
 }
 
+/*
+Setup matrices.
+*/
 void DirectXRenderer::SetupMatrices()
 {
     // Set up world matrix
@@ -193,6 +220,10 @@ void DirectXRenderer::SetupMatrices()
     g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );
 }
 
+/*
+Gives back the number of Materials in a Mesh.
+filePath: The filepath to the Mesh
+*/
 DWORD DirectXRenderer::GetNumberOfMaterials(std::string filePath)
 {
 	return g_dwNumMaterials[filePath];

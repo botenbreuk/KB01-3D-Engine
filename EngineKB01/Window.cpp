@@ -16,15 +16,18 @@ HWND Window::GetHWND()
 {
 	return _window;
 }
+
+/*
+*/
 void Window::SetWinClass()
 {
-	WNDCLASSEX wndclass = { sizeof(WNDCLASSEX), CS_DBLCLKS, MsgProc,
-                            0, 0, GetModuleHandle(0), LoadIcon(0,IDI_APPLICATION),
-                            LoadCursor(0,IDC_ARROW), HBRUSH(CreateSolidBrush(RGB(0, 0, 255))),
-                            0, L"WindowClass", LoadIcon(0,IDI_APPLICATION) };
+	WNDCLASSEX wndclass = { sizeof(WNDCLASSEX), CS_DBLCLKS, MsgProc, 0, 0, GetModuleHandle(0), LoadIcon(0,IDI_APPLICATION), LoadCursor(0,IDC_ARROW), HBRUSH(CreateSolidBrush(RGB(0, 0, 255))), 0, L"WindowClass", LoadIcon(0,IDI_APPLICATION) };
     RegisterClassEx(&wndclass);
 }
 
+/*
+Initialises the Window for use.
+*/
 void Window::Initialize()
 {
     _window = CreateWindowEx( 0, L"WindowClass", L"title",
@@ -35,6 +38,13 @@ void Window::Initialize()
 	UpdateWindow( _window );
 }
 
+/*
+Handles some of the possible messages this Window can receive.
+hWnd:
+msg: The message to be handled.
+wParam:
+lParam:
+*/
 LRESULT CALLBACK Window::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
     switch( msg )

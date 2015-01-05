@@ -10,6 +10,9 @@ WindowManager::~WindowManager()
 
 }
 
+/*
+Creates a new Window.
+*/
 HWND WindowManager::CreateNewWindow()
 {
 	Window* window = new Window();

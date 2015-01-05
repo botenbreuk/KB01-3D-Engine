@@ -14,50 +14,46 @@ public:
 	DirectXRenderer();
 	~DirectXRenderer();
 
-	void Init3D(HWND hWnd);
-	void InitGeometry(std::list<Mesh*> meshes);
+	void Init3D(HWND hWnd);//Initialises DirectX.
+	void InitGeometry(std::list<Mesh*> meshes);//Initialises the geometry for a Scene.
 
-	LPDIRECT3DDEVICE9 Get3DDevice();
+	LPDIRECT3DDEVICE9 Get3DDevice();//Returns the 3DDevice.
 
-	void LoadMesh(std::string filePath, std::string name);
-	void LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMaterials);
-	void LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials);
+	void LoadMesh(std::string filePath, std::string name);//Loads in a Mesh.
+	void LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMaterials);//Loads in a Material.
+	void LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials);//Loads in a Texture
 	
-	//Setup matrices
-	void SetupMatrices();
+	void SetupMatrices();//Setup matrices.
+
+	void ClearScreen();//Clear the backbuffer and the zbuffer.
+
+	void BeginScene();//Begin rendering.
+	void EndScene();//End rendering.
+
+	void Present();//Present the backbuffer contents to the display.
+
+	LPD3DXMESH* GetMesh(std::string name);//Returns the Mesh belonging with the name.
 	
-	//Clear the backbuffer and the zbuffer
-	void ClearScreen();
+	void SetMaterial(std::string filePath, DWORD i);//Prepares a Material for rendering.
+	void SetTexture(std::string filePath, DWORD i);//Prepares a Texture for rendering.
 
-	//Begin and end rendering
-	void BeginScene();
-	void EndScene();
+	void DrawSubset(std::string filePath, DWORD i);//Draws a Mesh and its subsets.
 
-	//Present the backbuffer contents to the display
-	void Present();
-
-	LPD3DXMESH* GetMesh(std::string name);
-	
-	void SetMaterial(std::string filePath, DWORD i);
-	void SetTexture(std::string filePath, DWORD i);
-
-	void DrawSubset(std::string filePath, DWORD i);
-
-	DWORD GetNumberOfMaterials(std::string filePath);
+	DWORD GetNumberOfMaterials(std::string filePath);//Gives back the number of Materials in a Mesh.
 
 private:
-	std::map<std::string, LPD3DXMESH> Meshes;
-	std::map<std::string, LPDIRECT3DTEXTURE9*> Textures;
-	std::map<std::string, D3DMATERIAL9*> Materials;
+	std::map<std::string, LPD3DXMESH> Meshes;//A list of DirectX-specific Meshes.
+	std::map<std::string, LPDIRECT3DTEXTURE9*> Textures;//A list of DirectX-specific Textures.
+	std::map<std::string, D3DMATERIAL9*> Materials;//A list of DirectX-specific Materials.
 	
 	LPDIRECT3D9         g_pD3D; // Used to create the D3DDevice
 	LPDIRECT3DDEVICE9   g_pd3dDevice; // Our rendering device
 
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
-	std::map<std::string, DWORD> g_dwNumMaterials;
+	std::map<std::string, DWORD> g_dwNumMaterials;//A map which stores the amount of Materials in a Mesh.
 
-	std::wstring s2ws(const std::string& s);
+	std::wstring s2ws(const std::string& s);//Converts a string to a wstring.
 };
 
 #endif

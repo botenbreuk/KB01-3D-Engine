@@ -10,28 +10,27 @@ class Renderer
 {
 public:
 	virtual ~Renderer();
+
 	//Setup matrices
 	virtual void SetupMatrices() = 0;
 
-	//Clear the backbuffer and the zbuffer
-	virtual	void ClearScreen() = 0;
+	virtual	void ClearScreen() = 0;//Clear the backbuffer and the zbuffer
 
-	//Begin and end rendering
-	virtual void BeginScene() = 0;
-	virtual void EndScene() = 0;
 	
-	//Present the backbuffer contents to the display
-	virtual void Present() = 0;
+	virtual void BeginScene() = 0;//Begin rendering.
+	virtual void EndScene() = 0;//End rendering.
+	
+	virtual void Present() = 0;//Present the backbuffer contents to the display
 
-	virtual void Init3D(HWND hWnd) = 0;
-	virtual void InitGeometry(std::list<Mesh*> meshes) = 0;
+	virtual void Init3D(HWND hWnd) = 0;//Initialises the 3D.
+	virtual void InitGeometry(std::list<Mesh*> meshes) = 0;//Initialises the geometry of a Scene.
 
-	virtual DWORD GetNumberOfMaterials(std::string filePath) = 0;
+	virtual DWORD GetNumberOfMaterials(std::string filePath) = 0;//Returns the number of Materials in a Mesh.
 
-	virtual void SetTexture(std::string filePath, DWORD i) = 0;
-	virtual void SetMaterial(std::string filePath, DWORD i) = 0;
+	virtual void SetTexture(std::string filePath, DWORD i) = 0;//Prepares a Texture for rendering.
+	virtual void SetMaterial(std::string filePath, DWORD i) = 0;//Prepares a Material for rendering.
 
-	virtual void DrawSubset(std::string filePath, DWORD i) = 0;
+	virtual void DrawSubset(std::string filePath, DWORD i) = 0;//Draws a Mesh and its subsets.
 };
 
 #endif

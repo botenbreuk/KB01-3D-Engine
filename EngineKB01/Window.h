@@ -11,13 +11,13 @@ class Window
 public:
 	Window();
 	~Window();
-	static LRESULT CALLBACK MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+	static LRESULT CALLBACK MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );//Handles some of the possible messages this Window can receive.
 	HWND GetHWND();
 
 private:
-	void SetWinClass();
-	void Initialize();
-	HWND _window;
+	void SetWinClass();//
+	void Initialize();//Initialises the Window for use.
+	HWND _window;//
 };
 
 #endif

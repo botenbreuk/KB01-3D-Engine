@@ -11,7 +11,7 @@ public:
 	~SceneManager();
 	void RenderAllScenes(Renderer* renderer, MeshManager* msm);//Renders all the Scenes this Manager knows.
 	void UpdateAllScenes();//Updates all the Scenes this Manager knows.
-	Scene* AddScene();
+	Scene* AddScene();//Adds a Scene to the Manager's list.
 
 private:
 	std::list<Scene*> _scenes;//All the Scenes this Manager knows.

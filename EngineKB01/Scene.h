@@ -19,7 +19,7 @@ public:
 	void RemoveEntity(Entity* entity);//Removes a specific Entity from the scene.
 	void Update();//Updates the Entities in the Scene,
 
-	void AddModel(std::string _meshName);
+	void AddModel(std::string _meshName);//Adds a Model to the Scene.
 };
 
 #endif

@@ -24,6 +24,7 @@ void Log::WriteLog(const char* logMessage, MessageType mt)
 	//Converts the specific message type to characters so they can be written in the logfile
 	const char* messType = MtToChar(mt);
 
+	//Writes to the logfile.
 	FILE* pFile = fopen("LogFile.txt", "a");
 	fprintf(pFile, currentTimeDate);
 	fprintf(pFile, " - ");

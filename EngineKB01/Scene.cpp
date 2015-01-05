@@ -48,6 +48,7 @@ void Scene::Update(){
 		(*iter)->Update();
 	}
 }
+
 /*
 Adds an entity to the scene.
 entity: A pointer to the entity that is to be added.
@@ -66,6 +67,10 @@ void Scene::RemoveEntity(Entity* entity)
 	//TODO: Implement
 }
 
+/*
+Adds a Model to the Scene.
+_meshName: The name for the Model's Mesh.
+*/
 void Scene::AddModel(std::string _meshName)
 {
 	Model* mod = new Model();

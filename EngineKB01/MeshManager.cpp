@@ -14,6 +14,9 @@ MeshManager::MeshManager(Log* logger, DirectXRenderer* renderer)
 	Meshes["tiger.x"] = dummy;
 }
 
+/*
+Loads in the Meshes.
+*/
 void MeshManager::LoadMeshes(){
 
 	std::list<Mesh*> meshList;

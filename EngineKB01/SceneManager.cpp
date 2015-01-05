@@ -34,6 +34,9 @@ void SceneManager::UpdateAllScenes()
 	}
 }
 
+/*
+Adds a Scene to the Manager's list.
+*/
 Scene* SceneManager::AddScene()
 {
 	Scene* newScene = new Scene();
