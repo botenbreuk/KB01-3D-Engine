@@ -15,7 +15,7 @@ private:
 	std::string _meshName;//The name of the Mesh this Model uses.
 	std::string _textureName;//The name of the Texture this model uses if it doesn't use a Mesh.
 
-	void PrepareModel(std::string filePath, Renderer* renderer, DWORD i);
+	void Prepare(std::string filePath, Renderer* renderer, DWORD i);
 };
 
 #endif
