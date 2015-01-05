@@ -107,14 +107,7 @@ void DirectXRenderer::LoadMesh(std::string filePath, std::string name, D3DXMATER
                                    pD3DXMtrlBufferptr, NULL, &g_dwNumMaterials[filePath],
 								   &Meshes[name] ) ))
 	{
-        // If model is not in current folder, try parent folder
-		if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM,
-                                       g_pd3dDevice, NULL,
-                                       pD3DXMtrlBufferptr, NULL, &g_dwNumMaterials[filePath],
-                                       &Meshes[name] ) ) )
-		{
-			MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );
-		}
+		MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );
 	}
 	*d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBufferptr;
 }
@@ -188,10 +181,11 @@ void DirectXRenderer::SetupMatrices()
     D3DXMatrixRotationY( &matWorld, timeGetTime() / 1000.0f );
     g_pd3dDevice->SetTransform( D3DTS_WORLD, &matWorld );
 
-    // Set up our view matrix. A view matrix can be defined given an eye point,
-    // a point to lookat, and a direction for which way is up. Here, we set the
-    // eye five units back along the z-axis and up three units, look at the 
-    // origin, and define "up" to be in the y-direction.
+    /* Set up our view matrix. A view matrix can be defined given an eye point,
+    a point to lookat, and a direction for which way is up. Here, we set the
+    eye five units back along the z-axis and up three units, look at the 
+	origin, and define "up" to be in the y-direction.
+    */
     D3DXVECTOR3 vEyePt( 0.0f, 3.0f,-5.0f );
     D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
     D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
@@ -199,12 +193,14 @@ void DirectXRenderer::SetupMatrices()
     D3DXMatrixLookAtLH( &matView, &vEyePt, &vLookatPt, &vUpVec );
     g_pd3dDevice->SetTransform( D3DTS_VIEW, &matView );
 
-    // For the projection matrix, we set up a perspective transform (which
-    // transforms geometry from 3D view space to 2D viewport space, with
-    // a perspective divide making objects smaller in the distance). To build
-    // a perpsective transform, we need the field of view (1/4 pi is common),
-    // the aspect ratio, and the near and far clipping planes (which define at
-    // what distances geometry should be no longer be rendered).
+    /*
+	For the projection matrix, we set up a perspective transform (which
+    transforms geometry from 3D view space to 2D viewport space, with
+    a perspective divide making objects smaller in the distance). To build
+    a perpsective transform, we need the field of view (1/4 pi is common),
+    the aspect ratio, and the near and far clipping planes (which define at
+    what distances geometry should be no longer be rendered).
+	*/
     D3DXMATRIXA16 matProj;
     D3DXMatrixPerspectiveFovLH( &matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f );
     g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );

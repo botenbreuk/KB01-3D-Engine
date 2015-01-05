@@ -30,8 +30,6 @@ void Scene::Render(Renderer* renderer, MeshManager* msm)
 	for(iter = ModelList.begin(); iter != ModelList.end(); iter++)
 	{
 		(*iter)->Render(renderer, msm);
-		
-		//To Do: call entities to render themselves
 	}
 
 	//Ends rendering
