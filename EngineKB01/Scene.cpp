@@ -3,6 +3,7 @@
 
 Scene::Scene()
 {
+	AddModel("tiger.x");
 	//this->EntityList = new std::list<Entity*>;//Defines the list of entities.
 }
 
@@ -68,6 +69,6 @@ void Scene::RemoveEntity(Entity* entity)
 void Scene::AddModel(std::string _meshName)
 {
 	Model* mod = new Model();
-	mod->SetMeshName("Tiger.x");
+	mod->SetMeshName(_meshName);
 	ModelList.push_front(mod);
 }
