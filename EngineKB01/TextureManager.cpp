@@ -26,7 +26,7 @@ Loads in a Texture.
 textureName: The Key name of the Texture.
 filePath: The filepath to the Textrue.
 */
-void TextureManager::AddTexture(std::string textureName, std::string filePath)
+void TextureManager::LoadTexture(std::string textureName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
 	std::string succesString = "Texture: '" + textureName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Texture is loaded in without any problems.
@@ -36,7 +36,7 @@ void TextureManager::AddTexture(std::string textureName, std::string filePath)
 	//Initialises the char* that will be written to the log.
 	char* message;
 
-	if(NULL == Textures[textureName])//Checks if there is alreay a Texture with that name.
+	if(NULL == Textures[textureName])//Checks if there isn't a Texture with that name already.
 	{
 		if(!TextureLoadedIn(filePath))//Checks if the specific Texture is already loaded in.
 		{
@@ -45,22 +45,19 @@ void TextureManager::AddTexture(std::string textureName, std::string filePath)
 			Textures[textureName] = t;
 
 			//Converts succesString to a Char* and writes it to the log.
-			message = StringToChar(succesString);
-			Logger->WriteLog(message, Log::MessageType::Info);
+			Logger->WriteLog(succesString, Log::MessageType::Info);
 		}
 		else
 		{
-			//Converts failString2 to a Char* and writes it to the log.
-			message = strcat(StringToChar(failString2), StringToChar(GetTextureName(filePath) + "'."));
-			Logger->WriteLog(message, Log::MessageType::Error);
+			//Texture already loaded in
+			Logger->WriteLog(failString2 + " " + GetTextureName(filePath) + "'.", Log::MessageType::Error);
 		}
 
 	}
 	else
 	{
-		//Converts failString1 to a Char* and writes it to the log.
-		message = StringToChar(failString1);
-		Logger->WriteLog(message, Log::MessageType::Error);
+		//texture already loaded with that name
+		Logger->WriteLog(failString1, Log::MessageType::Error);
 	}
 }
 
