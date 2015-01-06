@@ -28,12 +28,13 @@ void Kernel::Initialize()
 			_logger->WriteLog("Renderer used: Software", Log::MessageType::Info);
 			break;
 	}
-	_meshManager = new MeshManager(_logger,(DirectXRenderer*)_renderers[_usedType]);
+	_resourceManager = new ResourceManager(_logger,(DirectXRenderer*)_renderers[_usedType]);
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
 
 	Scene* s = _sceneManager->AddScene();
 	
+	_logger->WriteLog("Kernel initialised.", Log::MessageType::Info);
 }
 
 /*
@@ -68,8 +69,7 @@ void Kernel::Run()
 		}
 		else
 		{
-			_sceneManager->RenderAllScenes(_renderer, _resourceManager);//Renders all the Scenes of this Engine.
-			_sceneManager->RenderAllScenes(_renderers[_usedType], _meshManager);
+			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager);//Renders all the Scenes of this Engine.
 		}
 	}
 }
@@ -86,4 +86,6 @@ void Kernel::CleanUp()
 	delete _resourceManager;
 	delete _windowManager;
 	delete _sceneManager;
+
+	_logger->WriteLog("Kernel cleaned up.", Log::MessageType::Info);
 }
