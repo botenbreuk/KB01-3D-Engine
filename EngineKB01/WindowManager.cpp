@@ -16,6 +16,7 @@ Creates a new Window.
 HWND WindowManager::CreateNewWindow()
 {
 	Window* window = new Window();
-	window->UpdateTitle("Voorbeeldtitel");
+	window->SetTitle("Voorbeeldtitel");
+	
 	return window->GetHWND();
 }

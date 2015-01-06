@@ -43,7 +43,7 @@ void Window::Initialize()
 Updates the title of the window.
 title: The new title for the window.
 */
-void Window::UpdateTitle(std::string title)
+void Window::SetTitle(std::string title)
 {
 	/*
 	Converts string to LCWSTR
@@ -52,6 +52,13 @@ void Window::UpdateTitle(std::string title)
 	LPCWSTR sw = stemp.c_str();
 
 	SetWindowText(_window, sw);
+}
+/*
+Sets the size of the window
+*/
+void Window::SetSize(int width, int length)
+{
+	MoveWindow(_window, 100, 100, width, length, TRUE);
 }
 
 /*
