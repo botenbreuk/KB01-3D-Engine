@@ -16,7 +16,7 @@ void Kernel::Initialize()
 {
 
 	Log* logger = new Log();
-	_renderer = new DirectXRenderer();
+	_renderer = new DirectXRenderer(logger);
 	_resourceManager = new ResourceManager();
 	_meshManager = new MeshManager(logger,(DirectXRenderer*)_renderer);
 	_windowManager = new WindowManager();

@@ -4,6 +4,7 @@
 #include <string>
 #include <Windows.h>
 #include "Mesh.h"
+#include "Log.h"
 #include <list>
 
 class Renderer
@@ -31,6 +32,9 @@ public:
 	virtual void SetMaterial(std::string filePath, DWORD i) = 0;//Prepares a Material for rendering.
 
 	virtual void DrawSubset(std::string filePath, DWORD i) = 0;//Draws a Mesh and its subsets.
+
+protected:
+	Log* _logger;
 };
 
 #endif
