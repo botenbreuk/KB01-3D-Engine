@@ -18,7 +18,7 @@ Renders the Entities in the Scene.
 renderer: A pointer to the renderer used.
 Tells all entities in this scene to render themselves
 */
-void Scene::Render(Renderer* renderer, MeshManager* msm)
+void Scene::Render(Renderer* renderer, ResourceManager* msm)
 {
 
 	//Clear buffers and begin rendering

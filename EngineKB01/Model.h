@@ -2,13 +2,13 @@
 #define __MODEL_H__
 
 #include "entity.h"
-#include "MeshManager.h"
+#include "ResourceManager.h"
 class Model : public Entity
 {
 public:
 	Model();
 	~Model();
-	void Render(Renderer* renderer, MeshManager* msm);//Makes the Model render itself.
+	void Render(Renderer* renderer, ResourceManager* msm);//Makes the Model render itself.
 	void SetMeshName(std::string meshName);
 
 private:

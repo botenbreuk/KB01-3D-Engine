@@ -17,8 +17,7 @@ void Kernel::Initialize()
 
 	Log* logger = new Log();
 	_renderer = new DirectXRenderer();
-	_resourceManager = new ResourceManager();
-	_meshManager = new MeshManager(logger,(DirectXRenderer*)_renderer);
+	_resourceManager = new ResourceManager(logger, _renderer);
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
 
@@ -38,7 +37,7 @@ void Kernel::Run()
 	_renderer->Init3D(hWND);
 
 	//Loads in the Meshes.
-	_meshManager->LoadMeshes();
+	_resourceManager->LoadMeshes();
 
 	//
 	MSG msg;
@@ -58,7 +57,7 @@ void Kernel::Run()
 		}
 		else
 		{
-			_sceneManager->RenderAllScenes(_renderer, _meshManager);//Renders all the Scenes of this Engine.
+			_sceneManager->RenderAllScenes(_renderer, _resourceManager);//Renders all the Scenes of this Engine.
 	
 		}
 	}
@@ -71,7 +70,6 @@ void Kernel::CleanUp()
 {
 	delete _renderer;
 	delete _resourceManager;
-	delete _meshManager;
 	delete _windowManager;
 	delete _sceneManager;
 }
