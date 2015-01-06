@@ -15,15 +15,17 @@ Initialises the compartments of the Engine.
 void Kernel::Initialize()
 {
 
-	Log* logger = new Log();
-	_renderer = new DirectXRenderer(logger);
+	_logger = new Log();
+	_renderer = new DirectXRenderer(_logger);
 	_resourceManager = new ResourceManager();
-	_meshManager = new MeshManager(logger,(DirectXRenderer*)_renderer);
+	_meshManager = new MeshManager(_logger,(DirectXRenderer*)_renderer);
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
 
 	Scene* s = _sceneManager->AddScene();
 	
+	//Writes an info message to the log.
+	_logger->WriteLog("Kernel initialised", Log::MessageType::Info);
 }
 
 /*
@@ -46,6 +48,9 @@ void Kernel::Run()
 	//Cleans up some memory for the message.
 	ZeroMemory( &msg, sizeof( msg ) );
 
+	//Writes an info message to the log.
+	_logger->WriteLog("Kernel basic loop starts.", Log::MessageType::Info);
+
 	//While the Window does not get the order to stop, he checks for messages to be handled.
 	while( msg.message != WM_QUIT )
 	{
@@ -58,7 +63,8 @@ void Kernel::Run()
 		}
 		else
 		{
-			_sceneManager->RenderAllScenes(_renderer, _meshManager);//Renders all the Scenes of this Engine.
+			//Renders all the Scenes of this Engine.
+			_sceneManager->RenderAllScenes(_renderer, _meshManager);
 	
 		}
 	}
@@ -74,4 +80,7 @@ void Kernel::CleanUp()
 	delete _meshManager;
 	delete _windowManager;
 	delete _sceneManager;
+
+	//Writes an info message to the log.
+	_logger->WriteLog("Kernel cleaned up.", Log::MessageType::Info);
 }

@@ -12,8 +12,7 @@ class Renderer
 public:
 	virtual ~Renderer();
 
-	//Setup matrices
-	virtual void SetupMatrices() = 0;
+	virtual void SetupMatrices() = 0;//Setup matrices
 
 	virtual	void ClearScreen() = 0;//Clear the backbuffer and the zbuffer
 
@@ -34,7 +33,7 @@ public:
 	virtual void DrawSubset(std::string filePath, DWORD i) = 0;//Draws a Mesh and its subsets.
 
 protected:
-	Log* _logger;
+	Log* _logger;//A logger for writing to the logfile.
 };
 
 #endif

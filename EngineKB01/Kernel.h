@@ -26,6 +26,7 @@ private:
 	MeshManager* _meshManager;//Temporal Mesh Manager, will be refactored into the one Rescource Manager.
 	WindowManager* _windowManager;//The Window Manager the Engine uses
 	SceneManager* _sceneManager;//The Scene Manager the Engine uses.
+	Log* _logger;//A logger for writing to the logfile.
 };
 
 #endif

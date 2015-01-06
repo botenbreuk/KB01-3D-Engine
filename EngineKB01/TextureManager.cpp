@@ -29,16 +29,22 @@ filePath: The filepath to the Textrue.
 void TextureManager::LoadTexture(std::string textureName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
-	std::string succesString = "Texture: '" + textureName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Texture is loaded in without any problems.
-	std::string failString1 = "A Texture with the name: '" + textureName + "' already exists.";//Gets in the log if that Key value is already taken in the list.
-	std::string failString2 = "That Texture is already loaded in with the name: '";//Gets in the log if that Texture is already loaded in.
+
+	//Gets in the log if the Texture is loaded in without any problems.
+	std::string succesString = "Texture: '" + textureName + "' loaded in as '" + filePath + "'.";
+	//Gets in the log if that Key value is already taken in the list.
+	std::string failString1 = "A Texture with the name: '" + textureName + "' already exists.";
+	//Gets in the log if that Texture is already loaded in.
+	std::string failString2 = "That Texture is already loaded in with the name: '";
 
 	//Initialises the char* that will be written to the log.
 	char* message;
 
-	if(NULL == Textures[textureName])//Checks if there isn't a Texture with that name already.
+	//Checks if there isn't a Texture with that name already.
+	if(NULL == Textures[textureName])
 	{
-		if(!TextureLoadedIn(filePath))//Checks if the specific Texture is already loaded in.
+		//Checks if the specific Texture is already loaded in.
+		if(!TextureLoadedIn(filePath))
 		{
 			//Loads in the Texture.
 			Texture* t = new Texture(filePath);

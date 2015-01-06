@@ -50,7 +50,9 @@ void DirectXRenderer::Init3D( HWND hWnd )
     // Create the D3D object.
     if( NULL == ( g_pD3D = Direct3DCreate9( D3D_SDK_VERSION ) ) )
 	{
-		_logger->WriteLog("DirectX initialisation failed.", Log::MessageType::Error);//Writes an error message to the log.
+		//Writes an error message to the log.
+		_logger->WriteLog("DirectX initialisation failed.", Log::MessageType::Error);
+
         return;
 	}
 
@@ -66,8 +68,10 @@ void DirectXRenderer::Init3D( HWND hWnd )
     // Create the D3DDevice
     if( FAILED( g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &g_pd3dDevice ) ) )
     {
+		//Writes an error message to the log.
+		_logger->WriteLog("DirectX initialisation failed.", Log::MessageType::Error);
+
         return;
-		_logger->WriteLog("DirectX initialisation failed.", Log::MessageType::Error);//Writes an error message to the log.
     }
 
     // Turn on the zbuffer
@@ -76,7 +80,8 @@ void DirectXRenderer::Init3D( HWND hWnd )
     // Turn on ambient lighting 
     g_pd3dDevice->SetRenderState( D3DRS_AMBIENT, 0xffffffff );
 
-	_logger->WriteLog("DirectX initialised.", Log::MessageType::Info);//Writes an info message to the log.
+	//Writes an info message to the log.
+	_logger->WriteLog("DirectX initialised.", Log::MessageType::Info);
 }
 
 /*
@@ -89,15 +94,20 @@ void DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
 	std::list<Mesh*>::const_iterator iter;
 	for(iter = meshes.begin(); iter != meshes.end(); iter++)
 	{
-		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath());//Load in the Mesh.
-		D3DXMATERIAL* d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBuffer->GetBufferPointer();//Prepares Materials.
-		LoadMaterial((*iter)->GetFilePath(), d3dxMaterials);//Load in the Materials associated with the Mesh.
-		LoadTextures((*iter)->GetFilePath(), d3dxMaterials);//Load in the Textures for the Mesh.
+		//Load in the Mesh.
+		LoadMesh((*iter)->GetFilePath(), (*iter)->GetFilePath());
+		//Prepares Materials.
+		D3DXMATERIAL* d3dxMaterials = ( D3DXMATERIAL* )pD3DXMtrlBuffer->GetBufferPointer();
+		//Load in the Materials associated with the Mesh.
+		LoadMaterial((*iter)->GetFilePath(), d3dxMaterials);
+		//Load in the Textures for the Mesh.
+		LoadTextures((*iter)->GetFilePath(), d3dxMaterials);
 	}
     //Done with the material buffer
     pD3DXMtrlBuffer->Release();
 
-	_logger->WriteLog("Geometry initialised.", Log::MessageType::Info);//Writes an info message to the log.
+	//Writes an info message to the log.
+	_logger->WriteLog("Geometry initialised.", Log::MessageType::Info);
 }
 
 /*
@@ -108,12 +118,16 @@ void DirectXRenderer::LoadMesh(std::string filePath, std::string name)
 	//Loads the mesh from the specified file
 	if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM, g_pd3dDevice, NULL, &pD3DXMtrlBuffer, NULL, &g_dwNumMaterials[filePath], &Meshes[name] ) ))
 	{
-		_logger->WriteLog("Mesh: " + name + " failed loading in.", Log::MessageType::Error);//Writes an error message to the log.
-		MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );//Gives a Message box with an error message.
+		//Writes an error message to the log.
+		_logger->WriteLog("Mesh: " + name + " failed loading in.", Log::MessageType::Error);
+
+		//Gives a Message box with an error message.
+		MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );
 	}
 	else
 	{
-		_logger->WriteLog("Mesh: " + name + " loaded in.", Log::MessageType::Info);//Writes an info message to the log.
+		//Writes an info message to the log.
+		_logger->WriteLog("Mesh: " + name + " loaded in.", Log::MessageType::Info);
 	}
 }
 
@@ -132,10 +146,14 @@ void DirectXRenderer::LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMater
 
 	for( DWORD i = 0; i < g_dwNumMaterials[filePath]; i++ )
 	{
-		Materials[filePath][i] = d3dxMaterials[i].MatD3D;// Copy the material
-		Materials[filePath][i].Ambient = Materials[filePath][i].Diffuse;//Set the ambient color for the material (D3DX does not do this)
+		//Copy the material
+		Materials[filePath][i] = d3dxMaterials[i].MatD3D;
+		//Set the ambient color for the material (D3DX does not do this)
+		Materials[filePath][i].Ambient = Materials[filePath][i].Diffuse;
 	}
-	_logger->WriteLog("Materials from: " + filePath + " loaded in.", Log::MessageType::Info);//Writes an info message to the log.
+
+	//Writes an info message to the log.
+	_logger->WriteLog("Materials from: " + filePath + " loaded in.", Log::MessageType::Info);
 }
 
 /*
@@ -146,7 +164,9 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	Textures[filePath] = new LPDIRECT3DTEXTURE9[g_dwNumMaterials[filePath]];
 	if( Textures[filePath] == NULL )
 	{
+		//Writes an error message to the log.
 		_logger->WriteLog("Textures from: " + filePath + " failed loading in.", Log::MessageType::Error);
+
 		return;
 	}
 	for( DWORD i = 0; i < g_dwNumMaterials[filePath]; i++ )
@@ -156,12 +176,16 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
             // Create the Texture
 			if(FAILED(D3DXCreateTextureFromFileA(g_pd3dDevice, d3dxMaterials[i].pTextureFilename, &Textures[filePath][i])))
 			{
-				_logger->WriteLog("Textures from: " + filePath + " failed loading in.", Log::MessageType::Error);//Writes an error message to the log.
-                MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );//Gives a Message box with an error message.
+				//Writes an error message to the log.
+				_logger->WriteLog("Textures from: " + filePath + " failed loading in.", Log::MessageType::Error);
+
+				//Gives a Message box with an error message.
+                MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );
             }
 			else
 			{
-				_logger->WriteLog("Textures from: " + filePath + " loaded in.", Log::MessageType::Info);//Writes an info message to the log.
+				//Writes an info message to the log.
+				_logger->WriteLog("Textures from: " + filePath + " loaded in.", Log::MessageType::Info);
 			}
         }
 	}

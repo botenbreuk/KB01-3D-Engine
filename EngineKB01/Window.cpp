@@ -18,6 +18,7 @@ HWND Window::GetHWND()
 }
 
 /*
+Registers a Win class.
 */
 void Window::SetWinClass()
 {

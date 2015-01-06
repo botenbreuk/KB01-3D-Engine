@@ -17,7 +17,6 @@ msm: A pointer to the Mesh Manager used.
 */
 void Model::Render(Renderer* renderer, MeshManager* msm)
 {
-	//TOTO: Implement
 	Mesh* modelMesh = msm->GetMesh(_meshName);
 	for( DWORD i = 0; i < renderer->GetNumberOfMaterials(modelMesh->GetFilePath()); i++ )
 	{

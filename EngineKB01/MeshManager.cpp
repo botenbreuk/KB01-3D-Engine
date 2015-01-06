@@ -52,16 +52,22 @@ filePath: The filepath to the Mesh.
 void MeshManager::LoadMesh(std::string meshName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
-	std::string succesString = "Mesh: '" + meshName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Mesh is loaded in without any problems.
-	std::string failString1 = "A Mesh with the name: '" + meshName + "' already exists.";//Gets in the log if that Key value is already taken in the list.
-	std::string failString2 = "That Mesh is already loaded in with the name: '";//Gets in the log if that Mesh is already loaded in.
+
+	//Gets in the log if the Mesh is loaded in without any problems.
+	std::string succesString = "Mesh: '" + meshName + "' loaded in as '" + filePath + "'.";
+	//Gets in the log if that Key value is already taken in the list.
+	std::string failString1 = "A Mesh with the name: '" + meshName + "' already exists.";
+	//Gets in the log if that Mesh is already loaded in.
+	std::string failString2 = "That Mesh is already loaded in with the name: '";
 
 	//Initialises the char* that will be written to the log.
 	char* message;
 
-	if(NULL == Meshes[meshName])//Checks if there is alreay a Mesh with that name.
+	//Checks if there is alreay a Mesh with that name.
+	if(NULL == Meshes[meshName])
 	{
-		if(!MeshLoadedIn(filePath))//Checks if the specific Mesh is already loaded in.
+		//Checks if the specific Mesh is already loaded in.
+		if(!MeshLoadedIn(filePath))
 		{
 			//Loads in the Mesh.
 			Mesh* m = new Mesh(filePath);
@@ -79,7 +85,7 @@ void MeshManager::LoadMesh(std::string meshName, std::string filePath)
 	}
 	else
 	{
-		//texture already loaded with that name
+		//Texture already loaded with that name
 		Logger->WriteLog(failString1, Log::MessageType::Error);
 	}
 }
