@@ -24,6 +24,7 @@ private:
 	ResourceManager* _resourceManager;//The general Rescource Manager.
 	WindowManager* _windowManager;//The Window Manager the Engine uses
 	SceneManager* _sceneManager;//The Scene Manager the Engine uses.
+	Log* _logger;//A logger for writing to the logfile.
 };
 
 #endif

@@ -17,7 +17,6 @@ Model::~Model()
 ///
 void Model::Render(Renderer* renderer, ResourceManager* msm)
 {
-	//TOTO: Implement
 	Mesh* modelMesh = msm->GetMesh(_meshName);
 	for( DWORD i = 0; i < renderer->GetNumberOfMaterials(modelMesh->GetFilePath()); i++ )
 	{

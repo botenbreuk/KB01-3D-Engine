@@ -11,7 +11,7 @@
 class DirectXRenderer : public Renderer
 {
 public:
-	DirectXRenderer();
+	DirectXRenderer(Log* logger);
 	~DirectXRenderer();
 
 	void Init3D(HWND hWnd);//Initialises DirectX.
@@ -49,7 +49,7 @@ private:
 	LPDIRECT3D9         g_pD3D; // Used to create the D3DDevice
 	LPDIRECT3DDEVICE9   g_pd3dDevice; // Our rendering device
 
-	LPD3DXBUFFER pD3DXMtrlBuffer;
+	LPD3DXBUFFER pD3DXMtrlBuffer;//DirectX Material buffer.
 
 	std::map<std::string, DWORD> g_dwNumMaterials;//A map which stores the amount of Materials in a Mesh.
 

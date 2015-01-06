@@ -18,6 +18,7 @@ HWND Window::GetHWND()
 }
 
 /*
+Registers a Win class.
 */
 void Window::SetWinClass()
 {
@@ -36,6 +37,28 @@ void Window::Initialize()
 
 	ShowWindow(_window, SW_SHOWDEFAULT);
 	UpdateWindow( _window );
+}
+
+/*
+Updates the title of the window.
+title: The new title for the window.
+*/
+void Window::SetTitle(std::string title)
+{
+	/*
+	Converts string to LCWSTR
+	*/
+	std::wstring stemp = std::wstring(title.begin(), title.end());
+	LPCWSTR sw = stemp.c_str();
+
+	SetWindowText(_window, sw);
+}
+/*
+Sets the size of the window
+*/
+void Window::SetSize(int width, int length)
+{
+	MoveWindow(_window, 100, 100, width, length, TRUE);
 }
 
 /*

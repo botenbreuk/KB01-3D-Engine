@@ -4,13 +4,11 @@
 Scene::Scene()
 {
 	AddModel("tiger.x");
-	//this->EntityList = new std::list<Entity*>;//Defines the list of entities.
 }
 
 
 Scene::~Scene()
 {
-	//delete EntityList;//Destroys the list, it's content and the pointer.
 }
 
 /*
