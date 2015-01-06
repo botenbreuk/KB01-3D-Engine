@@ -10,12 +10,12 @@ Model::~Model()
 {
 }
 
-/*
-Makes the Model render itself.
-renderer: A pointer to the renderer used.
-msm: A pointer to the Mesh Manager used.
-*/
-void Model::Render(Renderer* renderer, MeshManager* msm)
+///
+/// Makes the Model render itself.
+/// renderer: A pointer to the renderer used.
+/// msm: A pointer to the Mesh Manager used.
+///
+void Model::Render(Renderer* renderer, ResourceManager* msm)
 {
 	Mesh* modelMesh = msm->GetMesh(_meshName);
 	for( DWORD i = 0; i < renderer->GetNumberOfMaterials(modelMesh->GetFilePath()); i++ )

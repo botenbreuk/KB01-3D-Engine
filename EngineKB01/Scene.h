@@ -5,6 +5,7 @@
 #include "model.h"
 #include "Renderer.h"
 #include "DirectXRenderer.h"
+#include "ResourceManager.h"
 #include <list>
 
 class Scene
@@ -14,7 +15,7 @@ public:
 	~Scene();
 	std::list<Model*> ModelList; //List of models
 	std::list<Entity*> EntityList;//The list of Entities this scene holds.
-	void Render(Renderer* renderer, MeshManager* msm);//Renders the Entities in the Scene.
+	void Render(Renderer* renderer, ResourceManager* msm);//Renders the Entities in the Scene.
 	void AddEntity(Entity* entity);//Adds an Entity to the scene.
 	void RemoveEntity(Entity* entity);//Removes a specific Entity from the scene.
 	void Update();//Updates the Entities in the Scene,

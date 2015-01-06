@@ -5,7 +5,6 @@
 #include <stdio.h>
 
 #include "ResourceManager.h"
-#include "MeshManager.h"
 #include "WindowManager.h"
 #include "SceneManager.h"
 #include "DirectXRenderer.h"
@@ -24,7 +23,6 @@ public:
 private:
 	std::map<RendererType, Renderer*> _renderers;//The Renderer the Engine uses.
 	ResourceManager* _resourceManager;//The general Rescource Manager.
-	MeshManager* _meshManager;//Temporal Mesh Manager, will be refactored into the one Rescource Manager.
 	WindowManager* _windowManager;//The Window Manager the Engine uses
 	SceneManager* _sceneManager;//The Scene Manager the Engine uses.
 	Log* _logger;//A logger for writing to the logfile.

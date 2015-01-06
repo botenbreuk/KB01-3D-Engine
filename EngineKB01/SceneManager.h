@@ -9,7 +9,7 @@ class SceneManager
 public:
 	SceneManager();
 	~SceneManager();
-	void RenderAllScenes(Renderer* renderer, MeshManager* msm);//Renders all the Scenes this Manager knows.
+	void RenderAllScenes(Renderer* renderer, ResourceManager* msm);//Renders all the Scenes this Manager knows.
 	void UpdateAllScenes();//Updates all the Scenes this Manager knows.
 	Scene* AddScene();//Adds a Scene to the Manager's list.
 

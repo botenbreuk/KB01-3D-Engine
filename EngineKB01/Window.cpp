@@ -22,7 +22,7 @@ Registers a Win class.
 */
 void Window::SetWinClass()
 {
-	WNDCLASSEX wndclass = { sizeof(WNDCLASSEX), CS_DBLCLKS, MsgProc, 0, 0, GetModuleHandle(0), LoadIcon(0,IDI_APPLICATION), LoadCursor(0,IDC_ARROW), HBRUSH(CreateSolidBrush(RGB(0, 0, 255))), 0, L"WindowClass", LoadIcon(0,IDI_APPLICATION) };
+	WNDCLASSEX wndclass = { sizeof(WNDCLASSEX), CS_DBLCLKS, MsgProc, 0, 0, GetModuleHandle(0), LoadIcon(0,IDI_APPLICATION), LoadCursor(0,IDC_ARROW), HBRUSH(CreateSolidBrush(RGB(0, 0, 0))), 0, L"WindowClass", LoadIcon(0,IDI_APPLICATION) };
     RegisterClassEx(&wndclass);
 }
 
