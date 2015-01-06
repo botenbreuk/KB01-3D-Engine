@@ -39,6 +39,17 @@ void Window::Initialize()
 	UpdateWindow( _window );
 }
 
+void Window::UpdateTitle(std::string title)
+{
+	/*
+	Converts string to LCWSTR
+	*/
+	std::wstring stemp = std::wstring(title.begin(), title.end());
+	LPCWSTR sw = stemp.c_str();
+
+	SetWindowText(_window, sw);
+}
+
 /*
 Handles some of the possible messages this Window can receive.
 hWnd:
