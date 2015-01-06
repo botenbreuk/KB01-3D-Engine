@@ -4,9 +4,7 @@ Entity::~Entity()
 {
 }
 
-/*
-Updates the Entity.
-*/
+///Updates the Entity.
 void Entity::Update()
 {
 

@@ -13,8 +13,8 @@ class Scene
 public:
 	Scene();
 	~Scene();
-	std::list<Model*> ModelList; //List of models
-	std::list<Entity*> EntityList;//The list of Entities this scene holds.
+	std::list<Model*> _modelList; //List of models
+	std::list<Entity*> _entityList;//The list of Entities this scene holds.
 	void Render(Renderer* renderer, ResourceManager* msm);//Renders the Entities in the Scene.
 	void AddEntity(Entity* entity);//Adds an Entity to the scene.
 	void RemoveEntity(Entity* entity);//Removes a specific Entity from the scene.

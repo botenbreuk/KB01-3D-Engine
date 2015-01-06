@@ -33,7 +33,7 @@ private:
 	std::map<std::string, Mesh*> _meshes; //A Key Value pair list of meshes with the associated names.
 	std::map<std::string, Texture*> _textures; //A Key Value pair list of textures with the associated names
 	Log* _logger; //Used for logging errors, warnings and other messages
-	Renderer* _renderer;
+	Renderer* _renderer;//
 
 };
 

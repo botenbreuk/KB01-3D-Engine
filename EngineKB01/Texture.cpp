@@ -3,7 +3,7 @@
 
 Texture::Texture(std::string filePath)
 {
-	FilePath = filePath;
+	_filePath = filePath;
 }
 
 
