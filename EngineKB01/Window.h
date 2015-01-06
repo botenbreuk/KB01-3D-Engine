@@ -14,12 +14,12 @@ public:
 	static LRESULT CALLBACK MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );//Handles some of the possible messages this Window can receive.
 	HWND GetHWND();
 
-	void UpdateTitle(std::string title);
+	void UpdateTitle(std::string title);//Updates the title for the window.
 
 private:
-	void SetWinClass();//
+	void SetWinClass();//Registers a Win class
 	void Initialize();//Initialises the Window for use.
-	HWND _window;//
+	HWND _window;//Window handler.
 };
 
 #endif
