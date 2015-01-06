@@ -37,9 +37,6 @@ void TextureManager::LoadTexture(std::string textureName, std::string filePath)
 	//Gets in the log if that Texture is already loaded in.
 	std::string failString2 = "That Texture is already loaded in with the name: '";
 
-	//Initialises the char* that will be written to the log.
-	char* message;
-
 	//Checks if there isn't a Texture with that name already.
 	if(NULL == Textures[textureName])
 	{

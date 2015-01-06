@@ -60,9 +60,6 @@ void MeshManager::LoadMesh(std::string meshName, std::string filePath)
 	//Gets in the log if that Mesh is already loaded in.
 	std::string failString2 = "That Mesh is already loaded in with the name: '";
 
-	//Initialises the char* that will be written to the log.
-	char* message;
-
 	//Checks if there is alreay a Mesh with that name.
 	if(NULL == Meshes[meshName])
 	{

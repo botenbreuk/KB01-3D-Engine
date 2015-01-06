@@ -140,7 +140,8 @@ void DirectXRenderer::LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMater
 	Materials[filePath] = new D3DMATERIAL9[g_dwNumMaterials[filePath]];
 	if( Materials[filePath] == NULL )
 	{
-		_logger->WriteLog("Materials from: " + filePath + " failed loading in.", Log::MessageType::Error);//Writes an error message to the log.
+		//Writes an error message to the log.
+		_logger->WriteLog("Materials from: " + filePath + " failed loading in.", Log::MessageType::Error);
 		return;
 	}
 
