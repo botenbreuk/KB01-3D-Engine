@@ -11,7 +11,6 @@ Logger::Logger()
 ///File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
 void Logger::WriteLog(const char* logMessage, MessageType mt)
 {
-
 	//Code to get time of logging.
 	time_t timer = time(NULL);
 	tm* ptm = localtime(&timer);

@@ -273,3 +273,11 @@
 08.01.2015 10:52:00 - Info: Textures from: tiger.x loaded in.
 08.01.2015 10:52:00 - Info: Geometry initialised.
 08.01.2015 10:52:03 - Info: Kernel cleaned up.
+08.01.2015 12:16:15 - Info: Renderer used: DirectX
+08.01.2015 12:16:15 - Info: Kernel initialised.
+08.01.2015 12:16:16 - Info: DirectX initialised.
+08.01.2015 12:16:16 - Info: Mesh: tiger.x loaded in.
+08.01.2015 12:16:16 - Info: Materials from: tiger.x loaded in.
+08.01.2015 12:16:16 - Info: Textures from: tiger.x loaded in.
+08.01.2015 12:16:16 - Info: Geometry initialised.
+08.01.2015 12:16:18 - Info: Kernel cleaned up.

@@ -84,6 +84,7 @@
     <ClInclude Include="Heightmap.h" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="LoggerPool.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Renderer.h" />
@@ -105,6 +106,7 @@
     <ClCompile Include="Heightmap.cpp" />
     <ClCompile Include="Kernel.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="LoggerPool.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Renderer.cpp" />
