@@ -3,7 +3,7 @@
 Kernel::Kernel()
 {
 	//TODO: refactor to ask/check which type of Renderer to use.
-	_usedType = RendererType::DirectX;
+	_usedType = APIType::DirectX;
 }
 
 Kernel::~Kernel()
@@ -19,13 +19,14 @@ void Kernel::Initialize()
 	switch (_usedType)
 	{
 		case DirectX:	_renderers[_usedType] = new DirectXRenderer(_logger);
-			_logger->WriteLog("Renderer used: DirectX", Logger::MessageType::Info);
+			_inputHandler = new DirectXInputHandler();
+			_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
 			break;
 		case OpenGL:	//TODO: Implement.
-			_logger->WriteLog("Renderer used: OpenGL", Logger::MessageType::Info);
+			_logger->WriteLog("API used: OpenGL", Logger::MessageType::Info);
 			break;
 		case Software:	//TODO: Implement.
-			_logger->WriteLog("Renderer used: Software", Logger::MessageType::Info);
+			_logger->WriteLog("API used: Software", Logger::MessageType::Info);
 			break;
 	}
 
@@ -33,7 +34,7 @@ void Kernel::Initialize()
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
 
-	Scene* s = _sceneManager->AddScene();
+	Scene* s = _sceneManager->AddScene(_resourceManager);
 	
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel initialised.", Logger::MessageType::Info);
@@ -78,9 +79,9 @@ void Kernel::Run()
 ///Cleans up the compartments of the Engine.
 void Kernel::CleanUp()
 {
-	for(int i = RendererType::First; i < RendererType::Last; i++)
+	for(int i = APIType::First; i < APIType::Last; i++)
 	{
-		_renderers.erase((RendererType)i);
+		_renderers.erase((APIType)i);
 	}
 	delete _resourceManager;
 	delete _windowManager;

@@ -11,7 +11,7 @@
 class Scene
 {
 public:
-	Scene();
+	Scene(ResourceManager* rsm);
 	~Scene();
 	std::list<Model*> _modelList; //List of models
 	std::list<Entity*> _entityList;//The list of Entities this scene holds.
@@ -20,7 +20,12 @@ public:
 	void RemoveEntity(Entity* entity);//Removes a specific Entity from the scene.
 	void Update();//Updates the Entities in the Scene,
 
-	void AddModel(std::string _meshName);//Adds a Model to the Scene.
+	void AddModel(std::string _meshName, ResourceManager* rsm);//Adds a Model to the Scene.
+
+
+private:
+	void LoadSceneFromFile(std::string fileName, ResourceManager* rsm);//Loads list of models from a file
+	bool CheckFileExists(std::string fileName);
 };
 
 #endif

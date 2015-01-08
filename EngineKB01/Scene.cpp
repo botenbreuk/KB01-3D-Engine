@@ -1,9 +1,9 @@
 #include "Scene.h"
+#include <fstream>
 
-
-Scene::Scene()
+Scene::Scene(ResourceManager* rsm)
 {
-	AddModel("tiger.x");
+	this->LoadSceneFromFile("SceneFile.txt", rsm);
 }
 
 
@@ -58,9 +58,32 @@ void Scene::RemoveEntity(Entity* entity)
 
 ///Adds a Model to the Scene.
 ///_meshName: The name for the Model's Mesh.
-void Scene::AddModel(std::string _meshName)
+void Scene::AddModel(std::string _meshName, ResourceManager* rsm)
 {
-	Model* mod = new Model();
-	mod->SetMeshName(_meshName);
+	Model* mod = new Model(rsm, _meshName);
+	//5mod->SetMeshName(_meshName);
 	_modelList.push_front(mod);
+}
+
+///Loads list of models from a file
+void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
+{
+	std::ifstream file(fileName);
+	std::string line;
+
+	if(CheckFileExists(fileName))
+	{
+		while(std::getline(file, line))
+		{
+			if(CheckFileExists(line)) AddModel(line, rsm);
+			else std::cout << "File not found: " << line;
+		}
+	}
+	else std::cout << "Scene file not found: " << fileName;
+}
+
+bool Scene::CheckFileExists(std::string fileName)
+{
+    std::ifstream infile(fileName);
+    return infile.good();
 }

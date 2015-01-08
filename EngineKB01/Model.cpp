@@ -1,8 +1,10 @@
 #include "Model.h"
 
 
-Model::Model()
+Model::Model(ResourceManager* rsm, std::string meshName)
 {
+	_meshName = meshName;
+	rsm->LoadMesh(_meshName, _meshName);
 }
 
 
