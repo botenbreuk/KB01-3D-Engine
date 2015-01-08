@@ -6,10 +6,10 @@ Resource::~Resource()
 
 std::string Resource::GetFilePath()
 {
-	return FilePath;
+	return _filePath;
 }
 
 void Resource::SetFilePath(std::string filePath)
 {
-	this->FilePath = filePath;
+	_filePath = filePath;
 }

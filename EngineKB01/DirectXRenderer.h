@@ -42,16 +42,16 @@ public:
 	DWORD GetNumberOfMaterials(std::string filePath);//Gives back the number of Materials in a Mesh.
 
 private:
-	std::map<std::string, LPD3DXMESH> Meshes;//A list of DirectX-specific Meshes.
-	std::map<std::string, LPDIRECT3DTEXTURE9*> Textures;//A list of DirectX-specific Textures.
-	std::map<std::string, D3DMATERIAL9*> Materials;//A list of DirectX-specific Materials.
+	std::map<std::string, LPD3DXMESH> _meshes;//A list of DirectX-specific Meshes.
+	std::map<std::string, LPDIRECT3DTEXTURE9*> _textures;//A list of DirectX-specific Textures.
+	std::map<std::string, D3DMATERIAL9*> _materials;//A list of DirectX-specific Materials.
 	
-	LPDIRECT3D9         g_pD3D; // Used to create the D3DDevice
-	LPDIRECT3DDEVICE9   g_pd3dDevice; // Our rendering device
+	LPDIRECT3D9         _g_pD3D; // Used to create the D3DDevice
+	LPDIRECT3DDEVICE9   _g_pd3dDevice; // Our rendering device
 
-	LPD3DXBUFFER pD3DXMtrlBuffer;//DirectX Material buffer.
+	LPD3DXBUFFER _pD3DXMtrlBuffer;//DirectX Material buffer.
 
-	std::map<std::string, DWORD> g_dwNumMaterials;//A map which stores the amount of Materials in a Mesh.
+	std::map<std::string, DWORD> _g_dwNumMaterials;//A map which stores the amount of Materials in a Mesh.
 
 	std::wstring s2ws(const std::string& s);//Converts a string to a wstring.
 };

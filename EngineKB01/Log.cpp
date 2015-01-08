@@ -4,14 +4,11 @@ Log::Log()
 {
 }
 
-enum MessageType {Error, Warning, Info};
 
-/*
-Method to write message to log.
-logMessage: the message,
-mt: MessageType enum.
-File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
-*/
+///Method to write message to log.
+///logMessage: the message,
+///mt: MessageType enum.
+///File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
 void Log::WriteLog(const char* logMessage, MessageType mt)
 {
 
@@ -35,13 +32,11 @@ void Log::WriteLog(const char* logMessage, MessageType mt)
 	fclose(pFile);
 }
 
-/*
-Method to write message to log using a string.
-calls WriteLog(const char* logMessage, MessageType mt).
-logMessage: the message,
-mt: MessageType enum.
-File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
-*/
+///Method to write message to log using a string.
+///calls WriteLog(const char* logMessage, MessageType mt).
+///logMessage: the message,
+///mt: MessageType enum.
+///File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
 void Log::WriteLog(std::string logMessage, MessageType mt)
 {
 	char* returnChar = new char[logMessage.size() + 1];
@@ -51,10 +46,8 @@ void Log::WriteLog(std::string logMessage, MessageType mt)
 	WriteLog(returnChar, mt);
 }
 
-/*
-Convert value of enum to char*
-mt: Specific MessageType to be converted.
-*/
+///Convert value of enum to char*
+///mt: Specific MessageType to be converted.
 const char* Log::MtToChar(MessageType mt)
 {
 	//Initialises the returnPointer to the errormessage of not having found the correct way to translage mt;

@@ -13,29 +13,23 @@ ResourceManager::~ResourceManager()
 {
 }
 
-///
-/// Returns a Mesh pointer
-/// meshName: The key name of the Mesh
-///
+///Returns a Mesh pointer.
+///meshName: The key name of the Mesh.
 Mesh* ResourceManager::GetMesh(std::string meshName)
 {
 	return _meshes[meshName];
 }
 
-///
-/// Returns a Texture pointer
-/// textureName: The key name of the Texture
-///
+///Returns a Texture pointer.
+///textureName: The key name of the Texture.
 Texture* ResourceManager::GetTexture(std::string textureName)
 {
 	return _textures[textureName];
 }
 
-///
-/// Loads in a Mesh.
-/// meshName: The Key name of the Mesh.
-/// filePath: The filepath to the Mesh.
-///
+///Loads in a Mesh.
+///meshName: The Key name of the Mesh.
+///filePath: The filepath to the Mesh.
 void ResourceManager::LoadMesh(std::string meshName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
@@ -73,9 +67,7 @@ void ResourceManager::LoadMesh(std::string meshName, std::string filePath)
 	}
 }
 
-///
-/// Loads in the Meshes.
-///
+///Loads in the Meshes.
 void ResourceManager::LoadMeshes()
 {
 	std::list<Mesh*> meshList;
@@ -89,10 +81,8 @@ void ResourceManager::LoadMeshes()
 	_renderer->InitGeometry(meshList);
 }
 
-///
-/// Checks if the specific Mesh is already loaded in.
-/// filePath: The filepath to the Mesh.
-///
+///Checks if the specific Mesh is already loaded in.
+///filePath: The filepath to the Mesh.
 bool ResourceManager::MeshLoadedIn(std::string filePath)
 {
 	bool loadedIn = false;
@@ -111,10 +101,8 @@ bool ResourceManager::MeshLoadedIn(std::string filePath)
 	return loadedIn;
 }
 
-///
-/// Gives the name of the loaded in Mesh.
-/// filePath: The filepath to the loaded in Mesh.
-///
+///Gives the name of the loaded in Mesh.
+///filePath: The filepath to the loaded in Mesh.
 std::string ResourceManager::GetMeshName(std::string filePath)
 {
 	std::map<std::string, Mesh*>::iterator it;
@@ -130,11 +118,9 @@ std::string ResourceManager::GetMeshName(std::string filePath)
 	}
 }
 
-///
-/// Loads in a Texture.
-/// textureName: The Key name of the Texture.
-/// filePath: The filepath to the Texture.
-///
+///Loads in a Texture.
+///textureName: The Key name of the Texture.
+///filePath: The filepath to the Texture.
 void ResourceManager::LoadTexture(std::string textureName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
@@ -170,10 +156,8 @@ void ResourceManager::LoadTexture(std::string textureName, std::string filePath)
 	}
 }
 
-///
-/// Checks if the specific Texture is already loaded in.
-/// filePath: The filepath to the Texture.
-///
+///Checks if the specific Texture is already loaded in.
+///filePath: The filepath to the Texture.
 bool ResourceManager::TextureLoadedIn(std::string filePath)
 {
 	bool loadedIn = false;
@@ -192,10 +176,8 @@ bool ResourceManager::TextureLoadedIn(std::string filePath)
 	return loadedIn;
 }
 
-///
-/// Gives the name of the loaded in Texture.
-/// filePath: The filepath to the loaded in Texture.
-///
+///Gives the name of the loaded in Texture.
+///filePath: The filepath to the loaded in Texture.
 std::string ResourceManager::GetTextureName(std::string filePath)
 {
 	std::map<std::string, Texture*>::iterator it;

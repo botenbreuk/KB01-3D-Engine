@@ -12,7 +12,7 @@ public:
 private:
 	
 protected:
-	std::string FilePath;
+	std::string _filePath;
 	void SetFilePath(std::string filePath);
 };
 

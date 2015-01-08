@@ -10,12 +10,12 @@ Kernel::~Kernel()
 {
 }
 
-/*
-Initialises the compartments of the Engine.
-*/
+///Initialises the compartments of the Engine.
 void Kernel::Initialize()
 {
 	Log* logger = new Log();
+
+	//Checks the type of Renderer to use.
 	switch (_usedType)
 	{
 		case DirectX:	_renderers[_usedType] = new DirectXRenderer(_logger);
@@ -28,18 +28,18 @@ void Kernel::Initialize()
 			_logger->WriteLog("Renderer used: Software", Log::MessageType::Info);
 			break;
 	}
+
 	_resourceManager = new ResourceManager(_logger,(DirectXRenderer*)_renderers[_usedType]);
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
 
 	Scene* s = _sceneManager->AddScene();
 	
+	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel initialised.", Log::MessageType::Info);
 }
 
-/*
-The basic loop of the Engine.
-*/
+///The basic loop of the Engine.
 void Kernel::Run()
 {
 	//Creates a Window.
@@ -51,7 +51,7 @@ void Kernel::Run()
 	//Loads in the Meshes.
 	_resourceManager->LoadMeshes();
 
-	//
+	//The message the program receives from the OS.
 	MSG msg;
 
 	//Cleans up some memory for the message.
@@ -69,14 +69,13 @@ void Kernel::Run()
 		}
 		else
 		{
-			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager);//Renders all the Scenes of this Engine.
+			//Renders all the Scenes of this Engine.
+			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager);
 		}
 	}
 }
 
-/*
-Cleans up the compartments of the Engine.
-*/
+///Cleans up the compartments of the Engine.
 void Kernel::CleanUp()
 {
 	for(int i = RendererType::First; i < RendererType::Last; i++)
@@ -87,5 +86,6 @@ void Kernel::CleanUp()
 	delete _windowManager;
 	delete _sceneManager;
 
+	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel cleaned up.", Log::MessageType::Info);
 }
