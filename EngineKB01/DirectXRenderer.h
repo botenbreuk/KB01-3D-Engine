@@ -11,7 +11,7 @@
 class DirectXRenderer : public Renderer
 {
 public:
-	DirectXRenderer(Log* logger);
+	DirectXRenderer(Logger* logger);
 	~DirectXRenderer();
 
 	void Init3D(HWND hWnd);//Initialises DirectX.

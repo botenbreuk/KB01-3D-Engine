@@ -13,7 +13,7 @@ Kernel::~Kernel()
 ///Initialises the compartments of the Engine.
 void Kernel::Initialize()
 {
-	Log* logger = new Log();
+	Logger* logger = new Logger();
 
 	//Checks the type of Renderer to use.
 	switch (_usedType)
@@ -37,7 +37,7 @@ void Kernel::Initialize()
 	Scene* s = _sceneManager->AddScene(_resourceManager);
 	
 	//Writes an info message to the logfile.
-	_logger->WriteLog("Kernel initialised.", Log::MessageType::Info);
+	_logger->WriteLog("Kernel initialised.", Logger::MessageType::Info);
 }
 
 ///The basic loop of the Engine.
@@ -88,5 +88,5 @@ void Kernel::CleanUp()
 	delete _sceneManager;
 
 	//Writes an info message to the logfile.
-	_logger->WriteLog("Kernel cleaned up.", Log::MessageType::Info);
+	_logger->WriteLog("Kernel cleaned up.", Logger::MessageType::Info);
 }

@@ -21,6 +21,11 @@ public:
 	void Update();//Updates the Entities in the Scene,
 
 	void AddModel(std::string _meshName, ResourceManager* rsm);//Adds a Model to the Scene.
+
+
+private:
+	void LoadSceneFromFile(std::string fileName);//Loads list of models from a file
+	bool CheckFileExists(std::string fileName);
 };
 
 #endif
