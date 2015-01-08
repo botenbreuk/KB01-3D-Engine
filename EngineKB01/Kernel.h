@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "DirectXRenderer.h"
 #include "Log.h"
+#include "DirectXInputHandler.h"
 
 class Kernel
 {
@@ -18,15 +19,16 @@ public:
 	void Initialize();//Initialises the compartments of the Engine.
 	void Run();//The basic loop of the Engine.
 	void CleanUp();//Cleans up the compartments of the Engine.
-	enum RendererType {DirectX = 0, OpenGL = 1, Software = 2, First = DirectX, Last = Software};//The different types of renderers the kernel knows and can use.
+	enum APIType {DirectX = 0, OpenGL = 1, Software = 2, First = DirectX, Last = Software};//The different types of renderers the kernel knows and can use.
 
 private:
-	std::map<RendererType, Renderer*> _renderers;//The Renderer the Engine uses.
+	std::map<APIType, Renderer*> _renderers;//The Renderers the Engine uses.
 	ResourceManager* _resourceManager;//The general Rescource Manager.
 	WindowManager* _windowManager;//The Window Manager the Engine uses
 	SceneManager* _sceneManager;//The Scene Manager the Engine uses.
 	Log* _logger;//A logger for writing to the logfile.
-	RendererType _usedType;
+	APIType _usedType;//The type of API the engine uses.
+	InputHandler * _inputHandler;//The InputHandler the Engine uses.
 };
 
 #endif
