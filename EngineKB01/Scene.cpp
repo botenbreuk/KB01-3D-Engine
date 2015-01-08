@@ -67,7 +67,7 @@ void Scene::AddModel(std::string _meshName, ResourceManager* rsm)
 }
 
 ///Loads list of models from a file
-void Scene::LoadSceneFromFile(std::string fileName)
+void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 {
 	std::ifstream file(fileName);
 	std::string line;
@@ -76,7 +76,7 @@ void Scene::LoadSceneFromFile(std::string fileName)
 	{
 		while(std::getline(file, line))
 		{
-			if(CheckFileExists(line)) AddModel(line);
+			if(CheckFileExists(line)) AddModel(line, rsm);
 			else std::cout << "File not found: " << line;
 		}
 	}

@@ -20,13 +20,13 @@ void Kernel::Initialize()
 	{
 		case DirectX:	_renderers[_usedType] = new DirectXRenderer(_logger);
 			_inputHandler = new DirectXInputHandler();
-			_logger->WriteLog("API used: DirectX", Log::MessageType::Info);
+			_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
 			break;
 		case OpenGL:	//TODO: Implement.
-			_logger->WriteLog("API used: OpenGL", Log::MessageType::Info);
+			_logger->WriteLog("API used: OpenGL", Logger::MessageType::Info);
 			break;
 		case Software:	//TODO: Implement.
-			_logger->WriteLog("API used: Software", Log::MessageType::Info);
+			_logger->WriteLog("API used: Software", Logger::MessageType::Info);
 			break;
 	}
 

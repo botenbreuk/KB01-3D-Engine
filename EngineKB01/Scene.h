@@ -24,7 +24,7 @@ public:
 
 
 private:
-	void LoadSceneFromFile(std::string fileName);//Loads list of models from a file
+	void LoadSceneFromFile(std::string fileName, ResourceManager* rsm);//Loads list of models from a file
 	bool CheckFileExists(std::string fileName);
 };
 
