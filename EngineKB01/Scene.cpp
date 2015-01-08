@@ -65,6 +65,7 @@ void Scene::AddModel(std::string _meshName)
 	_modelList.push_front(mod);
 }
 
+///Loads list of models from a file
 void Scene::LoadSceneFromFile(std::string fileName)
 {
 	std::ifstream file(fileName);

@@ -5,8 +5,8 @@ ResourceManager::ResourceManager(Logger* logger, Renderer* renderer)
 	_logger = logger;
 	_renderer = renderer;
 
-	Mesh* tigerX = new Mesh("tiger.x");
-	_meshes["tiger.x"] = tigerX;
+	Mesh* tigerX = new Mesh("Tiger.x");
+	_meshes["Tiger.x"] = tigerX;
 }
 
 ResourceManager::~ResourceManager()

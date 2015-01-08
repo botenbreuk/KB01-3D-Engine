@@ -24,7 +24,7 @@ public:
 
 
 private:
-	void LoadSceneFromFile(std::string fileName);
+	void LoadSceneFromFile(std::string fileName);//Loads list of models from a file
 	bool CheckFileExists(std::string fileName);
 };
 
