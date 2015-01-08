@@ -2,7 +2,7 @@
 
 Kernel::Kernel()
 {
-	//Can later be refactored to ask/check which type of Renderer to use.
+	//TODO: refactor to ask/check which type of Renderer to use.
 	_usedType = RendererType::DirectX;
 }
 
