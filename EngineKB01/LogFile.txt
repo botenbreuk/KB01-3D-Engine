@@ -123,3 +123,30 @@
 08.01.2015 12:22:43 - Info: Textures from: HumanFinal.x loaded in.
 08.01.2015 12:22:43 - Info: Geometry initialised.
 08.01.2015 12:23:03 - Info: Kernel cleaned up.
+08.01.2015 13:28:16 - Info: API used: DirectX
+08.01.2015 13:28:16 - Info: Kernel initialised.
+08.01.2015 13:28:16 - Info: DirectX initialised.
+08.01.2015 13:31:54 - Info: API used: DirectX
+08.01.2015 13:31:54 - Info: Mesh: 'Tiger.x' loaded into memory as 'Tiger.x'.
+08.01.2015 13:31:54 - Info: Mesh: 'HumanFinal.x' loaded into memory as 'HumanFinal.x'.
+08.01.2015 13:31:54 - Info: Kernel initialised.
+08.01.2015 13:31:55 - Info: DirectX initialised.
+08.01.2015 13:31:55 - Info: Mesh: Tiger.x loaded into graphical memory.
+08.01.2015 13:31:55 - Info: Materials from: Tiger.x loaded into graphical memory.
+08.01.2015 13:31:55 - Info: Textures from: Tiger.x loaded into graphical memory.
+08.01.2015 13:31:55 - Info: Mesh: HumanFinal.x loaded into graphical memory.
+08.01.2015 13:31:55 - Info: Materials from: HumanFinal.x loaded into graphical memory.
+08.01.2015 13:31:55 - Info: Geometry initialised.
+08.01.2015 13:33:29 - Info: API used: DirectX
+08.01.2015 13:33:29 - Info: Mesh: 'Tiger.x' loaded into memory as 'Tiger.x'.
+08.01.2015 13:33:29 - Info: Mesh: 'HumanFinal.x' loaded into memory as 'HumanFinal.x'.
+08.01.2015 13:33:29 - Info: Kernel initialised.
+08.01.2015 13:33:29 - Info: DirectX initialised.
+08.01.2015 13:33:29 - Info: Mesh: Tiger.x loaded into graphical memory.
+08.01.2015 13:33:29 - Info: Materials from: Tiger.x loaded into graphical memory.
+08.01.2015 13:33:29 - Info: Textures from: Tiger.x loaded into graphical memory.
+08.01.2015 13:33:29 - Info: Mesh: HumanFinal.x loaded into graphical memory.
+08.01.2015 13:33:29 - Info: Materials from: HumanFinal.x loaded into graphical memory.
+08.01.2015 13:33:29 - Info: Textures from: HumanFinal.x loaded into graphical memory.
+08.01.2015 13:33:29 - Info: Geometry initialised.
+08.01.2015 13:33:32 - Info: Kernel cleaned up.
