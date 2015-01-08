@@ -3,7 +3,7 @@
 
 Mesh::Mesh(std::string filePath)
 {
-	this->FilePath = filePath;
+	this->_filePath = filePath;
 }
 
 

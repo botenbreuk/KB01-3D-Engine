@@ -185,3 +185,5 @@ UpgradeLog*.htm
 FakesAssemblies/
 EngineKB01.sdf
 EngineKB01/LogFile.txt
+EngineKB01/LogFile.txt
+EngineKB01/Kernel.cpp.orig
