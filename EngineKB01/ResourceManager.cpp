@@ -30,7 +30,7 @@ Texture* ResourceManager::GetTexture(std::string textureName)
 void ResourceManager::LoadMesh(std::string meshName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
-	std::string succesString = "Mesh: '" + meshName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Mesh is loaded in without any problems.
+	std::string succesString = "Mesh: '" + meshName + "' loaded into memory as '" + filePath + "'.";//Gets in the log if the Mesh is loaded in without any problems.
 	std::string failString1 = "A Mesh with the name: '" + meshName + "' already exists.";//Gets in the log if that Key value is already taken in the list.
 	std::string failString2 = "That Mesh is already loaded in with the name: '";//Gets in the log if that Mesh is already loaded in.
 
@@ -121,9 +121,9 @@ std::string ResourceManager::GetMeshName(std::string filePath)
 void ResourceManager::LoadTexture(std::string textureName, std::string filePath)
 {
 	//Initialises several strings that can be sent to the log.
-	std::string succesString = "Texture: '" + textureName + "' loaded in as '" + filePath + "'.";//Gets in the log if the Texture is loaded in without any problems.
+	std::string succesString = "Texture: '" + textureName + "' loaded into memory as '" + filePath + "'.";//Gets in the log if the Texture is loaded in without any problems.
 	std::string failString1 = "A Texture with the name: '" + textureName + "' already exists.";//Gets in the log if that Key value is already taken in the list.
-	std::string failString2 = "That Texture is already loaded in with the name: '";//Gets in the log if that Texture is already loaded in.
+	std::string failString2 = "That Texture is already loaded into the memory with the name: '";//Gets in the log if that Texture is already loaded in.
 
 	//Initialises the char* that will be written to the log.
 	char* message;

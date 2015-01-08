@@ -3,8 +3,7 @@
 
 Scene::Scene(ResourceManager* rsm)
 {
-	AddModel("tiger.x", rsm);
-	AddModel("HumanFinal.x", rsm);
+	this->LoadSceneFromFile("SceneFile.txt", rsm);
 }
 
 
