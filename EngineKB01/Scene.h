@@ -21,6 +21,11 @@ public:
 	void Update();//Updates the Entities in the Scene,
 
 	void AddModel(std::string _meshName);//Adds a Model to the Scene.
+
+
+private:
+	void LoadSceneFromFile(std::string fileName);
+	bool CheckFileExists(std::string fileName);
 };
 
 #endif
