@@ -1,6 +1,6 @@
 #include "DirectXRenderer.h"
 
-DirectXRenderer::DirectXRenderer(Log* logger)
+DirectXRenderer::DirectXRenderer(Logger* logger)
 {
 	_logger = logger;
 }
@@ -42,7 +42,7 @@ void DirectXRenderer::Init3D( HWND hWnd )
     if( NULL == ( _g_pD3D = Direct3DCreate9( D3D_SDK_VERSION ) ) )
 	{
 		//Writes an error message to the log.
-		_logger->WriteLog("DirectX initialisation failed.", Log::MessageType::Error);
+		_logger->WriteLog("DirectX initialisation failed.", Logger::MessageType::Error);
 
         return;
 	}
@@ -60,7 +60,7 @@ void DirectXRenderer::Init3D( HWND hWnd )
     if( FAILED( _g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &_g_pd3dDevice ) ) )
     {
 		//Writes an error message to the log.
-		_logger->WriteLog("DirectX initialisation failed.", Log::MessageType::Error);
+		_logger->WriteLog("DirectX initialisation failed.", Logger::MessageType::Error);
 
         return;
     }
@@ -72,7 +72,7 @@ void DirectXRenderer::Init3D( HWND hWnd )
     _g_pd3dDevice->SetRenderState( D3DRS_AMBIENT, 0xffffffff );
 
 	//Writes an info message to the log.
-	_logger->WriteLog("DirectX initialised.", Log::MessageType::Info);
+	_logger->WriteLog("DirectX initialised.", Logger::MessageType::Info);
 }
 
 ///Initialises the geometry for a Scene.
@@ -96,7 +96,7 @@ void DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
     _pD3DXMtrlBuffer->Release();
 
 	//Writes an info message to the log.
-	_logger->WriteLog("Geometry initialised.", Log::MessageType::Info);
+	_logger->WriteLog("Geometry initialised.", Logger::MessageType::Info);
 }
 
 ///Loads in a Mesh.
@@ -106,7 +106,7 @@ void DirectXRenderer::LoadMesh(std::string filePath, std::string name)
 	if( FAILED( D3DXLoadMeshFromXA( filePath.c_str(), D3DXMESH_SYSTEMMEM, _g_pd3dDevice, NULL, &_pD3DXMtrlBuffer, NULL, &_g_dwNumMaterials[filePath], &_meshes[name] ) ))
 	{
 		//Writes an error message to the log.
-		_logger->WriteLog("Mesh: " + name + " failed loading in.", Log::MessageType::Error);
+		_logger->WriteLog("Mesh: " + name + " failed loading in.", Logger::MessageType::Error);
 
 		//Gives a Message box with an error message.
 		MessageBox( NULL, L"Could not find Mesh", L"Meshes.exe", MB_OK );
@@ -114,7 +114,7 @@ void DirectXRenderer::LoadMesh(std::string filePath, std::string name)
 	else
 	{
 		//Writes an info message to the log.
-		_logger->WriteLog("Mesh: " + name + " loaded in.", Log::MessageType::Info);
+		_logger->WriteLog("Mesh: " + name + " loaded in.", Logger::MessageType::Info);
 	}
 }
 
@@ -126,7 +126,7 @@ void DirectXRenderer::LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMater
 	if( _materials[filePath] == NULL )
 	{
 		//Writes an error message to the log.
-		_logger->WriteLog("Materials from: " + filePath + " failed loading in.", Log::MessageType::Error);
+		_logger->WriteLog("Materials from: " + filePath + " failed loading in.", Logger::MessageType::Error);
 		return;
 	}
 
@@ -139,7 +139,7 @@ void DirectXRenderer::LoadMaterial(std::string filePath, D3DXMATERIAL* d3dxMater
 	}
 
 	//Writes an info message to the log.
-	_logger->WriteLog("Materials from: " + filePath + " loaded in.", Log::MessageType::Info);
+	_logger->WriteLog("Materials from: " + filePath + " loaded in.", Logger::MessageType::Info);
 }
 
 ///Loads in a Texture.
@@ -149,7 +149,7 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	if( _textures[filePath] == NULL )
 	{
 		//Writes an error message to the log.
-		_logger->WriteLog("Textures from: " + filePath + " failed loading in.", Log::MessageType::Error);
+		_logger->WriteLog("Textures from: " + filePath + " failed loading in.", Logger::MessageType::Error);
 
 		return;
 	}
@@ -161,7 +161,7 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 			if(FAILED(D3DXCreateTextureFromFileA(_g_pd3dDevice, d3dxMaterials[i].pTextureFilename, &_textures[filePath][i])))
 			{
 				//Writes an error message to the log.
-				_logger->WriteLog("Textures from: " + filePath + " failed loading in.", Log::MessageType::Error);
+				_logger->WriteLog("Textures from: " + filePath + " failed loading in.", Logger::MessageType::Error);
 
 				//Gives a Message box with an error message.
                 MessageBox( NULL, L"Could not find texture map", L"Meshes.exe", MB_OK );
@@ -169,7 +169,7 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 			else
 			{
 				//Writes an info message to the log.
-				_logger->WriteLog("Textures from: " + filePath + " loaded in.", Log::MessageType::Info);
+				_logger->WriteLog("Textures from: " + filePath + " loaded in.", Logger::MessageType::Info);
 			}
         }
 	}

@@ -8,7 +8,7 @@
 #include "WindowManager.h"
 #include "SceneManager.h"
 #include "DirectXRenderer.h"
-#include "Log.h"
+#include "Logger.h"
 
 class Kernel
 {
@@ -25,7 +25,7 @@ private:
 	ResourceManager* _resourceManager;//The general Rescource Manager.
 	WindowManager* _windowManager;//The Window Manager the Engine uses
 	SceneManager* _sceneManager;//The Scene Manager the Engine uses.
-	Log* _logger;//A logger for writing to the logfile.
+	Logger* _logger;//A logger for writing to the logfile.
 	RendererType _usedType;
 };
 

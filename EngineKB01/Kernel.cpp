@@ -13,19 +13,19 @@ Kernel::~Kernel()
 ///Initialises the compartments of the Engine.
 void Kernel::Initialize()
 {
-	Log* logger = new Log();
+	Logger* logger = new Logger();
 
 	//Checks the type of Renderer to use.
 	switch (_usedType)
 	{
 		case DirectX:	_renderers[_usedType] = new DirectXRenderer(_logger);
-			_logger->WriteLog("Renderer used: DirectX", Log::MessageType::Info);
+			_logger->WriteLog("Renderer used: DirectX", Logger::MessageType::Info);
 			break;
 		case OpenGL:	//TODO: Implement.
-			_logger->WriteLog("Renderer used: OpenGL", Log::MessageType::Info);
+			_logger->WriteLog("Renderer used: OpenGL", Logger::MessageType::Info);
 			break;
 		case Software:	//TODO: Implement.
-			_logger->WriteLog("Renderer used: Software", Log::MessageType::Info);
+			_logger->WriteLog("Renderer used: Software", Logger::MessageType::Info);
 			break;
 	}
 
@@ -36,7 +36,7 @@ void Kernel::Initialize()
 	Scene* s = _sceneManager->AddScene();
 	
 	//Writes an info message to the logfile.
-	_logger->WriteLog("Kernel initialised.", Log::MessageType::Info);
+	_logger->WriteLog("Kernel initialised.", Logger::MessageType::Info);
 }
 
 ///The basic loop of the Engine.
@@ -87,5 +87,5 @@ void Kernel::CleanUp()
 	delete _sceneManager;
 
 	//Writes an info message to the logfile.
-	_logger->WriteLog("Kernel cleaned up.", Log::MessageType::Info);
+	_logger->WriteLog("Kernel cleaned up.", Logger::MessageType::Info);
 }

@@ -1,6 +1,6 @@
-#include "Log.h"
+#include "Logger.h"
 
-Log::Log()
+Logger::Logger()
 {
 }
 
@@ -9,7 +9,7 @@ Log::Log()
 ///logMessage: the message,
 ///mt: MessageType enum.
 ///File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
-void Log::WriteLog(const char* logMessage, MessageType mt)
+void Logger::WriteLog(const char* logMessage, MessageType mt)
 {
 
 	//Code to get time of logging.
@@ -37,7 +37,7 @@ void Log::WriteLog(const char* logMessage, MessageType mt)
 ///logMessage: the message,
 ///mt: MessageType enum.
 ///File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
-void Log::WriteLog(std::string logMessage, MessageType mt)
+void Logger::WriteLog(std::string logMessage, MessageType mt)
 {
 	char* returnChar = new char[logMessage.size() + 1];
 	std::copy(logMessage.begin(), logMessage.end(), returnChar);
@@ -48,7 +48,7 @@ void Log::WriteLog(std::string logMessage, MessageType mt)
 
 ///Convert value of enum to char*
 ///mt: Specific MessageType to be converted.
-const char* Log::MtToChar(MessageType mt)
+const char* Logger::MtToChar(MessageType mt)
 {
 	//Initialises the returnPointer to the errormessage of not having found the correct way to translage mt;
 	char* returnPointer = "Failed to translate messagetype to Char* ";
@@ -68,6 +68,6 @@ const char* Log::MtToChar(MessageType mt)
 	return returnPointer;
 }
 
-Log::~Log()
+Logger::~Logger()
 {
 }

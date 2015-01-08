@@ -10,12 +10,12 @@
 #include "Resource.h"
 #include "Texture.h"
 #include "Mesh.h"
-#include "Log.h"
+#include "Logger.h"
 
 class ResourceManager
 {
 public:
-	ResourceManager(Log* logger, Renderer* renderer);
+	ResourceManager(Logger* logger, Renderer* renderer);
 	~ResourceManager();
 	Mesh* GetMesh(std::string meshName); //Returns a pointer to the Mesh with the given name.
 	Texture* GetTexture(std::string textureName); //Returns a pointer to the Texture with the given name.
@@ -32,7 +32,7 @@ private:
 
 	std::map<std::string, Mesh*> _meshes; //A Key Value pair list of meshes with the associated names.
 	std::map<std::string, Texture*> _textures; //A Key Value pair list of textures with the associated names
-	Log* _logger; //Used for logging errors, warnings and other messages
+	Logger* _logger; //Used for logging errors, warnings and other messages
 	Renderer* _renderer;//
 
 };

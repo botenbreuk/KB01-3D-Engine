@@ -4,7 +4,7 @@
 #include <string>
 #include <Windows.h>
 #include "Mesh.h"
-#include "Log.h"
+#include "Logger.h"
 #include <list>
 
 class Renderer
@@ -33,7 +33,7 @@ public:
 	virtual void DrawSubset(std::string filePath, DWORD i) = 0;//Draws a Mesh and its subsets.
 
 protected:
-	Log* _logger;//A logger for writing to the logfile.
+	Logger* _logger;//A logger for writing to the logfile.
 };
 
 #endif

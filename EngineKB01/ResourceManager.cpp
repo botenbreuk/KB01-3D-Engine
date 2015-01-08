@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 
-ResourceManager::ResourceManager(Log* logger, Renderer* renderer)
+ResourceManager::ResourceManager(Logger* logger, Renderer* renderer)
 {
 	_logger = logger;
 	_renderer = renderer;
@@ -51,19 +51,19 @@ void ResourceManager::LoadMesh(std::string meshName, std::string filePath)
 			_meshes[meshName] = m;
 			
 			//Converts succesString to a Char* and writes it to the log.
-			_logger->WriteLog(succesString, Log::MessageType::Info);
+			_logger->WriteLog(succesString, Logger::MessageType::Info);
 		}
 		else
 		{
 			//Mesh already loaded in
-			_logger->WriteLog(failString2 + " " + GetMeshName(filePath) + "'.", Log::MessageType::Error);
+			_logger->WriteLog(failString2 + " " + GetMeshName(filePath) + "'.", Logger::MessageType::Error);
 		}
 
 	}
 	else
 	{
 		//Mesh already loaded with that name
-		_logger->WriteLog(failString1, Log::MessageType::Error);
+		_logger->WriteLog(failString1, Logger::MessageType::Error);
 	}
 }
 
@@ -140,19 +140,19 @@ void ResourceManager::LoadTexture(std::string textureName, std::string filePath)
 			_textures[textureName] = t;
 
 			//Converts succesString to a Char* and writes it to the log.
-			_logger->WriteLog(succesString, Log::MessageType::Info);
+			_logger->WriteLog(succesString, Logger::MessageType::Info);
 		}
 		else
 		{
 			//Texture already loaded in
-			_logger->WriteLog(failString2 + " " + GetTextureName(filePath) + "'.", Log::MessageType::Error);
+			_logger->WriteLog(failString2 + " " + GetTextureName(filePath) + "'.", Logger::MessageType::Error);
 		}
 
 	}
 	else
 	{
 		//texture already loaded with that name
-		_logger->WriteLog(failString1, Log::MessageType::Error);
+		_logger->WriteLog(failString1, Logger::MessageType::Error);
 	}
 }
 
