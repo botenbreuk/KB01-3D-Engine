@@ -13,7 +13,7 @@ Kernel::~Kernel()
 ///Initialises the compartments of the Engine.
 void Kernel::Initialize()
 {
-	Logger* logger = new Logger();
+	Logger* _logger = LoggerPool::GetInstance()->GetLogger();
 
 	//Checks the type of Renderer to use.
 	switch (_usedType)

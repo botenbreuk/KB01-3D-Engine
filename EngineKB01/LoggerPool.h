@@ -5,16 +5,19 @@
 
 #include "Logger.h"
 
-static class LoggerPool
+class LoggerPool
 {
 public:
-	LoggerPool();
-	~LoggerPool();
-	static Logger* getLogger();
-	static void releaseLogger(Logger* logger);
+	static LoggerPool* GetInstance(); //Returns the singleton instance of this class
+	Logger* GetLogger();
+	void ReleaseLogger(Logger* logger);
 private:
-	static std::list<Logger*>* _available;
-	static std::list<Logger*>* _inUse;
+	static LoggerPool* _instance;//The s gleton instance of this class
+	LoggerPool();
+	LoggerPool(LoggerPool const&);	  //These constructors are also private, so that
+	void operator=(LoggerPool const&);//the singleton instance cannot be copied
+	std::list<Logger*>* _available;//The list of available loggers
+	std::list<Logger*>* _inUse;//The list of loggars that are currently in use
 };
 
 #endif

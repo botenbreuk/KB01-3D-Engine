@@ -8,7 +8,7 @@
 #include "WindowManager.h"
 #include "SceneManager.h"
 #include "DirectXRenderer.h"
-#include "Logger.h"
+#include "LoggerPool.h"
 #include "DirectXInputHandler.h"
 
 class Kernel

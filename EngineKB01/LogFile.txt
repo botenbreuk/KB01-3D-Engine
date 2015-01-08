@@ -281,3 +281,32 @@
 08.01.2015 12:16:16 - Info: Textures from: tiger.x loaded in.
 08.01.2015 12:16:16 - Info: Geometry initialised.
 08.01.2015 12:16:18 - Info: Kernel cleaned up.
+08.01.2015 15:12:12 - Info: API used: DirectX
+08.01.2015 15:12:12 - Info: Kernel initialised.
+08.01.2015 15:12:13 - Info: DirectX initialised.
+08.01.2015 15:13:22 - Info: API used: DirectX
+08.01.2015 15:13:23 - Info: Mesh: 'Tiger.x' loaded into memory as 'Tiger.x'.
+08.01.2015 15:13:23 - Info: Mesh: 'HumanFinal.x' loaded into memory as 'HumanFinal.x'.
+08.01.2015 15:13:23 - Info: Kernel initialised.
+08.01.2015 15:13:23 - Info: DirectX initialised.
+08.01.2015 15:13:23 - Info: Mesh: Tiger.x loaded into graphical memory.
+08.01.2015 15:13:23 - Info: Materials from: Tiger.x loaded into graphical memory.
+08.01.2015 15:13:23 - Info: Textures from: Tiger.x loaded into graphical memory.
+08.01.2015 15:13:23 - Info: Mesh: HumanFinal.x loaded into graphical memory.
+08.01.2015 15:13:23 - Info: Materials from: HumanFinal.x loaded into graphical memory.
+08.01.2015 15:13:23 - Info: Textures from: HumanFinal.x loaded into graphical memory.
+08.01.2015 15:13:23 - Info: Geometry initialised.
+08.01.2015 15:13:27 - Info: Kernel cleaned up.
+08.01.2015 15:46:59 - Info: API used: DirectX
+08.01.2015 15:46:59 - Info: Mesh: 'Tiger.x' loaded into memory as 'Tiger.x'.
+08.01.2015 15:46:59 - Info: Mesh: 'HumanFinal.x' loaded into memory as 'HumanFinal.x'.
+08.01.2015 15:46:59 - Info: Kernel initialised.
+08.01.2015 15:46:59 - Info: DirectX initialised.
+08.01.2015 15:46:59 - Info: Mesh: Tiger.x loaded into graphical memory.
+08.01.2015 15:46:59 - Info: Materials from: Tiger.x loaded into graphical memory.
+08.01.2015 15:46:59 - Info: Textures from: Tiger.x loaded into graphical memory.
+08.01.2015 15:47:00 - Info: Mesh: HumanFinal.x loaded into graphical memory.
+08.01.2015 15:47:00 - Info: Materials from: HumanFinal.x loaded into graphical memory.
+08.01.2015 15:47:00 - Info: Textures from: HumanFinal.x loaded into graphical memory.
+08.01.2015 15:47:00 - Info: Geometry initialised.
+08.01.2015 15:47:01 - Info: Kernel cleaned up.

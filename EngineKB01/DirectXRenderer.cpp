@@ -92,8 +92,8 @@ void DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
 		//Load in the Textures for the Mesh.
 		LoadTextures((*iter)->GetFilePath(), d3dxMaterials);
 	}
-    //Done with the material buffer
-    _pD3DXMtrlBuffer->Release();
+	//Done with the material buffer
+	_pD3DXMtrlBuffer->Release();
 
 	//Writes an info message to the log.
 	_logger->WriteLog("Geometry initialised.", Logger::MessageType::Info);
