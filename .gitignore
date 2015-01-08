@@ -184,13 +184,10 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 EngineKB01.sdf
-EngineKB01/LogFile.txt
-EngineKB01/LogFile.txt
 EngineKB01/Kernel.cpp.orig
 EngineKB01/EngineKB01.vcxproj
 EngineKB01/EngineKB01.vcxproj.filters
 EngineKB01/HumanFinal.x
-EngineKB01/LogFile.txt
 EngineKB01/SceneFile.txt
 EngineKB01/EngineKB01.vcxproj
 EngineKB01/EngineKB01.vcxproj.filters
