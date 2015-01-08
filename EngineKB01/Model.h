@@ -6,7 +6,7 @@
 class Model : public Entity
 {
 public:
-	Model();
+	Model(ResourceManager* rsm, std::string meshName);
 	~Model();
 	void Render(Renderer* renderer, ResourceManager* msm);//Makes the Model render itself.
 	void SetMeshName(std::string meshName);

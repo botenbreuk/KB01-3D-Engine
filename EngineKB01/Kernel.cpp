@@ -34,7 +34,7 @@ void Kernel::Initialize()
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
 
-	Scene* s = _sceneManager->AddScene();
+	Scene* s = _sceneManager->AddScene(_resourceManager);
 	
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel initialised.", Log::MessageType::Info);

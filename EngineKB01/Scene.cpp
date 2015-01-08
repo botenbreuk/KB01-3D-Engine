@@ -1,9 +1,10 @@
 #include "Scene.h"
 
 
-Scene::Scene()
+Scene::Scene(ResourceManager* rsm)
 {
-	AddModel("tiger.x");
+	AddModel("tiger.x", rsm);
+	AddModel("HumanFinal.x", rsm);
 }
 
 
@@ -58,9 +59,9 @@ void Scene::RemoveEntity(Entity* entity)
 
 ///Adds a Model to the Scene.
 ///_meshName: The name for the Model's Mesh.
-void Scene::AddModel(std::string _meshName)
+void Scene::AddModel(std::string _meshName, ResourceManager* rsm)
 {
-	Model* mod = new Model();
-	mod->SetMeshName(_meshName);
+	Model* mod = new Model(rsm, _meshName);
+	//5mod->SetMeshName(_meshName);
 	_modelList.push_front(mod);
 }

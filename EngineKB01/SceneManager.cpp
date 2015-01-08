@@ -31,9 +31,9 @@ void SceneManager::UpdateAllScenes()
 }
 
 ///Adds a Scene to the Manager's list.
-Scene* SceneManager::AddScene()
+Scene* SceneManager::AddScene(ResourceManager* rsm)
 {
-	Scene* newScene = new Scene();
+	Scene* newScene = new Scene(rsm);
 	_scenes.push_front(newScene);
 	return newScene;
 }

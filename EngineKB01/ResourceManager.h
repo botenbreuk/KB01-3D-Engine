@@ -20,13 +20,13 @@ public:
 	Mesh* GetMesh(std::string meshName); //Returns a pointer to the Mesh with the given name.
 	Texture* GetTexture(std::string textureName); //Returns a pointer to the Texture with the given name.
 	void LoadMeshes();
+	void LoadMesh(std::string meshName, std::string filePath); //Loads in a Mesh.
+	void LoadTexture(std::string textureName, std::string filePath); //Loads in a Texture.
 
 private:
-	void LoadMesh(std::string meshName, std::string filePath); //Loads in a Mesh.
 	bool MeshLoadedIn(std::string filePath); //Checks if the specific Mesh is already loaded in.
 	std::string GetMeshName(std::string filePath); //Gives the name of the loaded in Mesh.
 
-	void LoadTexture(std::string textureName, std::string filePath); //Loads in a Texture.
 	bool TextureLoadedIn(std::string filePath); //Checks if the specific Texture is already loaded in.
 	std::string GetTextureName(std::string filePath); //Gives the name of the loaded in Texture.
 

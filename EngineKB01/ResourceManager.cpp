@@ -4,9 +4,6 @@ ResourceManager::ResourceManager(Log* logger, Renderer* renderer)
 {
 	_logger = logger;
 	_renderer = renderer;
-
-	Mesh* tigerX = new Mesh("tiger.x");
-	_meshes["tiger.x"] = tigerX;
 }
 
 ResourceManager::~ResourceManager()
