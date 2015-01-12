@@ -13,10 +13,12 @@ Scene::~Scene()
 
 ///Tells all entities in this scene to render themselves.
 ///renderer: A pointer to the renderer used.
-void Scene::Render(Renderer* renderer, ResourceManager* msm)
+void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 {
 
 	//Clear buffers and begin rendering
+	
+	renderer->SetTargetSwapChain(window->GetHWND());
 	renderer->ClearScreen();
 	renderer->BeginScene();
 	
@@ -30,7 +32,7 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm)
 
 	//Ends rendering
 	renderer->EndScene();
-	renderer->Present();
+	renderer->Present(window->GetHWND());
 }
 
 ///Updates the Entities in the Scene.

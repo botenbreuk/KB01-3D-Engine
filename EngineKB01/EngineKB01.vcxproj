@@ -99,6 +99,7 @@
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="WindowSceneConnector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="WindowSceneConnector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EngineKB01.rc" />

@@ -10,6 +10,7 @@
 #include "DirectXRenderer.h"
 #include "LoggerPool.h"
 #include "DirectXInputHandler.h"
+#include "WindowSceneConnector.h"
 
 class Kernel
 {
@@ -29,6 +30,7 @@ private:
 	Logger* _logger;//A logger for writing to the logfile.
 	APIType _usedType;//The type of API the engine uses.
 	InputHandler * _inputHandler;//The InputHandler the Engine uses.
+	WindowSceneConnector* _WSC; //The connector for windows and scenes
 };
 
 #endif
