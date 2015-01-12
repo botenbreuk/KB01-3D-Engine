@@ -33,8 +33,8 @@ void Kernel::Initialize()
 	_resourceManager = new ResourceManager((DirectXRenderer*)_renderers[_usedType]);
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
-
-	Scene* s = _sceneManager->AddScene(_resourceManager);
+	_WSC = new WindowSceneConnector();
+	
 	
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel initialised.", Logger::MessageType::Info);
@@ -43,11 +43,23 @@ void Kernel::Initialize()
 ///The basic loop of the Engine.
 void Kernel::Run()
 {
+	//Create a default scene
+	Scene* s = _sceneManager->AddScene(_resourceManager);
+
 	//Creates a Window.
-	HWND hWND = _windowManager->CreateNewWindow();
+	Window* w = _windowManager->CreateNewWindow();
+	Window* w2 = _windowManager->CreateNewWindow();
+	w2->SetTitle("2e window yo");
+
+	//Connect create scene and window
+	_WSC->AddConnection(s, w2);
+	_WSC->AddConnection(s, w);
+	//Sets default scene to new window
+	//_windowManager->SetNewestScene(s);
 
 	//Initialises 3D
-	_renderers[_usedType]->Init3D(hWND);
+	_renderers[_usedType]->Init3D(w->GetHWND());
+	_renderers[_usedType]->CreateSwapChain(w2->GetHWND());
 
 	//Loads in the Meshes.
 	_resourceManager->LoadMeshes();
@@ -71,7 +83,7 @@ void Kernel::Run()
 		else
 		{
 			//Renders all the Scenes of this Engine.
-			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager);
+			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager, _WSC);
 		}
 	}
 }
@@ -86,6 +98,7 @@ void Kernel::CleanUp()
 	delete _resourceManager;
 	delete _windowManager;
 	delete _sceneManager;
+	delete _WSC;
 
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel cleaned up.", Logger::MessageType::Info);

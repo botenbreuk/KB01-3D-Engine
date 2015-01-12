@@ -35,6 +35,7 @@ void Window::Initialize()
 	UpdateWindow( _window );
 }
 
+
 ///Updates the title of the window.
 ///title: The new title for the window.
 void Window::SetTitle(std::string title)

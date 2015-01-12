@@ -11,10 +11,10 @@ WindowManager::~WindowManager()
 }
 
 ///Creates a new Window.
-HWND WindowManager::CreateNewWindow()
+Window* WindowManager::CreateNewWindow()
 {
-	Window* window = new Window();
-	window->SetTitle("Voorbeeldtitel");
-	
-	return window->GetHWND();
+	Window* newWindow = new Window();
+	newWindow->SetTitle("Voorbeeldtitel");
+	_windows.push_front(newWindow);
+	return newWindow;
 }
