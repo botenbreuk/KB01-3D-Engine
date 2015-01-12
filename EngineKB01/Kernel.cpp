@@ -4,6 +4,7 @@ Kernel::Kernel()
 {
 	//TODO: refactor to ask/check which type of Renderer to use.
 	_usedType = APIType::DirectX;
+	_logger = LoggerPool::GetInstance()->GetLogger("Kernel");
 }
 
 Kernel::~Kernel()
@@ -13,14 +14,13 @@ Kernel::~Kernel()
 ///Initialises the compartments of the Engine.
 void Kernel::Initialize()
 {
-	Logger* _logger = LoggerPool::GetInstance()->GetLogger();
 
 	//Checks the type of Renderer to use.
 	switch (_usedType)
 	{
-		case DirectX:	_renderers[_usedType] = new DirectXRenderer(_logger);
+		case DirectX:
+			_renderers[_usedType] = new DirectXRenderer();
 			_inputHandler = new DirectXInputHandler();
-			_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
 			break;
 		case OpenGL:	//TODO: Implement.
 			_logger->WriteLog("API used: OpenGL", Logger::MessageType::Info);
@@ -30,7 +30,7 @@ void Kernel::Initialize()
 			break;
 	}
 
-	_resourceManager = new ResourceManager(_logger,(DirectXRenderer*)_renderers[_usedType]);
+	_resourceManager = new ResourceManager((DirectXRenderer*)_renderers[_usedType]);
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
 

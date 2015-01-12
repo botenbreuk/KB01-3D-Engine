@@ -1,17 +1,19 @@
 #ifndef __DIRECTXRENDERER_H__
 #define __DIRECTXRENDERER_H__
 
-#include "Renderer.h"
-#include "Mesh.h"
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <list>
 #include <map>
 
+#include "Renderer.h"
+#include "Mesh.h"
+#include "LoggerPool.h"
+
 class DirectXRenderer : public Renderer
 {
 public:
-	DirectXRenderer(Logger* logger);
+	DirectXRenderer();
 	~DirectXRenderer();
 
 	void Init3D(HWND hWnd);//Initialises DirectX.

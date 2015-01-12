@@ -3,9 +3,10 @@
 
 #include <string>
 #include <Windows.h>
+#include <list>
+
 #include "Mesh.h"
 #include "Logger.h"
-#include <list>
 
 class Renderer
 {

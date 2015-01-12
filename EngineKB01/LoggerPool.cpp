@@ -20,18 +20,20 @@ LoggerPool* LoggerPool::GetInstance()
 
 ///Returns an available logger, or if there are none,
 ///creates a new logger and returns that instead
-Logger* LoggerPool::GetLogger()
+Logger* LoggerPool::GetLogger(std::string logFileName)
 {
-	if(0 <_available->size())
+	if(0 < _available->size())
 	{
 		Logger* l = _available->front();
 		_inUse->push_back(l);
 		_available->pop_front();
+
+		l->setWriteDestination(logFileName);
 		return l;
 	}
 	else
 	{
-		Logger* l = new Logger();
+		Logger* l = new Logger(logFileName);
 		_inUse->push_back(l);
 		return l;
 	}
@@ -40,7 +42,7 @@ Logger* LoggerPool::GetLogger()
 ///Puts a logger that was in use back into the available loggers
 void LoggerPool::ReleaseLogger(Logger* l)
 {
-	//TODO: let the logger forget to which logfile it needs to write
+	l->setWriteDestination("NULL - Should Not Be Used");
 	_available->push_back(l);
 	_inUse->remove(l);
 }

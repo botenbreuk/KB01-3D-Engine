@@ -1,8 +1,9 @@
 #include "DirectXRenderer.h"
 
-DirectXRenderer::DirectXRenderer(Logger* logger)
+DirectXRenderer::DirectXRenderer()
 {
-	_logger = logger;
+	_logger = LoggerPool::GetInstance()->GetLogger("Renderer");
+	_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
 }
 
 
