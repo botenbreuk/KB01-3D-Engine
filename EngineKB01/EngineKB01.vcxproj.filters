@@ -78,9 +78,6 @@
     <ClInclude Include="LoggerPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowSceneConnector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -144,9 +141,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LoggerPool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowSceneConnector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

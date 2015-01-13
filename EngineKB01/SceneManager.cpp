@@ -11,10 +11,9 @@ SceneManager::~SceneManager()
 }
 
 ///Renders all the Scenes this Manager knows.
-void SceneManager::RenderAllScenes(Renderer* renderer, ResourceManager* msm, WindowSceneConnector* wsc)
+void SceneManager::RenderAllScenes(Renderer* renderer, ResourceManager* msm, std::list<std::pair<Scene*, Window*>> pairs)
 {
 	std::list<std::pair<Scene*, Window*>>::const_iterator iter;
-	std::list<std::pair<Scene*, Window*>> pairs = wsc->GetList();
 
 	for(iter = pairs.begin(); iter != pairs.end(); iter++)
 	{
