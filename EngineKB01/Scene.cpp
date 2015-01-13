@@ -1,5 +1,8 @@
 #include "Scene.h"
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
 
 Scene::Scene(ResourceManager* rsm)
 {
@@ -58,11 +61,10 @@ void Scene::RemoveEntity(Entity* entity)
 
 ///Adds a Model to the Scene.
 ///_meshName: The name for the Model's Mesh.
-void Scene::AddModel(std::string _meshName, ResourceManager* rsm)
+void Scene::AddModel(Model* model)
 {
-	Model* mod = new Model(rsm, _meshName);
-	//5mod->SetMeshName(_meshName);
-	_modelList.push_front(mod);
+	//mod->SetMeshName(_meshName);
+	_modelList.push_front(model);
 }
 
 ///Loads list of models from a file
@@ -75,7 +77,23 @@ void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 	{
 		while(std::getline(file, line))
 		{
-			if(CheckFileExists(line)) AddModel(line, rsm);
+			std::string temp;
+			std::vector<std::string> cds;
+			std::stringstream str(line);
+			while(str >> temp)
+			cds.push_back(temp);
+
+			if(CheckFileExists(cds[0])) 
+			{
+				float x = std::stof(cds[1]);
+				float y = std::stof(cds[2]);
+				float z = std::stof(cds[3]);
+
+				Model* model = new Model(rsm, cds[0], true);
+				model->SetPosistion(x, y, z);
+
+				AddModel(model);
+			}
 			else std::cout << "File not found: " << line;
 		}
 	}

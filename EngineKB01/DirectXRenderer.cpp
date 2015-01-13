@@ -64,6 +64,11 @@ void DirectXRenderer::Init3D( HWND hWnd )
 
         return;
     }
+	//// Turn on the zbuffer
+ //   _g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
+
+	//// Turn on the zbuffer
+ //   _g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
     // Turn on the zbuffer
     _g_pd3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
@@ -216,7 +221,7 @@ void DirectXRenderer::SetupMatrices()
 {
     // Set up world matrix
     D3DXMATRIXA16 matWorld;
-    D3DXMatrixRotationY( &matWorld, timeGetTime() / 1000.0f );
+	D3DXMatrixIdentity(&matWorld);
     _g_pd3dDevice->SetTransform( D3DTS_WORLD, &matWorld );
 
     // Set up our view matrix. A view matrix can be defined given an eye point,
@@ -239,6 +244,28 @@ void DirectXRenderer::SetupMatrices()
     D3DXMATRIXA16 matProj;
     D3DXMatrixPerspectiveFovLH( &matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f );
     _g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );
+}
+
+void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, bool check)
+{
+	D3DXMATRIXA16 matModel;
+	D3DXMATRIX matRotY;
+	D3DXMATRIX matScale;
+	D3DXMATRIX matTranslate;
+
+	D3DXMatrixRotationY(&matRotY, timeGetTime() / 1000.0f);
+	D3DXMatrixIdentity(&matModel);
+	D3DXMatrixScaling(&matScale, scale, scale, scale);
+	D3DXMatrixTranslation(&matTranslate, x, y, z);
+    // Set up model matrix
+    if(check)
+	{
+		 _g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matScale * matTranslate * matRotY) );
+	}
+	else
+	{
+		_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
+	}
 }
 
 ///Gives back the number of Materials in a Mesh.

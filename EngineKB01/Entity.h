@@ -8,6 +8,13 @@ class Entity
 public:
 	~Entity();
 	void Update();//Updates the entity.
+
+private:
+
+protected:
+	float _xPos;
+	float _yPos;
+	float _zPos;
 };
 
 #endif
