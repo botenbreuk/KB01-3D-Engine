@@ -39,3 +39,11 @@ Scene* SceneManager::AddScene(ResourceManager* rsm)
 	_scenes.push_front(newScene);
 	return newScene;
 }
+
+Scene* SceneManager::AddSceneFromFile(ResourceManager* rsm, std::string filePath)
+{
+	Scene* newScene = new Scene(rsm);
+	newScene->LoadSceneFromFile(filePath, rsm);
+	_scenes.push_front(newScene);
+	return newScene;
+}

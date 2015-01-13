@@ -191,7 +191,6 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	}
 }
 
-
 ///Prepares a Material for rendering.
 void DirectXRenderer::SetMaterial(std::string filePath, DWORD i)
 {

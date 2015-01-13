@@ -70,11 +70,12 @@ void Scene::AddModel(std::string _meshName, ResourceManager* rsm)
 ///Loads list of models from a file
 void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 {
-	std::ifstream file(fileName);
-	std::string line;
-
 	if(CheckFileExists(fileName))
 	{
+		_modelList.clear();
+		std::ifstream file(fileName);
+		std::string line;
+	
 		while(std::getline(file, line))
 		{
 			if(CheckFileExists(line)) AddModel(line, rsm);

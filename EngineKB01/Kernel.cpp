@@ -43,22 +43,24 @@ void Kernel::Initialize()
 ///The basic loop of the Engine.
 void Kernel::Run()
 {
-	//Create a default scene
+	//Create a default scene and custom scene from scenefile
 	Scene* s = _sceneManager->AddScene(_resourceManager);
-
-	//Creates a Window.
+	Scene* customS = _sceneManager->AddSceneFromFile(_resourceManager, "CustomSceneFile.txt");
+	
+	//Creates two windows
 	Window* w = _windowManager->CreateNewWindow();
 	Window* w2 = _windowManager->CreateNewWindow();
+	
 	w2->SetTitle("2e window yo");
 
-	//Connect create scene and window
-	_WSC->AddConnection(s, w2);
+	//Connect created scene and window
+	_WSC->AddConnection(customS, w2);
 	_WSC->AddConnection(s, w);
-	//Sets default scene to new window
-	//_windowManager->SetNewestScene(s);
 
 	//Initialises 3D
 	_renderers[_usedType]->Init3D(w->GetHWND());
+
+	//Create swapchain for second window
 	_renderers[_usedType]->CreateSwapChain(w2->GetHWND());
 
 	//Loads in the Meshes.

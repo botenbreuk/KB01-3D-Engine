@@ -1,0 +1,15 @@
+http://www.directxtutorial.com/
+http://rbellek.wordpress.com/
+http://www.winprog.org/tutorial/
+http://www.chadvernon.com/blog/resources/directx9/
+
+| Render Engine |
+This module is responsible for everything that you see on the screen. A graphic API like OpenGL or Direct3D must be used in render engine. The main idea in my design is seperating jobs. In order to build a powerfull, flexible and stable you have to take control of every object and the memory. So I group associated classes and create a manager class in order to manage them. Let’s take a look at my design;
+
+Scene Manager
+Model Manager
+GUI Manager
+Light Manager
+Camera Manager
+Resource Manager
+Animation Manager
