@@ -1,10 +1,10 @@
 #include "Model.h"
 
-
-Model::Model(ResourceManager* rsm, std::string meshName)
+Model::Model(ResourceManager* rsm, std::string meshName, bool check)
 {
 	_meshName = meshName;
 	rsm->LoadMesh(_meshName, _meshName);
+	this->_rotate = check;
 }
 
 
@@ -30,6 +30,13 @@ void Model::SetMeshName(std::string meshName)
 	_meshName = meshName;
 }
 
+void Model::SetPosistion(float x, float y, float z)
+{
+	this->_xPos = x;
+	this->_yPos = y;
+	this->_zPos = z;
+}
+
 ///Prepares this Model for rendering by setting the Materials and Textures.
 ///filePath: filePath to the Mesh, which is the key for the Materials and the Textures.
 ///renderer: A pointer to the renderer used.
@@ -39,4 +46,5 @@ void Model::Prepare(std::string filePath, Renderer* renderer, DWORD i)
 	// Set the material and texture for this subset
 	renderer->SetMaterial(filePath, i);
 	renderer->SetTexture(filePath, i);
+	renderer->SetModelMatrix(_xPos, _yPos, _zPos, 1, _rotate);
 }

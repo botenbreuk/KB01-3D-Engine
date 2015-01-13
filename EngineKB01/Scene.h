@@ -8,6 +8,7 @@
 #include "DirectXRenderer.h"
 #include "ResourceManager.h"
 #include <list>
+#include <vector>
 
 class Scene
 {
@@ -21,12 +22,12 @@ public:
 	void RemoveEntity(Entity* entity);//Removes a specific Entity from the scene.
 	void Update();//Updates the Entities in the Scene,
 	void LoadSceneFromFile(std::string fileName, ResourceManager* rsm); //Loads list of models from a file
-	void AddModel(std::string _meshName, ResourceManager* rsm); //Adds a Model to the Scene.
-
+	void AddModel(Model* model);//Adds a Model to the Scene.
 
 private:
 	
 	bool CheckFileExists(std::string fileName);
+
 };
 
 #endif

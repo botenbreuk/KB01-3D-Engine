@@ -25,6 +25,8 @@ public:
 	
 	virtual void Present(HWND hWND) = 0;//Present the backbuffer contents to the display
 
+	virtual void SetModelMatrix(float x, float y, float z, float scale, bool check) = 0;//Sets a matrix for a model to place in the world matrix
+
 	virtual void Init3D(HWND hWnd) = 0;//Initialises the 3D.
 	virtual void InitGeometry(std::list<Mesh*> meshes) = 0;//Initialises the geometry of a Scene.
 	virtual void CreateSwapChain(HWND hWND) = 0; //Creates new swap chain for a window
