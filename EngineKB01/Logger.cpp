@@ -1,7 +1,8 @@
 #include "Logger.h"
 
-Logger::Logger()
+Logger::Logger(std::string logFileName)
 {
+	_logFileName = logFileName;
 }
 
 
@@ -20,8 +21,13 @@ void Logger::WriteLog(const char* logMessage, MessageType mt)
 	//Converts the specific message type to characters so they can be written in the logfile
 	const char* messType = MtToChar(mt);
 
-	//Writes to the logfile.
-	FILE* pFile = fopen("LogFile.txt", "a");
+	//initializes the filepath
+	std::string filePath = "Logs/";
+	filePath += _logFileName;
+	filePath += ".txt";
+
+	//Writes the message to the logfile.
+	FILE* pFile = fopen(filePath.c_str(), "a");
 	fprintf(pFile, currentTimeDate);
 	fprintf(pFile, " - ");
 	fprintf(pFile, messType);
@@ -38,11 +44,22 @@ void Logger::WriteLog(const char* logMessage, MessageType mt)
 ///File /EngineKB01/LogFile.txt is created automatically (if it does not exist yet).
 void Logger::WriteLog(std::string logMessage, MessageType mt)
 {
-	char* returnChar = new char[logMessage.size() + 1];
-	std::copy(logMessage.begin(), logMessage.end(), returnChar);
-	returnChar[logMessage.size()] = '\0';
+	const char* logMessageInChar = StringToChar(logMessage);
+	WriteLog(logMessageInChar, mt);
+}
 
-	WriteLog(returnChar, mt);
+void Logger::setWriteDestination(std::string logFileName)
+{
+	_logFileName = logFileName;
+}
+
+const char* Logger::StringToChar(std::string s)
+{
+	char* returnChar = new char[s.size() + 1];
+	std::copy(s.begin(), s.end(), returnChar);
+	returnChar[s.size()] = '\0';
+
+	return returnChar;
 }
 
 ///Convert value of enum to char*

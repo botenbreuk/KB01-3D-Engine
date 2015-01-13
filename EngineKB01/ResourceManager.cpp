@@ -1,9 +1,10 @@
 #include "ResourceManager.h"
 
-ResourceManager::ResourceManager(Logger* logger, Renderer* renderer)
+ResourceManager::ResourceManager(Renderer* renderer)
 {
-	_logger = logger;
 	_renderer = renderer;
+	_logger = LoggerPool::GetInstance()->GetLogger("RecourceManager");
+	_logger->WriteLog("RecourceManager Initialized", Logger::MessageType::Info);
 }
 
 ResourceManager::~ResourceManager()

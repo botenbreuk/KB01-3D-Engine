@@ -9,10 +9,10 @@ class LoggerPool
 {
 public:
 	static LoggerPool* GetInstance(); //Returns the singleton instance of this class
-	Logger* GetLogger();
+	Logger* GetLogger(std::string logFileName);
 	void ReleaseLogger(Logger* logger);
 private:
-	static LoggerPool* _instance;//The s gleton instance of this class
+	static LoggerPool* _instance;//The singleton instance of this class
 	LoggerPool();
 	LoggerPool(LoggerPool const&);	  //These constructors are also private, so that
 	void operator=(LoggerPool const&);//the singleton instance cannot be copied

@@ -1,8 +1,9 @@
 #include "DirectXRenderer.h"
 
-DirectXRenderer::DirectXRenderer(Logger* logger)
+DirectXRenderer::DirectXRenderer()
 {
-	_logger = logger;
+	_logger = LoggerPool::GetInstance()->GetLogger("Renderer");
+	_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
 }
 
 
@@ -15,6 +16,15 @@ void DirectXRenderer::ClearScreen()
 {
 	_g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB( 255, 0, 0 ), 1.0f, 0 );
 
+}
+
+void DirectXRenderer::SetTargetSwapChain(HWND hWND)
+{
+
+	LPDIRECT3DSURFACE9 pBackBuffer = NULL;
+	_swapchains[hWND]->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
+	
+	_g_pd3dDevice->SetRenderTarget(0, pBackBuffer);
 }
 
 ///Begin rendering.
@@ -30,9 +40,11 @@ void DirectXRenderer::EndScene()
 }
 
 ///Present the backbuffer contents to the display.
-void DirectXRenderer::Present()
+void DirectXRenderer::Present(HWND hWND)
 {
-	_g_pd3dDevice->Present( NULL, NULL, NULL, NULL );
+	
+	_swapchains[hWND]->Present(NULL, NULL, hWND, NULL, 0);
+	//_g_pd3dDevice->Present( NULL, NULL, NULL, NULL );
 }
 
 ///Initialises DirectX.
@@ -48,7 +60,7 @@ void DirectXRenderer::Init3D( HWND hWnd )
 	}
 
     // Set up the structure used to create the D3DDevice.
-    D3DPRESENT_PARAMETERS d3dpp;
+   
     ZeroMemory( &d3dpp, sizeof( d3dpp ) );
     d3dpp.Windowed = TRUE;
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -69,6 +81,10 @@ void DirectXRenderer::Init3D( HWND hWnd )
 
 	//// Turn on the zbuffer
  //   _g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
+
+	//CREATE SWAPCHAINS HERE!
+	_g_pd3dDevice->GetSwapChain(0, &_swapchains[hWnd]);
+	//_g_pd3dDevice->CreateAdditionalSwapChain( &d3dpp, &_g_swapChain_1 );
 
     // Turn on the zbuffer
     _g_pd3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
@@ -180,7 +196,6 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	}
 }
 
-
 ///Prepares a Material for rendering.
 void DirectXRenderer::SetMaterial(std::string filePath, DWORD i)
 {
@@ -273,4 +288,9 @@ void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, boo
 DWORD DirectXRenderer::GetNumberOfMaterials(std::string filePath)
 {
 	return _g_dwNumMaterials[filePath];
+}
+
+void DirectXRenderer::CreateSwapChain(HWND hWND)
+{
+	_g_pd3dDevice->CreateAdditionalSwapChain( &d3dpp, &_swapchains[hWND]);
 }

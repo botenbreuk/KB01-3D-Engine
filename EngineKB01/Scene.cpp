@@ -16,10 +16,12 @@ Scene::~Scene()
 
 ///Tells all entities in this scene to render themselves.
 ///renderer: A pointer to the renderer used.
-void Scene::Render(Renderer* renderer, ResourceManager* msm)
+void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 {
 
 	//Clear buffers and begin rendering
+	
+	renderer->SetTargetSwapChain(window->GetHWND());
 	renderer->ClearScreen();
 	renderer->BeginScene();
 	
@@ -33,7 +35,7 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm)
 
 	//Ends rendering
 	renderer->EndScene();
-	renderer->Present();
+	renderer->Present(window->GetHWND());
 }
 
 ///Updates the Entities in the Scene.
@@ -70,11 +72,12 @@ void Scene::AddModel(Model* model)
 ///Loads list of models from a file
 void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 {
-	std::ifstream file(fileName);
-	std::string line;
-
 	if(CheckFileExists(fileName))
 	{
+		_modelList.clear();
+		std::ifstream file(fileName);
+		std::string line;
+	
 		while(std::getline(file, line))
 		{
 			std::string temp;

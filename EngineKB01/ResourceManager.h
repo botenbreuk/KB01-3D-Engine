@@ -11,11 +11,12 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Logger.h"
+#include "LoggerPool.h"
 
 class ResourceManager
 {
 public:
-	ResourceManager(Logger* logger, Renderer* renderer);
+	ResourceManager(Renderer* renderer);
 	~ResourceManager();
 	Mesh* GetMesh(std::string meshName); //Returns a pointer to the Mesh with the given name.
 	Texture* GetTexture(std::string textureName); //Returns a pointer to the Texture with the given name.

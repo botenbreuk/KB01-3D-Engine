@@ -4,6 +4,7 @@ Kernel::Kernel()
 {
 	//TODO: refactor to ask/check which type of Renderer to use.
 	_usedType = APIType::DirectX;
+	_logger = LoggerPool::GetInstance()->GetLogger("Kernel");
 }
 
 Kernel::~Kernel()
@@ -13,14 +14,13 @@ Kernel::~Kernel()
 ///Initialises the compartments of the Engine.
 void Kernel::Initialize()
 {
-	Logger* _logger = LoggerPool::GetInstance()->GetLogger();
 
 	//Checks the type of Renderer to use.
 	switch (_usedType)
 	{
-		case DirectX:	_renderers[_usedType] = new DirectXRenderer(_logger);
+		case DirectX:
+			_renderers[_usedType] = new DirectXRenderer();
 			_inputHandler = new DirectXInputHandler();
-			_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
 			break;
 		case OpenGL:	//TODO: Implement.
 			_logger->WriteLog("API used: OpenGL", Logger::MessageType::Info);
@@ -30,11 +30,11 @@ void Kernel::Initialize()
 			break;
 	}
 
-	_resourceManager = new ResourceManager(_logger,(DirectXRenderer*)_renderers[_usedType]);
+	_resourceManager = new ResourceManager((DirectXRenderer*)_renderers[_usedType]);
 	_windowManager = new WindowManager();
 	_sceneManager = new SceneManager();
-
-	Scene* s = _sceneManager->AddScene(_resourceManager);
+	_WSC = new WindowSceneConnector();
+	
 	
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel initialised.", Logger::MessageType::Info);
@@ -43,11 +43,25 @@ void Kernel::Initialize()
 ///The basic loop of the Engine.
 void Kernel::Run()
 {
-	//Creates a Window.
-	HWND hWND = _windowManager->CreateNewWindow();
+	//Create a default scene and custom scene from scenefile
+	Scene* s = _sceneManager->AddScene(_resourceManager);
+	Scene* customS = _sceneManager->AddSceneFromFile(_resourceManager, "CustomSceneFile.txt");
+	
+	//Creates two windows
+	Window* w = _windowManager->CreateNewWindow();
+	Window* w2 = _windowManager->CreateNewWindow();
+	
+	w2->SetTitle("2e window yo");
+
+	//Connect created scene and window
+	_WSC->AddConnection(customS, w2);
+	_WSC->AddConnection(s, w);
 
 	//Initialises 3D
-	_renderers[_usedType]->Init3D(hWND);
+	_renderers[_usedType]->Init3D(w->GetHWND());
+
+	//Create swapchain for second window
+	_renderers[_usedType]->CreateSwapChain(w2->GetHWND());
 
 	//Loads in the Meshes.
 	_resourceManager->LoadMeshes();
@@ -71,7 +85,7 @@ void Kernel::Run()
 		else
 		{
 			//Renders all the Scenes of this Engine.
-			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager);
+			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager, _WSC);
 		}
 	}
 }
@@ -86,6 +100,7 @@ void Kernel::CleanUp()
 	delete _resourceManager;
 	delete _windowManager;
 	delete _sceneManager;
+	delete _WSC;
 
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel cleaned up.", Logger::MessageType::Info);
