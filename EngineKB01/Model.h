@@ -11,7 +11,7 @@ public:
 	~Model();
 	void Render(Renderer* renderer, ResourceManager* msm);//Makes the Model render itself.
 	void SetMeshName(std::string meshName);
-	void SetPosistion(float x, float y, float z);
+	void SetPosistion(float x = 0, float y = 0, float z = 0);
 	
 	std::string _meshName;//The name of the Mesh this Model uses.
 private:

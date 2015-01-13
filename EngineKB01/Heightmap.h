@@ -1,9 +1,9 @@
 #ifndef __HEIGHTMAP_H__
 #define __HEIGHTMAP_H__
 
-#include "Resource.h"
+#include "Entity.h"
 
-class Heightmap : Resource
+class Heightmap : Entity
 {
 public:
 	Heightmap();

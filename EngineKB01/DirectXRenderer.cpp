@@ -14,7 +14,7 @@ DirectXRenderer::~DirectXRenderer()
 ///Clear the backbuffer and the zbuffer.
 void DirectXRenderer::ClearScreen()
 {
-	_g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB( 255, 0, 0 ), 1.0f, 0 );
+	_g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB( 125, 202, 250 ), 1.0f, 0 );
 
 }
 
@@ -303,13 +303,16 @@ void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, boo
 {
 	D3DXMATRIXA16 matModel;
 	D3DXMATRIX matRotY;
+	D3DXMATRIX matRotX;
 	D3DXMATRIX matScale;
 	D3DXMATRIX matTranslate;
 
 	D3DXMatrixRotationY(&matRotY, timeGetTime() / 1000.0f);
+	D3DXMatrixRotationY(&matRotX, timeGetTime() / 1000.0f);
 	D3DXMatrixIdentity(&matModel);
 	D3DXMatrixScaling(&matScale, scale, scale, scale);
 	D3DXMatrixTranslation(&matTranslate, x, y, z);
+
     // Set up model matrix
     if(check)
 	{
@@ -319,6 +322,9 @@ void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, boo
 	{
 		_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
 	}
+
+
+	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
 
 }
 
