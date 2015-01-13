@@ -22,7 +22,10 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 	renderer->ClearScreen();
 	renderer->BeginScene();
 	
-	renderer->SetupMatrices();
+	//renderer->SetupMatrices();
+	renderer->SetupWorldMatrix();
+	renderer->SetupViewMatrix(-20.0f);
+	renderer->SetupProjectionMatrix();
 
 	std::list<Model*>::const_iterator iter;
 	for(iter = _modelList.begin(); iter != _modelList.end(); iter++)
