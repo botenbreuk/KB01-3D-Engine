@@ -187,3 +187,7 @@ EngineKB01.sdf
 EngineKB01/HumanFinal.x
 EngineKB01/SceneFile.txt
 EngineKB01/LogFile.txt
+EngineKB01/Logs/Kernel.txt
+EngineKB01/Logs/RecourceManager.txt
+EngineKB01/Logs/Renderer.txt
+EngineKB01/Scene.h.orig
