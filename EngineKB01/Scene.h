@@ -1,14 +1,15 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
+#include <list>
+#include <vector>
+
 #include "entity.h"
 #include "Window.h"
 #include "model.h"
 #include "Renderer.h"
 #include "DirectXRenderer.h"
 #include "ResourceManager.h"
-#include <list>
-#include <vector>
 
 class Scene
 {

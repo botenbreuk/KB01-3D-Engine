@@ -4,6 +4,9 @@
 #include <iostream>
 #include <time.h>
 #include <string>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <Windows.h>
 
 class Logger
 {

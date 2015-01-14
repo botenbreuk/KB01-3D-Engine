@@ -2,6 +2,7 @@
 #define __WINDOWMANAGER_H__
 
 #include <list>
+
 #include "Window.h"
 #include "Scene.h"
 

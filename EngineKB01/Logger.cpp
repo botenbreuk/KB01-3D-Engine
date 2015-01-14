@@ -5,7 +5,6 @@ Logger::Logger(std::string logFileName)
 	_logFileName = logFileName;
 }
 
-
 ///Method to write message to log.
 ///logMessage: the message,
 ///mt: MessageType enum.
@@ -21,7 +20,12 @@ void Logger::WriteLog(const char* logMessage, MessageType mt)
 	//Converts the specific message type to characters so they can be written in the logfile
 	const char* messType = MtToChar(mt);
 
-	//initializes the filepath
+	//Create log folder if not exists
+	struct stat info;
+	if (stat("/some/directory", &info) == -1)
+		CreateDirectory(L"Logs", NULL);
+
+	//initializes the filepath to write to
 	std::string filePath = "Logs/";
 	filePath += _logFileName;
 	filePath += ".txt";

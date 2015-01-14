@@ -2,6 +2,7 @@
 #define __SCENEMANAGER_H__
 
 #include <list>
+
 #include "Scene.h"
 #include "DirectXRenderer.h"
 #include "WindowSceneConnector.h"

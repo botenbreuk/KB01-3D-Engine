@@ -1,11 +1,12 @@
 #ifndef __DIRECTXINPUTHANDLER_H__
 #define __DIRECTXINPUTHANDLER_H__
 
-#include "inputhandler.h"
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
 #include <map>
+
+#include "inputhandler.h"
 
 class DirectXInputHandler : public InputHandler
 {

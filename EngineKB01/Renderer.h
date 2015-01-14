@@ -11,7 +11,7 @@
 class Renderer
 {
 public:
-	virtual ~Renderer();
+	virtual ~Renderer() {};
 
 	virtual void SetupMatrices() = 0;//Setup matrices
 
