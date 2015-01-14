@@ -61,6 +61,9 @@ void Kernel::Run()
 	//Create swapchain for second window
 	_renderers[_usedType]->CreateSwapChain(w2->GetHWND());
 
+	//Initialises Input.
+	//_inputHandler->InitInput(w->GetHWND());//Does not work at this moment, crashes the program.
+
 	//Loads in the Meshes.
 	_resourceManager->LoadMeshes();
 
