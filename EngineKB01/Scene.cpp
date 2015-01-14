@@ -88,12 +88,16 @@ void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 
 			if(CheckFileExists(cds[0])) 
 			{
-				float x = std::stof(cds[1]);
-				float y = std::stof(cds[2]);
-				float z = std::stof(cds[3]);
-
 				Model* model = new Model(rsm, cds[0], true);
-				model->SetPosistion(x, y, z);
+				if(cds.size() > 1)
+				{
+					float x = std::stof(cds[1]);
+					float y = std::stof(cds[2]);
+					float z = std::stof(cds[3]);
+
+					model->SetPosistion(x, y, z);
+				}
+				else model->SetPosistion();
 
 				AddModel(model);
 			}

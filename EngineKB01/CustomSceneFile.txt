@@ -1,1 +1,5 @@
-Homer.x
+Tiger.x 2.0 0.0 0.0
+Tiger.x -2.0 0.0 0.0
+Tiger.x 0.0 0.0 3.0
+Tiger.x 0.0 0.0 -3.0
+HumanFinal.x 0.0 0.0 0.0
