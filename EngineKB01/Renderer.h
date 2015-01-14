@@ -14,7 +14,9 @@ public:
 	virtual ~Renderer() {};
 
 	virtual void SetupMatrices() = 0;//Setup matrices
-
+	virtual void SetupWorldMatrix() = 0;
+	virtual void SetupViewMatrix(float z = -5.0f) = 0;
+	virtual void SetupProjectionMatrix() = 0;
 	virtual	void ClearScreen() = 0;//Clear the backbuffer and the zbuffer
 
 	virtual void SetTargetSwapChain(HWND hWND) = 0;

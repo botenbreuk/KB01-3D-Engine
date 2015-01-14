@@ -5,14 +5,13 @@
 
 #include "Scene.h"
 #include "DirectXRenderer.h"
-#include "WindowSceneConnector.h"
 
 class SceneManager
 {
 public:
 	SceneManager();
 	~SceneManager();
-	void RenderAllScenes(Renderer* renderer, ResourceManager* msm, WindowSceneConnector* wsc);//Renders all the Scenes this Manager knows.
+	void RenderAllScenes(Renderer* renderer, ResourceManager* msm, std::list<std::pair<Scene*, Window*>> pairs);//Renders all the Scenes this Manager knows.
 	void UpdateAllScenes();//Updates all the Scenes this Manager knows.
 	Scene* AddScene(ResourceManager* rsm);//Adds a Scene to the Manager's list.
 	Scene* AddSceneFromFile(ResourceManager* rsm, std::string filePath); //Adds a Scene with a specific filepath to the Manager's list.

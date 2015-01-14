@@ -65,7 +65,6 @@ LRESULT CALLBACK Window::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
     switch( msg )
     {
         case WM_DESTROY:
-            PostQuitMessage( 0 );
             return 0;
 		case WM_LBUTTONDOWN:
             std::cout << "\nmouse left button down at (" << LOWORD(lParam)

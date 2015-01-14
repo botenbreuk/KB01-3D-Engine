@@ -32,9 +32,7 @@ void Kernel::Initialize()
 
 	_resourceManager = new ResourceManager((DirectXRenderer*)_renderers[_usedType]);
 	_windowManager = new WindowManager();
-	_sceneManager = new SceneManager();
-	_WSC = new WindowSceneConnector();
-	
+	_sceneManager = new SceneManager();	
 	
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel initialised.", Logger::MessageType::Info);
@@ -54,8 +52,8 @@ void Kernel::Run()
 	w2->SetTitle("2e window yo");
 
 	//Connect created scene and window
-	_WSC->AddConnection(customS, w2);
-	_WSC->AddConnection(s, w);
+	AddConnection(customS, w2);
+	AddConnection(s, w);
 
 	//Initialises 3D
 	_renderers[_usedType]->Init3D(w->GetHWND());
@@ -85,7 +83,7 @@ void Kernel::Run()
 		else
 		{
 			//Renders all the Scenes of this Engine.
-			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager, _WSC);
+			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager, _pairs);
 		}
 	}
 }
@@ -100,8 +98,14 @@ void Kernel::CleanUp()
 	delete _resourceManager;
 	delete _windowManager;
 	delete _sceneManager;
-	delete _WSC;
 
 	//Writes an info message to the logfile.
 	_logger->WriteLog("Kernel cleaned up.", Logger::MessageType::Info);
+}
+
+void Kernel::AddConnection(Scene* scene, Window* window)
+{
+	std::pair<Scene*, Window*> pair;
+	pair = std::make_pair(scene, window);
+	_pairs.push_front(pair);
 }

@@ -261,6 +261,44 @@ void DirectXRenderer::SetupMatrices()
     _g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );
 }
 
+void DirectXRenderer::SetupWorldMatrix()
+{
+	// Set up world matrix
+	D3DXMATRIXA16 matWorld;
+    D3DXMatrixRotationY( &matWorld, timeGetTime() / 1000.0f );
+    _g_pd3dDevice->SetTransform( D3DTS_WORLD, &matWorld );
+}
+
+//Float z: default parameter at -5.0f.
+//Edit to place camera further or closer
+void DirectXRenderer::SetupViewMatrix(float z)
+{
+	// Set up our view matrix. A view matrix can be defined given an eye point,
+    // a point to lookat, and a direction for which way is up. Here, we set the
+    // eye five units back along the z-axis and up three units, look at the 
+    // origin, and define "up" to be in the y-direction.
+	
+	D3DXVECTOR3 vEyePt( 0.0f, 3.0f, z );
+    D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
+    D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
+    D3DXMATRIXA16 matView;
+    D3DXMatrixLookAtLH( &matView, &vEyePt, &vLookatPt, &vUpVec );
+    _g_pd3dDevice->SetTransform( D3DTS_VIEW, &matView );
+}
+
+void DirectXRenderer::SetupProjectionMatrix()
+{
+	// For the projection matrix, we set up a perspective transform (which
+    // transforms geometry from 3D view space to 2D viewport space, with
+    // a perspective divide making objects smaller in the distance). To build
+    // a perpsective transform, we need the field of view (1/4 pi is common),
+    // the aspect ratio, and the near and far clipping planes (which define at
+    // what distances geometry should be no longer be rendered).
+	D3DXMATRIXA16 matProj;
+    D3DXMatrixPerspectiveFovLH( &matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f );
+    _g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );
+}
+
 void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, bool check)
 {
 	D3DXMATRIXA16 matModel;
@@ -275,7 +313,19 @@ void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, boo
 	D3DXMatrixScaling(&matScale, scale, scale, scale);
 	D3DXMatrixTranslation(&matTranslate, x, y, z);
 
+    // Set up model matrix
+    if(check)
+	{
+		 _g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matScale * matTranslate * matRotY) );
+	}
+	else
+	{
+		_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
+	}
+
+
 	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
+
 }
 
 ///Gives back the number of Materials in a Mesh.

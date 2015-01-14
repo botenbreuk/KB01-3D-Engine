@@ -27,7 +27,13 @@ public:
 	void LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMaterials);//Loads in a Texture
 	
 	void SetupMatrices();//Setup matrices.
+
+	void SetupWorldMatrix();
+	void SetupViewMatrix(float z = -5.0f);
+	void SetupProjectionMatrix();
+
 	void SetModelMatrix(float x, float y, float z, float scale, bool check);
+
 
 	void ClearScreen();//Clear the backbuffer and the zbuffer.
 	void SetTargetSwapChain(HWND hWND);
