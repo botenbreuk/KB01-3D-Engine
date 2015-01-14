@@ -8,6 +8,7 @@ class InputHandler
 public:
 	virtual ~InputHandler() = 0;
 	virtual void InitInput(HWND hDlg) = 0;
+	virtual void FreeInput() = 0;
 };
 
 #endif
