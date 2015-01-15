@@ -77,7 +77,7 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 	};
 
     // Retrieve the system mouse
-	if( FAILED( _g_pDI->CreateDevice( GUID_SysMouse, _directInputDevices[Mouse], NULL ) ) )
+	if( FAILED( _g_pDI->CreateDevice( GUID_SysMouse, &_directInputDevices[Mouse], NULL ) ) )
     {
         MessageBox( NULL, TEXT( "Mouse not found." ), TEXT( "Engine LNK2019" ), MB_ICONERROR | MB_OK );
         EndDialog( hDlg, 0 );
@@ -87,13 +87,13 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
     // A data format specifies which controls on a device we are interested in,
     // and how they should be reported. This tells DInput that we will be
     // passing a MouseState structure to IDirectInputDevice::GetDeviceState().
-    if( FAILED( (*_directInputDevices[Mouse])->SetDataFormat( &g_dfMouse ) ) )
+    if( FAILED( (_directInputDevices[Mouse])->SetDataFormat( &g_dfMouse ) ) )
 	{
 	}
 
     // Set the cooperative level to let DInput know how this device should
     // interact with the system and with other DInput applications.
-    if( FAILED( (*_directInputDevices[Mouse])->SetCooperativeLevel( hDlg, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND ) ) )
+    if( FAILED( (_directInputDevices[Mouse])->SetCooperativeLevel( hDlg, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND ) ) )
 	{
         return;
 	}
@@ -107,7 +107,7 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 void DirectXInputHandler::InitKeyboard(HWND hDlg)
 {
 	// Retrieve the system keyboard
-	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, &_keyboard, NULL ) ) )
+	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, &_directInputDevices[Mouse], NULL ) ) )
     {
         MessageBox( NULL, TEXT( "Keyboard not found." ), TEXT( "Engine LNK2019" ), MB_ICONERROR | MB_OK );
         EndDialog( hDlg, 0 );
@@ -127,10 +127,10 @@ void DirectXInputHandler::FreeInput()
 	//Loops through the hardware map and unaquires all the hardware that is aquired.
 	for(int i = First; i <= Last; i++)
 	{
-		if((*_directInputDevices[(InputHardware)i]))
+		if((_directInputDevices[(InputHardware)i]))
 		{
-			(*_directInputDevices[(InputHardware)i])->Unacquire();
-			SAFE_RELEASE((*_directInputDevices[(InputHardware)i]));
+			(_directInputDevices[(InputHardware)i])->Unacquire();
+			SAFE_RELEASE((_directInputDevices[(InputHardware)i]));
 		}
 	}
 

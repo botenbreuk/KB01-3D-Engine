@@ -20,7 +20,7 @@ public:
 private:
 	LPDIRECTINPUT8          _g_pDI; // DirectInput interface
 	LPDIRECTINPUTDEVICE8 _keyboard;
-	std::map<InputHardware, LPDIRECTINPUTDEVICE8*> _directInputDevices;//The devices hooked up to this computer.
+	std::map<InputHardware, LPDIRECTINPUTDEVICE8> _directInputDevices;//The devices hooked up to this computer.
 
 	void InitMouse(HWND hDlg);//Initialises the system mouse.
 	void InitKeyboard(HWND hDlg);//Initialises the system keyboard.
