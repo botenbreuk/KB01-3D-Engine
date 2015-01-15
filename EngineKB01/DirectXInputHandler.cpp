@@ -76,13 +76,6 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 		g_aObjectFormats
 	};
 
-	// Register with the DirectInput subsystem and get a pointer
-    // to a IDirectInput interface we can use.
-    if( FAILED( DirectInput8Create( GetModuleHandle( NULL ), DIRECTINPUT_VERSION, IID_IDirectInput8, ( VOID** )&_g_pDI, NULL ) ) )
-	{
-		return;
-	}
-
     // Retrieve the system mouse
 	if( FAILED( _g_pDI->CreateDevice( GUID_SysMouse, _directInputDevices[Mouse], NULL ) ) )
     {
