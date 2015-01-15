@@ -107,7 +107,7 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 void DirectXInputHandler::InitKeyboard(HWND hDlg)
 {
 	// Retrieve the system keyboard
-	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, _directInputDevices[Keyboard], NULL ) ) )
+	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, &_keyboard, NULL ) ) )
     {
         MessageBox( NULL, TEXT( "Keyboard not found." ), TEXT( "Engine LNK2019" ), MB_ICONERROR | MB_OK );
         EndDialog( hDlg, 0 );
