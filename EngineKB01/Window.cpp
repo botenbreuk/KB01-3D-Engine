@@ -40,9 +40,7 @@ void Window::Initialize()
 ///title: The new title for the window.
 void Window::SetTitle(std::string title)
 {
-	/*
-	Converts string to LCWSTR
-	*/
+	//Converts string to LCWSTR
 	std::wstring stemp = std::wstring(title.begin(), title.end());
 	LPCWSTR sw = stemp.c_str();
 

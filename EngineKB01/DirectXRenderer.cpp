@@ -3,7 +3,6 @@
 DirectXRenderer::DirectXRenderer()
 {
 	_logger = LoggerPool::GetInstance()->GetLogger("Renderer");
-	_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
 }
 
 

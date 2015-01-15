@@ -63,7 +63,7 @@ void Kernel::Run()
 	_renderers[_usedType]->CreateSwapChain(w2->GetHWND());
 
 	//Initialises Input.
-	//_inputHandler->InitInput(w->GetHWND());//Does not work at this moment, crashes the program.
+	_inputHandler->InitInput(w->GetHWND());
 
 	//Loads in the Meshes.
 	_resourceManager->LoadMeshes();

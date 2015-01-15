@@ -3,6 +3,7 @@
 
 DirectXInputHandler::DirectXInputHandler()
 {
+	_logger = LoggerPool::GetInstance()->GetLogger("Input");
 }
 
 
@@ -10,9 +11,34 @@ DirectXInputHandler::~DirectXInputHandler()
 {
 }
 
-
+///Initialises DirectInput.
+///hDlg: The window handler for which the input is initialised.
 void DirectXInputHandler::InitInput(HWND hDlg)
 {
+	//Gives the window the focus so it can find the input devices.
+	HWND WINAPI SetFocus(hDlg);
+
+	// Register with the DirectInput subsystem and get a pointer
+    // to a IDirectInput interface we can use.
+    if( FAILED( DirectInput8Create( GetModuleHandle( NULL ), DIRECTINPUT_VERSION, IID_IDirectInput8, ( VOID** )&_g_pDI, NULL ) ) )
+	{
+		return;
+	}
+	
+	//Initialises the different devices
+	//InitMouse(hDlg);
+	InitKeyboard(hDlg);
+	//TODO: Implement InitXBoxController(hDlg);
+
+	//Writes an info message to the log.
+	_logger->WriteLog("DirectInput initialised.", Logger::MessageType::Info);
+}
+
+///Initialises the system mouse.
+///hDlg: The window for which the mouse is initialised.
+void DirectXInputHandler::InitMouse(HWND hDlg)
+{
+	//Defines the data for the state of the mouse.
 	struct MouseState
 	{
 		LONG lAxisX;
@@ -21,6 +47,7 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 		BYTE bPadding;       // Structure must be DWORD multiple in size.   
 	};
 
+	//The info that comes from the mouse.
 	DIOBJECTDATAFORMAT g_aObjectFormats[] =
 	{
 		{ &GUID_XAxis, FIELD_OFFSET( MouseState, lAxisX ),    // X axis
@@ -34,8 +61,11 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 		{ 0, FIELD_OFFSET( MouseState, abButtons[2] ),        // Button 2 (optional)
 			DIDFT_BUTTON | DIDFT_ANYINSTANCE | DIDFT_OPTIONAL, 0 }
 	};
+
+	//Defines the number of mice.
 	#define numMouseObjects (sizeof(g_aObjectFormats) / sizeof(DIOBJECTDATAFORMAT))
 
+	//The dataformat for the mice.
 	DIDATAFORMAT            g_dfMouse =
 	{
 		sizeof( DIDATAFORMAT ),
@@ -45,8 +75,6 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 		numMouseObjects,
 		g_aObjectFormats
 	};
-
-	HWND WINAPI SetFocus(hDlg);
 
 	// Register with the DirectInput subsystem and get a pointer
     // to a IDirectInput interface we can use.
@@ -76,9 +104,28 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 	{
         return;
 	}
+
+	//Writes an info message to the log.
+	_logger->WriteLog("Mouse initialised.", Logger::MessageType::Info);
 }
 
-//Cleans up the input devices and the interface.
+///Initialises the system keyboard.
+///hDlg: The window for which the keyboard is initialised.
+void DirectXInputHandler::InitKeyboard(HWND hDlg)
+{
+	// Retrieve the system keyboard
+	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, _directInputDevices[Keyboard], NULL ) ) )
+    {
+        MessageBox( NULL, TEXT( "Keyboard not found." ), TEXT( "Engine LNK2019" ), MB_ICONERROR | MB_OK );
+        EndDialog( hDlg, 0 );
+        return;
+    }
+
+	//Writes an info message to the log.
+	_logger->WriteLog("Keyboard initialised.", Logger::MessageType::Info);
+}
+
+///Cleans up the input devices and the interface.
 void DirectXInputHandler::FreeInput()
 {
 	//Defines the safe release function.
@@ -96,4 +143,7 @@ void DirectXInputHandler::FreeInput()
 
 	//Releases the DirectInput interface.
 	SAFE_RELEASE(_g_pDI);
+
+	//Writes an info message to the log.
+	_logger->WriteLog("DirectInput freed.", Logger::MessageType::Info);
 }
