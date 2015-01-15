@@ -49,8 +49,6 @@ void Kernel::Run()
 	//Creates two windows
 	Window* w = _windowManager->CreateNewWindow();
 	Window* w2 = _windowManager->CreateNewWindow();
-	
-	w2->SetTitle("2e window yo");
 
 	//Connect created scene and window
 	AddConnection(customS, w2);

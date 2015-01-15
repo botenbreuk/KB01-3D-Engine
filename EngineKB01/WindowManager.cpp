@@ -13,7 +13,7 @@ WindowManager::~WindowManager()
 Window* WindowManager::CreateNewWindow()
 {
 	Window* newWindow = new Window();
-	newWindow->SetTitle("Voorbeeldtitel");
+	newWindow->SetTitle("Window" + _windows.size());
 	_windows.push_front(newWindow);
 	return newWindow;
 }
