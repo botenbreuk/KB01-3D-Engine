@@ -26,7 +26,7 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 	}
 	
 	//Initialises the different devices
-	//InitMouse(hDlg);
+	InitMouse(hDlg);
 	InitKeyboard(hDlg);
 	//TODO: Implement InitXBoxController(hDlg);
 
