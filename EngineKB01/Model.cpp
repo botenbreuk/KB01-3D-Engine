@@ -7,6 +7,10 @@ Model::Model(ResourceManager* rsm, std::string meshName, bool check)
 	this->_rotate = check;
 }
 
+Model::Model()
+{
+
+}
 
 Model::~Model()
 {

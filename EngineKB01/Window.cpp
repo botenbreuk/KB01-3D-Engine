@@ -53,21 +53,13 @@ void Window::SetSize(int width, int length)
 	MoveWindow(_window, 100, 100, width, length, TRUE);
 }
 
+
 ///Handles some of the possible messages this Window can receive.
-///hWnd:
+///hWnd: The window handler.
 ///msg: The message to be handled.
 ///wParam:
 ///lParam:
 LRESULT CALLBACK Window::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
-    switch( msg )
-    {
-        case WM_DESTROY:
-            return 0;
-		case WM_LBUTTONDOWN:
-            std::cout << "\nmouse left button down at (" << LOWORD(lParam)
-                      << ',' << HIWORD(lParam) << ")\n" ;
-    }
-
     return DefWindowProc( hWnd, msg, wParam, lParam );
 }

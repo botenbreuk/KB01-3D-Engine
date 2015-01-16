@@ -13,6 +13,9 @@ public:
 
 protected:
 	Logger* _logger;//For writing a logfile.
+
+	virtual void InitMouse(HWND hDlg) = 0;//Initialises the system mouse.
+	virtual void InitKeyboard(HWND hDlg) = 0;//Initialises the system keyboard.
 };
 
 #endif

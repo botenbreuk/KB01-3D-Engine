@@ -7,6 +7,7 @@
 #include "entity.h"
 #include "Window.h"
 #include "model.h"
+#include "Skybox.h"
 #include "Renderer.h"
 #include "DirectXRenderer.h"
 #include "ResourceManager.h"
@@ -28,7 +29,7 @@ public:
 private:
 	
 	bool CheckFileExists(std::string fileName);
-
+	Skybox* _skyBox; //Skybox for this scene
 };
 
 #endif
