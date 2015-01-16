@@ -25,7 +25,6 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 	renderer->ClearScreen();
 	renderer->BeginScene();
 	
-	//renderer->SetupMatrices();
 	renderer->SetupWorldMatrix();
 	renderer->SetupViewMatrix(-20.0f);
 	renderer->SetupProjectionMatrix();

@@ -10,7 +10,7 @@ SceneManager::~SceneManager()
 {
 }
 
-///Renders all the Scenes this Manager knows.
+///Renders all the Scenes this Manager knows
 void SceneManager::RenderAllScenes(Renderer* renderer, ResourceManager* msm, std::list<std::pair<Scene*, Window*>> pairs)
 {
 	std::list<std::pair<Scene*, Window*>>::const_iterator iter;
@@ -21,7 +21,7 @@ void SceneManager::RenderAllScenes(Renderer* renderer, ResourceManager* msm, std
 	}
 }
 
-///Renders all the Scenes this Manager knows.
+///Updates all the Scenes this Manager knows
 void SceneManager::UpdateAllScenes()
 {
 	std::list<Scene*>::const_iterator iter;
@@ -31,7 +31,7 @@ void SceneManager::UpdateAllScenes()
 	}
 }
 
-///Adds a Scene to the Manager's list.
+///Adds a Scene to the Manager's list
 Scene* SceneManager::AddScene(ResourceManager* rsm)
 {
 	Scene* newScene = new Scene(rsm);

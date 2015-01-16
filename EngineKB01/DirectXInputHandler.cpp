@@ -44,7 +44,7 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 		LONG lAxisX;
 		LONG lAxisY;
 		BYTE abButtons[3];
-		BYTE bPadding;       // Structure must be DWORD multiple in size.   
+		BYTE bPadding;       // Structure must be DWORD multiple in size.
 	};
 
 	//The info that comes from the mouse.
