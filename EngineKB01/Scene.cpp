@@ -27,7 +27,6 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 	renderer->ClearScreen();
 	renderer->BeginScene();
 	_skyBox->Render(renderer);
-	//renderer->SetupMatrices();
 	renderer->SetupWorldMatrix();
 	renderer->SetupViewMatrix(-18.0f);
 	renderer->SetupProjectionMatrix();
