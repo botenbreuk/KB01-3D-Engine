@@ -7,12 +7,14 @@
 Scene::Scene(ResourceManager* rsm)
 {
 	this->LoadSceneFromFile("SceneFile.txt", rsm);
+	this->_skyBox = new Skybox();
 	terrain = new Terrain();
 }
 
 
 Scene::~Scene()
 {
+	delete _skyBox;
 }
 
 ///Tells all entities in this scene to render themselves.
@@ -25,11 +27,12 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 	renderer->SetTargetSwapChain(window->GetHWND());
 	renderer->ClearScreen();
 	renderer->BeginScene();
-	
-	//renderer->SetupMatrices();
+	_skyBox->Render(renderer);
 	renderer->SetupWorldMatrix();
-	renderer->SetupViewMatrix(-20.0f);
+	renderer->SetupViewMatrix(-18.0f);
 	renderer->SetupProjectionMatrix();
+
+	
 
 	std::list<Model*>::const_iterator iter;
 	for(iter = _modelList.begin(); iter != _modelList.end(); iter++)

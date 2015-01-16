@@ -19,6 +19,12 @@ public:
 	virtual void SetupViewMatrix(float z = -5.0f) = 0;
 	virtual void SetupProjectionMatrix() = 0;
 	virtual	void ClearScreen() = 0;//Clear the backbuffer and the zbuffer
+	
+	virtual void InitSkybox() = 0;
+	virtual void DrawSkybox() = 0;
+	
+	virtual void CreateSkyboxTexture() = 0;
+	virtual void SetSkyboxTexture() = 0;
 
 	virtual void SetTargetSwapChain(HWND hWND) = 0;
 	virtual void BeginScene() = 0;//Begin rendering.

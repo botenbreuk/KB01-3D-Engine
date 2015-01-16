@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <list>
 #include <map>
+
 #include "ResourceManager.h"
 #include "WindowManager.h"
 #include "SceneManager.h"

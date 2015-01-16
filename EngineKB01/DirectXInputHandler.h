@@ -6,20 +6,24 @@
 #include <dinput.h>
 #include <map>
 
-#include "inputhandler.h"
+#include "InputHandler.h"
 
 class DirectXInputHandler : public InputHandler
 {
 public:
 	DirectXInputHandler();
 	~DirectXInputHandler();
-	enum InputHardware {Mouse, Keyboard, XboxController};//The different types of input hardware the handler knows and can use.
-	void InitInput();
-	//std::map<InputHardware, DirectInputDevice*> DirectInputDevices;
+	enum InputHardware {Mouse = 0, Keyboard = 1, XboxController = 2, First = Mouse, Last = XboxController};//The different types of input hardware the handler knows and can use.
+	void InitInput(HWND hDlg);//Initialises DirectInput.
+	void FreeInput();//Frees up DirectInput.
 
 private:
-//	LPDIRECTINPUT8          g_pDI = NULL; // DirectInput interface       
-//	LPDIRECTINPUTDEVICE8    g_pMouse = NULL; // Device interface
+	LPDIRECTINPUT8          _g_pDI; // DirectInput interface
+	LPDIRECTINPUTDEVICE8 _keyboard;
+	std::map<InputHardware, LPDIRECTINPUTDEVICE8> _directInputDevices;//The devices hooked up to this computer.
+
+	void InitMouse(HWND hDlg);//Initialises the system mouse.
+	void InitKeyboard(HWND hDlg);//Initialises the system keyboard.
 };
 
 #endif
