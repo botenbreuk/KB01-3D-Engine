@@ -20,6 +20,12 @@ public:
 	void InitGeometry(std::list<Mesh*> meshes);//Initialises the geometry for a Scene.
 	void CreateSwapChain(HWND hWND); //Creates new swap chain for a window
 
+	void InitSkybox();
+	void DrawSkybox();
+
+	void CreateSkyboxTexture();
+	void SetSkyboxTexture();
+
 	LPDIRECT3DDEVICE9 Get3DDevice();//Returns the 3DDevice.
 
 	void LoadMesh(std::string filePath, std::string name);//Loads in a Mesh.
@@ -65,12 +71,18 @@ private:
 
 	LPDIRECT3DSWAPCHAIN9 _g_swapChain_0; // Swap chain 1
 	LPDIRECT3DSWAPCHAIN9 _g_swapChain_1; // Swap chain 2
-
+	
+	LPDIRECT3DTEXTURE9 _g_skyboxTexture;
 	LPD3DXBUFFER _pD3DXMtrlBuffer;//DirectX Material buffer.
+	
+	LPDIRECT3DVERTEXBUFFER9 _g_pVB; //Directx Vertex buffer
+	LPDIRECT3DINDEXBUFFER9  _g_pIB; //Directx Index buffer
 
 	std::map<std::string, DWORD> _g_dwNumMaterials;//A map which stores the amount of Materials in a Mesh.
 
 	std::wstring s2ws(const std::string& s);//Converts a string to a wstring.
+
+	#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_TEX1)
 };
 
 #endif
