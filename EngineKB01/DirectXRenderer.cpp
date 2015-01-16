@@ -3,12 +3,25 @@
 DirectXRenderer::DirectXRenderer()
 {
 	_logger = LoggerPool::GetInstance()->GetLogger("Renderer");
-	_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);
+	_logger->WriteLog("API used: DirectX", Logger::MessageType::Info);	
 }
-
 
 DirectXRenderer::~DirectXRenderer()
 {
+}
+
+void DirectXRenderer::CreateSkyboxTexture()
+{
+	D3DXCreateTextureFromFile(_g_pd3dDevice, L"skyboxtexture.jpg", &_g_skyboxTexture);
+}
+
+void DirectXRenderer::SetSkyboxTexture()
+{
+	_g_pd3dDevice->SetTexture(0, _g_skyboxTexture);
+	
+	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_SELECTARG1);
+	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);
+	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE); 
 }
 
 ///Clear the backbuffer and the zbuffer.
@@ -76,21 +89,24 @@ void DirectXRenderer::Init3D( HWND hWnd )
 
         return;
     }
-	//// Turn on the zbuffer
- //   _g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
+	//_g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
 
 	//// Turn on the zbuffer
- //   _g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
+    //_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
 	//CREATE SWAPCHAINS HERE!
 	_g_pd3dDevice->GetSwapChain(0, &_swapchains[hWnd]);
 	//_g_pd3dDevice->CreateAdditionalSwapChain( &d3dpp, &_g_swapChain_1 );
 
     // Turn on the zbuffer
-    _g_pd3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
+    //_g_pd3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
 
     // Turn on ambient lighting 
     _g_pd3dDevice->SetRenderState( D3DRS_AMBIENT, 0xffffffff );
+
+	_g_pd3dDevice->SetSamplerState(0,D3DSAMP_MIPFILTER,D3DTEXF_LINEAR); 
+	_g_pd3dDevice->SetSamplerState(0,D3DSAMP_MAGFILTER,D3DTEXF_LINEAR); 
+	_g_pd3dDevice->SetSamplerState(0,D3DSAMP_MINFILTER,D3DTEXF_LINEAR);
 
 	//Writes an info message to the log.
 	_logger->WriteLog("DirectX initialised.", Logger::MessageType::Info);
@@ -100,7 +116,10 @@ void DirectXRenderer::Init3D( HWND hWnd )
 ///meshes: The Models that appear in the Scene.
 void DirectXRenderer::InitGeometry(std::list<Mesh*> meshes)
 {
-    //Loads the rescources from the specified file(s).
+	//Loads skybox texture
+	CreateSkyboxTexture();
+    
+	//Loads the rescources from the specified file(s).
 	std::list<Mesh*>::const_iterator iter;
 	for(iter = meshes.begin(); iter != meshes.end(); iter++)
 	{
@@ -338,4 +357,68 @@ DWORD DirectXRenderer::GetNumberOfMaterials(std::string filePath)
 void DirectXRenderer::CreateSwapChain(HWND hWND)
 {
 	_g_pd3dDevice->CreateAdditionalSwapChain( &d3dpp, &_swapchains[hWND]);
+}
+struct CUSTOMVERTEX
+{
+	FLOAT x, y, z;      //3D position for the vertex
+	FLOAT tu, tv;		//Texture coordinates
+};
+
+void DirectXRenderer::InitSkybox()
+{
+
+	long num = 50.0f;
+	CUSTOMVERTEX g_Vertices[] =
+    {
+        { -num, num, -num, 0.0f, 0.0f },	// left up front
+        { num, num, -num, 1.0f, 0.0f },		// right up front	
+        { -num, -num, -num, 0.0f, 1.0f},	// left bottom front
+        { num, -num, -num, 1.0f, 1.0f },	// right bottom front
+        { -num, num, num, 0.0f, 0.0f },		// left up back
+        { num, num, num, 1.0f, 0.0f },		// right up back
+        { -num, -num, num, 0.0f, 1.0f },	// left bottom back
+        { num, -num, num, 1.0f, 1.0f },		// right bottom back
+    };
+	
+	_g_pd3dDevice->CreateVertexBuffer( 8 * sizeof( CUSTOMVERTEX ),
+                                                  0, D3DFVF_CUSTOMVERTEX,
+												  D3DPOOL_DEFAULT, &_g_pVB, NULL);
+
+	VOID* pVertices;
+	_g_pVB->Lock( 0, sizeof( g_Vertices ), ( void** )&pVertices, 0 );
+	memcpy( pVertices, g_Vertices, sizeof( g_Vertices ) );
+	_g_pVB->Unlock();
+	short indices[] =
+    {
+		7, 6, 5,    // side 3 Back
+        6, 4, 5,
+		4, 6, 0,    // side 2 Left
+        6, 2, 0,
+		3, 7, 1,    // side 4 Right
+        7, 5, 1,
+		0, 2, 1,    // side 1 Front
+        1, 2, 3,
+        4, 0, 5,    // side 5 Up
+        0, 1, 5,
+        3, 2, 7,    // side 6 Bottom
+        2, 6, 7,
+	};
+
+	_g_pd3dDevice->CreateIndexBuffer(36*sizeof(short),
+							  0,
+							  D3DFMT_INDEX16,
+							  D3DPOOL_DEFAULT,
+							  &_g_pIB,
+							  NULL);
+	_g_pIB->Lock(0, 0, (void**)&pVertices, 0);
+	memcpy(pVertices, indices, sizeof(indices));
+	_g_pIB->Unlock();
+}
+
+void DirectXRenderer::DrawSkybox()
+{
+		_g_pd3dDevice->SetStreamSource( 0, _g_pVB, 0, sizeof( CUSTOMVERTEX ) );
+        _g_pd3dDevice->SetFVF( D3DFVF_CUSTOMVERTEX );
+		_g_pd3dDevice->SetIndices(_g_pIB);
+        _g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 }

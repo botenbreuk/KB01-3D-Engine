@@ -7,6 +7,7 @@
 class Model : public Entity
 {
 public:
+	Model();
 	Model(ResourceManager* rsm, std::string meshName, bool check);
 	~Model();
 	void Render(Renderer* renderer, ResourceManager* msm);//Makes the Model render itself.
