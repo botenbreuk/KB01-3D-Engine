@@ -30,11 +30,11 @@ void Model::SetMeshName(std::string meshName)
 	_meshName = meshName;
 }
 
-void Model::SetPosistion(float x, float y, float z)
+/// Sets the position of an Model
+/// return: void
+void Model::SetPosition(float x, float y, float z)
 {
-	this->_xPos = x;
-	this->_yPos = y;
-	this->_zPos = z;
+	this->Entity::SetPosition(x, y, z);
 }
 
 ///Prepares this Model for rendering by setting the Materials and Textures.

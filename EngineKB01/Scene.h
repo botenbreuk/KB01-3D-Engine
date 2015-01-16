@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "DirectXRenderer.h"
 #include "ResourceManager.h"
+#include "Terrain.h"
 
 class Scene
 {
@@ -26,9 +27,9 @@ public:
 	void AddModel(Model* model);//Adds a Model to the Scene.
 
 private:
-	
 	bool CheckFileExists(std::string fileName);
-
+	
+	Terrain* terrain;
 };
 
 #endif

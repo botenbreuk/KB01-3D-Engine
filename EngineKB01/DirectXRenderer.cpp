@@ -196,6 +196,54 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 	}
 }
 
+///Prepares a vertex buffer for rendering
+void DirectXRenderer::SetVertexBuffer(VERTEXVALUE* vertices, int width, int height)
+{
+	// Create the vertex buffer.
+    if( FAILED( _g_pd3dDevice->CreateVertexBuffer( 8 * sizeof( VERTEXVALUE ),
+                                                  0, D3DFVF_XYZ|D3DFVF_DIFFUSE,
+                                                  D3DPOOL_DEFAULT, &g_pVB, NULL ) ) )
+    {
+        //Error message
+    }
+
+    // Fill the vertex buffer.
+    VOID* pVertices;
+    if( FAILED( g_pVB->Lock( 0, sizeof( vertices ), ( void** )&pVertices, 0 ) ) )
+	{
+		//Error message
+	}
+
+    memcpy( pVertices, &vertices, sizeof( vertices ) );
+    g_pVB->Unlock();
+
+	_g_pd3dDevice->SetStreamSource( 0, g_pVB, 0, sizeof( VERTEXVALUE ) );
+	_g_pd3dDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+}
+	
+///Prepares a index buffer for rendering
+void DirectXRenderer::SetIndexBuffer(short* indices, VERTEXVALUE* vertices)
+{	
+	// create an index buffer interface called i_buffer
+	_g_pd3dDevice->CreateIndexBuffer(
+		36*sizeof(short),
+		0,
+		D3DFMT_INDEX16,
+		D3DPOOL_DEFAULT,
+		&i_buffer,
+		NULL);
+
+	// lock i_buffer and load the indices into it
+	i_buffer->Lock(0, 0, (void**)&vertices, 0);
+	
+	memcpy(indices, indices, sizeof(indices));
+	
+	i_buffer->Unlock();
+
+	_g_pd3dDevice->SetIndices(i_buffer);
+    _g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+}
+
 ///Prepares a Material for rendering.
 void DirectXRenderer::SetMaterial(std::string filePath, DWORD i)
 {
@@ -278,7 +326,7 @@ void DirectXRenderer::SetupViewMatrix(float z)
     // eye five units back along the z-axis and up three units, look at the 
     // origin, and define "up" to be in the y-direction.
 	
-	D3DXVECTOR3 vEyePt( 0.0f, 3.0f, z );
+	D3DXVECTOR3 vEyePt( 0.0f, 10.0f, z );
     D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
     D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
     D3DXMATRIXA16 matView;

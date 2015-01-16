@@ -7,6 +7,7 @@
 Scene::Scene(ResourceManager* rsm)
 {
 	this->LoadSceneFromFile("SceneFile.txt", rsm);
+	terrain = new Terrain();
 }
 
 
@@ -18,7 +19,7 @@ Scene::~Scene()
 ///renderer: A pointer to the renderer used.
 void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 {
-
+	terrain->Render(renderer);
 	//Clear buffers and begin rendering
 	
 	renderer->SetTargetSwapChain(window->GetHWND());
@@ -98,9 +99,9 @@ void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 					float y = std::stof(cds[2]);
 					float z = std::stof(cds[3]);
 
-					model->SetPosistion(x, y, z);
+					model->SetPosition(x, y, z);
 				}
-				else model->SetPosistion();
+				else model->SetPosition();
 
 				AddModel(model);
 			}
