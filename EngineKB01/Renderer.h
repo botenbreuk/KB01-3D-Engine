@@ -4,10 +4,11 @@
 #include <string>
 #include <Windows.h>
 #include <list>
+#include <vector>
 
 #include "Mesh.h"
 #include "Logger.h"
-#include "VertexValue.h"
+#include "CustomVertex.h"
 
 class Renderer
 {
@@ -39,8 +40,8 @@ public:
 	virtual void CreateSwapChain(HWND hWND) = 0; //Creates new swap chain for a window
 	virtual DWORD GetNumberOfMaterials(std::string filePath) = 0;//Returns the number of Materials in a Mesh.
 
-	virtual void SetVertexBuffer(VERTEXVALUE* vertices, int width = 0, int height = 0) = 0; //Prepares a vertex buffer for rendering.
-	virtual void SetIndexBuffer(short* indices, VERTEXVALUE* vertices) = 0; //Prepares a index buffer for rendering.
+	virtual void SetVertexBuffer(CUSTOMVERTEX* vertices, int size) = 0; //Prepares a vertex buffer for rendering.
+	virtual void SetIndexBuffer(short* indices, CUSTOMVERTEX* vertices) = 0; //Prepares a index buffer for rendering.
 
 	virtual void SetTexture(std::string filePath, DWORD i) = 0;//Prepares a Texture for rendering.
 	virtual void SetMaterial(std::string filePath, DWORD i) = 0;//Prepares a Material for rendering.

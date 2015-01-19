@@ -81,10 +81,10 @@
     <ClInclude Include="Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VertexValue.h">
+    <ClInclude Include="Terrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Terrain.h">
+    <ClInclude Include="CustomVertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

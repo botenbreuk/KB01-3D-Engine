@@ -5,11 +5,12 @@
 #include <d3dx9.h>
 #include <list>
 #include <map>
+#include <vector>
 
 #include "Renderer.h"
 #include "Mesh.h"
 #include "LoggerPool.h"
-#include "VertexValue.h"
+#include "CustomVertex.h"
 
 class DirectXRenderer : public Renderer
 {
@@ -51,8 +52,8 @@ public:
 
 	LPD3DXMESH* GetMesh(std::string name);//Returns the Mesh belonging with the name.
 	
-	void SetVertexBuffer(VERTEXVALUE* vertices, int width = 0, int height = 0); //Prepares a vertex buffer for rendering.
-	void SetIndexBuffer(short* indices, VERTEXVALUE* vertices); //Prepares a index buffer for rendering.
+	void SetVertexBuffer(CUSTOMVERTEX* vertices, int size); //Prepares a vertex buffer for rendering.
+	void SetIndexBuffer(short* indices, CUSTOMVERTEX* vertices); //Prepares a index buffer for rendering.
 
 	void SetMaterial(std::string filePath, DWORD i);//Prepares a Material for rendering.
 	void SetTexture(std::string filePath, DWORD i);//Prepares a Texture for rendering.
@@ -78,8 +79,6 @@ private:
 	
 	LPDIRECT3DTEXTURE9 _g_skyboxTexture;
 	LPD3DXBUFFER _pD3DXMtrlBuffer;//DirectX Material buffer.
-	LPDIRECT3DVERTEXBUFFER9 g_pVB;
-	LPDIRECT3DINDEXBUFFER9 i_buffer;
 	
 	LPDIRECT3DVERTEXBUFFER9 _g_pVB; //Directx Vertex buffer
 	LPDIRECT3DINDEXBUFFER9  _g_pIB; //Directx Index buffer

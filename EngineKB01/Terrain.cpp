@@ -63,14 +63,19 @@ bool Terrain::LoadHeightmap(char* argFileName)
 
 void Terrain::Render(Renderer* renderer)
 {
-	VERTEXVALUE* vertices = FillVertices();
-	short* indices = FillIndices();
+	FillVertices();
+	FillIndices();
 	
-	renderer->SetVertexBuffer(vertices);
-	renderer->SetIndexBuffer(indices, vertices);
+	/*std::vector<short> s_Indices;
+	int sizeIB = (sizeof(indices)/sizeof(*indices));
+	s_Indices.insert( s_Indices.begin() , indices , indices + sizeIB ) ;*/
+	
+	renderer->SetVertexBuffer(_Vertices, (sizeof(_Vertices)/sizeof(*_Vertices)));
+	renderer->SetIndexBuffer(_Indices, _Vertices);
+	renderer->DrawSkybox();
 }
 
-VERTEXVALUE* Terrain::FillVertices()
+void Terrain::FillVertices()
 {
     //VERTEXVALUE* cv_Vertices = new VERTEXVALUE[width*width];
 
@@ -85,23 +90,23 @@ VERTEXVALUE* Terrain::FillVertices()
         }
     }*/
 
-	VERTEXVALUE cv_Vertices[] =
+	CUSTOMVERTEX cv_Vertices[] =
     {
-        { -1.0f, 1.0f, -1.0f, 0xffffffff, },
-        { 1.0f, 1.0f, -1.0f, 0xffffffff, },
-        { -1.0f, 1.0f, 1.0f, 0xffffffff, },
-        { 1.0f, 1.0f, 1.0f, 0xffffffff, },
+        { -1.0f, 1.0f, -1.0f, 1.0f, 0xffffffff, },
+        { 1.0f, 1.0f, -1.0f, 1.0f, 0xffffffff, },
+        { -1.0f, 1.0f, 1.0f, 1.0f, 0xffffffff, },
+        { 1.0f, 1.0f, 1.0f, 1.0f, 0xffffffff, },
 
-		{ -1.0f, -1.0f, -1.0f, 0xffffffff, },
-        { 1.0f, -1.0f, -1.0f, 0xffffffff, },
-        { -1.0f, -1.0f, 1.0f, 0xffffffff, },
-        { 1.0f, -1.0f, 1.0f, 0xffffffff, },
+		{ -1.0f, -1.0f, -1.0f, 1.0f, 0xffffffff, },
+        { 1.0f, -1.0f, -1.0f, 1.0f, 0xffffffff, },
+        { -1.0f, -1.0f, 1.0f, 1.0f, 0xffffffff, },
+        { 1.0f, -1.0f, 1.0f, 1.0f, 0xffffffff, },
     };
 
-    return cv_Vertices;
+
 }
 
-short* Terrain::FillIndices()
+void Terrain::FillIndices()
 {
     //short *s_Indices = new short[(width-1)*(height-1)*6];
 
@@ -134,6 +139,4 @@ short* Terrain::FillIndices()
         3, 7, 2,    // side 6
         2, 7, 6,
 	};
-
-    return s_Indices;
 }

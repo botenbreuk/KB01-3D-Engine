@@ -7,7 +7,7 @@
 
 #include "Entity.h"
 #include "Renderer.h"
-#include "VertexValue.h"
+#include "CustomVertex.h"
 
 class Terrain : Entity
 {
@@ -18,11 +18,13 @@ public:
 
 private:
 	bool LoadHeightmap(char* argFileName); //Loads the given hightmap
-	VERTEXVALUE* FillVertices();
-	short* FillIndices();
+	void FillVertices();
+	void FillIndices();
 
 	BITMAP bm;
 	BYTE* heightData; //Holds the color values for the height
+	CUSTOMVERTEX* _Vertices;
+	short _Indices[];
 };
 
 #endif

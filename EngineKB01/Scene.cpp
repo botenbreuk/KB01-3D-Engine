@@ -8,9 +8,8 @@ Scene::Scene(ResourceManager* rsm)
 {
 	this->LoadSceneFromFile("SceneFile.txt", rsm);
 	this->_skyBox = new Skybox();
-	terrain = new Terrain();
+	this->terrain = new Terrain();
 }
-
 
 Scene::~Scene()
 {
@@ -21,12 +20,12 @@ Scene::~Scene()
 ///renderer: A pointer to the renderer used.
 void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 {
-	terrain->Render(renderer);
 	//Clear buffers and begin rendering
 	
 	renderer->SetTargetSwapChain(window->GetHWND());
 	renderer->ClearScreen();
 	renderer->BeginScene();
+	terrain->Render(renderer);
 	_skyBox->Render(renderer);
 	renderer->SetupWorldMatrix();
 	renderer->SetupViewMatrix(-18.0f);
