@@ -218,60 +218,30 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 ///Prepares a vertex buffer for rendering
 void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
 {
-	CUSTOMVERTEX g_Vertices[] =
-    {
-        { -1.0f, 1.0f, -1.0f, D3DCOLOR_XRGB(255, 255, 255), },
-        { 1.0f, 1.0f, -1.0f, D3DCOLOR_XRGB(0, 0, 0), },
-        { -1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 0), },
-        { 1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 255, 0), },
-
-        { -1.0f, -1.0f, -1.0f, D3DCOLOR_XRGB(0, 0, 0), },
-        { 1.0f, -1.0f, -1.0f, D3DCOLOR_XRGB(255, 255, 255), },
-        { -1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 0), },
-        { 1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 255), },
-    };
-
-	if( FAILED( _g_pd3dDevice->CreateVertexBuffer( 8 * sizeof( CUSTOMVERTEX ),
+	if( FAILED( _g_pd3dDevice->CreateVertexBuffer( size * sizeof( CUSTOMVERTEX ),
                                                   0, D3DFVF_CUSTOMVERTEX,
                                                   D3DPOOL_DEFAULT, &_g_pVB, NULL ) ) )
     {
         
     }
 
-    // Fill the vertex buffer.
-    VOID* pVertices;
-	if( FAILED( _g_pVB->Lock( 0, sizeof( g_Vertices ), ( void** )&pVertices, 0 ) ) ) {}
-    memcpy( pVertices, g_Vertices, sizeof( g_Vertices ) );
+	if( FAILED( _g_pVB->Lock( 0, 0, ( void** )&pVertices, 0 ) ) ) {}
+    for(int i = 0; i < size; i++)
+	{
+		memcpy(pVertices, vertices, (sizeof(*vertices) * size));
+	}
     _g_pVB->Unlock();
+	
 
-    short indices[] =
-    {
-        0, 1, 2,    // side 1
-        1, 3, 2,
-        4, 0, 6,    // side 2
-        6, 0, 2,
-        7, 5, 6,    // side 3
-        6, 5, 4,
-        3, 1, 7,    // side 4
-        7, 1, 5,
-        4, 5, 0,    // side 5
-        0, 5, 1,
-        3, 7, 2,    // side 6
-        2, 7, 6,
-    };
-
-    /*short indices[] =
-    {
-        0, 1, 2,
-        1, 2, 3,
-        0, 2, 4,
-        0, 1, 4,
-        3, 1, 4,
-        3, 2, 4
-    };*/
-
-    // create an index buffer interface called i_buffer
-    _g_pd3dDevice->CreateIndexBuffer(36*sizeof(short),
+	_g_pd3dDevice->SetStreamSource( 0, _g_pVB, 0, sizeof( CUSTOMVERTEX ) );
+	_g_pd3dDevice->SetFVF( D3DFVF_CUSTOMVERTEX );
+}
+	
+///Prepares a index buffer for rendering
+void DirectXRenderer::SetIndexBuffer(short* indices, int size)
+{	
+	// create an index buffer interface called i_buffer
+    _g_pd3dDevice->CreateIndexBuffer(size * sizeof(short),
                               0,
                               D3DFMT_INDEX16,
                               D3DPOOL_DEFAULT,
@@ -280,15 +250,11 @@ void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
 
     // lock i_buffer and load the indices into it
     _g_pIB->Lock(0, 0, (void**)&pVertices, 0);
-    memcpy(pVertices, indices, sizeof(indices));
+	memcpy(pVertices, indices, (sizeof(*indices) * size));
     _g_pIB->Unlock();
-}
-	
-///Prepares a index buffer for rendering
-void DirectXRenderer::SetIndexBuffer(short* indices, CUSTOMVERTEX* vertices)
-{	
 
-	
+	_g_pd3dDevice->SetIndices(_g_pIB);
+	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, (size / 6), 0, size);
 }
 
 ///Prepares a Material for rendering.
@@ -394,31 +360,21 @@ void DirectXRenderer::SetupProjectionMatrix()
 	_g_pd3dDevice->SetTransform( D3DTS_PROJECTION, &matProj );
 }
 
-void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, bool check)
+void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, float rotation)
 {
 	D3DXMATRIXA16 matModel;
 	D3DXMATRIX matRotY;
-	D3DXMATRIX matRotX;
+	//D3DXMATRIX matRotX;
 	D3DXMATRIX matScale;
 	D3DXMATRIX matTranslate;
 
-	D3DXMatrixRotationY(&matRotY, timeGetTime() / 1000.0f);
-	D3DXMatrixRotationY(&matRotX, timeGetTime() / 1000.0f);
+	D3DXMatrixRotationY(&matRotY, rotation);
+	//D3DXMatrixRotationY(&matRotX, timeGetTime() / 1000.0f);
 	D3DXMatrixIdentity(&matModel);
 	D3DXMatrixScaling(&matScale, scale, scale, scale);
 	D3DXMatrixTranslation(&matTranslate, x, y, z);
 
 	// Set up model matrix
-	if(check)
-	{
-		 _g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matScale * matTranslate * matRotY) );
-	}
-	else
-	{
-		_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
-	}
-
-
 	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
 
 }

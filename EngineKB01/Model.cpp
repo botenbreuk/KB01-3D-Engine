@@ -4,12 +4,15 @@ Model::Model(ResourceManager* rsm, std::string meshName, bool check)
 {
 	_meshName = meshName;
 	rsm->LoadMesh(_meshName, _meshName);
-	this->_rotate = check;
+
+	this->_scale = 1;
+	this->_rotation = 0;
 }
 
 Model::Model()
 {
-
+	this->_scale = 1;
+	this->_rotation = 0;
 }
 
 Model::~Model()
@@ -41,6 +44,20 @@ void Model::SetPosition(float x, float y, float z)
 	this->Entity::SetPosition(x, y, z);
 }
 
+/// Sets the scale of an Model
+/// return: void
+void Model::SetScale(float scale)
+{
+	this->_scale = scale;
+}
+
+/// Sets the rotation of an Model
+/// return: void
+void Model::SetRotation(float rotation)
+{
+	this->_rotation = rotation;
+}
+
 ///Prepares this Model for rendering by setting the Materials and Textures.
 ///filePath: filePath to the Mesh, which is the key for the Materials and the Textures.
 ///renderer: A pointer to the renderer used.
@@ -50,5 +67,5 @@ void Model::Prepare(std::string filePath, Renderer* renderer, DWORD i)
 	// Set the material and texture for this subset
 	renderer->SetMaterial(filePath, i);
 	renderer->SetTexture(filePath, i);
-	renderer->SetModelMatrix(_xPos, _yPos, _zPos, 1, _rotate);
+	renderer->SetModelMatrix(_xPos, _yPos, _zPos, _scale, _rotation);
 }

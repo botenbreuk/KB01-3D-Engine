@@ -33,7 +33,7 @@ public:
 	
 	virtual void Present(HWND hWND) = 0;//Present the backbuffer contents to the display
 
-	virtual void SetModelMatrix(float x, float y, float z, float scale, bool check) = 0;//Sets a matrix for a model to place in the world matrix
+	virtual void SetModelMatrix(float x, float y, float z, float scale, float rotation = 0) = 0;//Sets a matrix for a model to place in the world matrix
 
 	virtual void Init3D(HWND hWnd) = 0;//Initialises the 3D.
 	virtual void InitGeometry(std::list<Mesh*> meshes) = 0;//Initialises the geometry of a Scene.
@@ -41,7 +41,7 @@ public:
 	virtual DWORD GetNumberOfMaterials(std::string filePath) = 0;//Returns the number of Materials in a Mesh.
 
 	virtual void SetVertexBuffer(CUSTOMVERTEX* vertices, int size) = 0; //Prepares a vertex buffer for rendering.
-	virtual void SetIndexBuffer(short* indices, CUSTOMVERTEX* vertices) = 0; //Prepares a index buffer for rendering.
+	virtual void SetIndexBuffer(short* indices, int size) = 0; //Prepares a index buffer for rendering.
 
 	virtual void SetTexture(std::string filePath, DWORD i) = 0;//Prepares a Texture for rendering.
 	virtual void SetMaterial(std::string filePath, DWORD i) = 0;//Prepares a Material for rendering.

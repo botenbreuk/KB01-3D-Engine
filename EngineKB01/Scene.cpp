@@ -25,14 +25,12 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 	renderer->SetTargetSwapChain(window->GetHWND());
 	renderer->ClearScreen();
 	renderer->BeginScene();
-	terrain->Render(renderer);
-	_skyBox->Render(renderer);
 	renderer->SetupWorldMatrix();
 	renderer->SetupViewMatrix(-18.0f);
 	renderer->SetupProjectionMatrix();
-
+	terrain->Render(renderer);
+	_skyBox->Render(renderer);
 	
-
 	std::list<Model*>::const_iterator iter;
 	for(iter = _modelList.begin(); iter != _modelList.end(); iter++)
 	{
@@ -100,6 +98,14 @@ void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 					float x = std::stof(cds[1]);
 					float y = std::stof(cds[2]);
 					float z = std::stof(cds[3]);
+					if(cds.size() > 4)
+					{
+						float scale = std::stof(cds[4]);
+						float rotation = std::stof(cds[5]);
+
+						model->SetScale(scale);
+						model->SetRotation(rotation);
+					}
 
 					model->SetPosition(x, y, z);
 				}

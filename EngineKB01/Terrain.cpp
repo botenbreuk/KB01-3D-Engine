@@ -4,6 +4,8 @@ Terrain::Terrain()
 {
 	if(LoadHeightmap("heightmap.bmp"))
 	{
+		FillVertices();
+		FillIndices();
 	}
 }
 
@@ -63,54 +65,41 @@ bool Terrain::LoadHeightmap(char* argFileName)
 
 void Terrain::Render(Renderer* renderer)
 {
-	FillVertices();
-	FillIndices();
+	int width = bm.bmWidth;
 	
-	/*std::vector<short> s_Indices;
-	int sizeIB = (sizeof(indices)/sizeof(*indices));
-	s_Indices.insert( s_Indices.begin() , indices , indices + sizeIB ) ;*/
-	
-	renderer->SetVertexBuffer(_Vertices, (sizeof(_Vertices)/sizeof(*_Vertices)));
-	renderer->SetIndexBuffer(_Indices, _Vertices);
-	renderer->DrawSkybox();
+	renderer->SetModelMatrix(0, 0, 0, 1, 0);
+	//renderer->SetVertexBuffer(cv_Vertices, width*width);
+	//renderer->SetIndexBuffer(s_Indices, width*width*3);
 }
 
 void Terrain::FillVertices()
 {
-    //VERTEXVALUE* cv_Vertices = new VERTEXVALUE[width*width];
+	int width = bm.bmWidth;
+	int height = bm.bmWidth;
 
-    /*for (int x=0;x< width;x++)
+	cv_Vertices = new CUSTOMVERTEX[width*width];
+
+    for (int x=0;x< width;x++)
 	{
         for (int y = 0; y < height; y++)
 		{
             cv_Vertices[y*width + x].x = -x;
             cv_Vertices[y*width + x].y = heightData[y];
             cv_Vertices[y*width + x].z = y;
+            cv_Vertices[y*width + x].rhw = 1.0f;
             cv_Vertices[y*width + x].color = 0xffffffff;
         }
-    }*/
-
-	CUSTOMVERTEX cv_Vertices[] =
-    {
-        { -1.0f, 1.0f, -1.0f, 1.0f, 0xffffffff, },
-        { 1.0f, 1.0f, -1.0f, 1.0f, 0xffffffff, },
-        { -1.0f, 1.0f, 1.0f, 1.0f, 0xffffffff, },
-        { 1.0f, 1.0f, 1.0f, 1.0f, 0xffffffff, },
-
-		{ -1.0f, -1.0f, -1.0f, 1.0f, 0xffffffff, },
-        { 1.0f, -1.0f, -1.0f, 1.0f, 0xffffffff, },
-        { -1.0f, -1.0f, 1.0f, 1.0f, 0xffffffff, },
-        { 1.0f, -1.0f, 1.0f, 1.0f, 0xffffffff, },
-    };
-
-
+    }
 }
 
 void Terrain::FillIndices()
 {
-    //short *s_Indices = new short[(width-1)*(height-1)*6];
+	int width = bm.bmWidth;
+	int height = bm.bmWidth;
 
-    /*for (int x = 0; x < width-1; x++)
+    s_Indices = new short[(width-1)*(height-1)*6];
+
+    for (int x = 0; x < width-1; x++)
 	{
         for (int y = 0; y < height-1; y++)
 		{
@@ -122,21 +111,5 @@ void Terrain::FillIndices()
             s_Indices[(x+y*(width-1))*6+4] = x+y*width;
             s_Indices[(x+y*(width-1))*6+5] = x+(y+1)*width;
         }
-    }*/
-
-	short s_Indices[] =
-    {
-		0, 1, 2,    // side 1
-        1, 3, 2,
-        4, 0, 6,    // side 2
-        6, 0, 2,
-        7, 5, 6,    // side 3
-        6, 5, 4,
-        3, 1, 7,    // side 4
-        7, 1, 5,
-        4, 5, 0,    // side 5
-        0, 5, 1,
-        3, 7, 2,    // side 6
-        2, 7, 6,
-	};
+    }
 }

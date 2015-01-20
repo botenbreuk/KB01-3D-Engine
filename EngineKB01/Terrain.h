@@ -23,8 +23,8 @@ private:
 
 	BITMAP bm;
 	BYTE* heightData; //Holds the color values for the height
-	CUSTOMVERTEX* _Vertices;
-	short _Indices[];
+	CUSTOMVERTEX* cv_Vertices;
+	short* s_Indices;
 };
 
 #endif
