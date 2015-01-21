@@ -44,7 +44,7 @@ bool Terrain::LoadHeightmap(char* argFileName)
 	//(don't know what it is, but just put it in that buffer)
 	GetObject(hbmp, sizeof(BITMAP), (void*)&bm);
 
-	//Store the width and height of the heightmap
+	//Store the wid5th and height of the heightmap
 	int width = bm.bmWidth;
 	int height = bm.bmHeight;
 

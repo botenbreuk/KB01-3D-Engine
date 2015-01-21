@@ -4,11 +4,13 @@
 #include <vector>
 #include <string>
 
-Scene::Scene(ResourceManager* rsm)
+Scene::Scene(ResourceManager* rsm, InputHandler* inputHandler)
 {
-	this->LoadSceneFromFile("SceneFile.txt", rsm);
-	this->_skyBox = new Skybox();
+	LoadSceneFromFile("SceneFile.txt", rsm);
+	_skyBox = new Skybox();
 	this->_terrain = new Terrain();
+	_inputHandler = inputHandler;
+	_logger = LoggerPool::GetInstance()->GetLogger("Scene");
 }
 
 Scene::~Scene()
@@ -44,6 +46,13 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 
 ///Updates the Entities in the Scene.
 void Scene::Update(){
+	_inputHandler->Update();
+
+	if(_inputHandler->GetMouseButton0())
+	{
+		_logger->WriteLog("Mouse pressed, bitch!", Logger::Info);
+	}
+
 	std::list<Entity*>::const_iterator iter;
 	for(iter = _entityList.begin(); iter != _entityList.end(); iter++)
 	{

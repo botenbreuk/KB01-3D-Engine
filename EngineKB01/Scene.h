@@ -12,11 +12,12 @@
 #include "DirectXRenderer.h"
 #include "ResourceManager.h"
 #include "Terrain.h"
+#include "InputHandler.h"
 
 class Scene
 {
 public:
-	Scene(ResourceManager* rsm);
+	Scene(ResourceManager* rsm, InputHandler* inputHandler);
 	~Scene();
 	std::list<Model*> _modelList; //List of models
 	std::list<Entity*> _entityList;//The list of Entities this scene holds.
@@ -32,6 +33,10 @@ private:
 	
 	Skybox* _skyBox; //Skybox for this scene
 	Terrain* _terrain;
+
+	InputHandler* _inputHandler;
+
+	Logger* _logger;
 };
 
 #endif

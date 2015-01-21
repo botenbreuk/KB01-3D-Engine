@@ -43,7 +43,7 @@ void Kernel::Initialize()
 void Kernel::Run()
 {
 	//Create a default scene and custom scene from scenefile
-	Scene* s = _sceneManager->AddSceneFromFile(_resourceManager, "CustomSceneFile.txt");
+	Scene* s = _sceneManager->AddSceneFromFile(_resourceManager, "CustomSceneFile.txt", _inputHandler);
 	
 	//Creates two windows
 	Window* w = _windowManager->CreateNewWindow();
@@ -77,6 +77,8 @@ void Kernel::Run()
 		}
 		else
 		{
+			_sceneManager->UpdateAllScenes();
+
 			//Renders all the Scenes of this Engine
 			_sceneManager->RenderAllScenes(_renderers[_usedType], _resourceManager, _pairs);
 		}
