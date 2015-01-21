@@ -29,7 +29,7 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 	
 	//Initialises the different devices
 	InitMouse();
-	InitKeyboard();
+	//InitKeyboard();
 	//TODO: Implement InitXBoxController(hDlg);
 
 	//Writes an info message to the log.
@@ -147,7 +147,6 @@ void DirectXInputHandler::FreeInput()
 
 void DirectXInputHandler::Update()
 {
-	_directInputDevices[Mouse]->Acquire();
 	SetMouseData();
 }
 
@@ -162,16 +161,20 @@ void DirectXInputHandler::ResetMouseData()
 
 void DirectXInputHandler::SetMouseData()
 {
-	HRESULT hr = _directInputDevices[Mouse]->GetDeviceState( sizeof( DIMOUSESTATE ), (LPVOID)&_mouseState );
+	DIMOUSESTATE _mouseState;
+	_directInputDevices[Mouse]->Acquire();
+
+	_directInputDevices[Mouse]->GetDeviceState( sizeof( DIMOUSESTATE ), &_mouseState );
+	/*HRESULT hr = _directInputDevices[Mouse]->GetDeviceState( sizeof( DIMOUSESTATE ), &_mouseState );
     if ( FAILED( hr )  )
 	{
         if ( hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED )
         {
             // Device is lost, try to reaquire it
-            _directInputDevices[Mouse]->Acquire();
+			_directInputDevices[Mouse]->Acquire();
         }
         return;
-    }
+    }*/
     // Store cursor position
     POINT pt;
     GetCursorPos( &pt );
@@ -183,11 +186,11 @@ void DirectXInputHandler::SetMouseData()
     {
         if ( _mouseState.rgbButtons[i] & 0x80 )
         {
-			_mouseButton0 = true;
+			this->_mouseButton0 = TRUE;
         }
         else
         {
-            _mouseButton0 = FALSE;
+            this->_mouseButton0 = FALSE;
         }
     }
 }
