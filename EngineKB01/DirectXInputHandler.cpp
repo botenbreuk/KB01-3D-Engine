@@ -15,8 +15,10 @@ DirectXInputHandler::~DirectXInputHandler()
 ///hDlg: The window handler for which the input is initialised.
 void DirectXInputHandler::InitInput(HWND hDlg)
 {
+	_hDlg = hDlg;
+
 	//Gives the window the focus so it can find the input devices.
-	HWND WINAPI SetFocus(hDlg);
+	HWND WINAPI SetFocus(_hDlg);
 
 	// Register with the DirectInput subsystem and get a pointer
     // to a IDirectInput interface we can use.
@@ -26,8 +28,8 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 	}
 	
 	//Initialises the different devices
-	InitMouse(hDlg);
-	InitKeyboard(hDlg);
+	InitMouse();
+	InitKeyboard();
 	//TODO: Implement InitXBoxController(hDlg);
 
 	//Writes an info message to the log.
@@ -36,7 +38,7 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 
 ///Initialises the system mouse.
 ///hDlg: The window for which the mouse is initialised.
-void DirectXInputHandler::InitMouse(HWND hDlg)
+void DirectXInputHandler::InitMouse()
 {
 	//Defines the data for the state of the mouse.
 	struct MouseState
@@ -80,7 +82,7 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 	if( FAILED( _g_pDI->CreateDevice( GUID_SysMouse, &_directInputDevices[Mouse], NULL ) ) )
     {
         MessageBox( NULL, TEXT( "Mouse not found." ), TEXT( "Engine LNK2019" ), MB_ICONERROR | MB_OK );
-        EndDialog( hDlg, 0 );
+        EndDialog( _hDlg, 0 );
         return;
     }
 
@@ -93,10 +95,12 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 
     // Set the cooperative level to let DInput know how this device should
     // interact with the system and with other DInput applications.
-    if( FAILED( (_directInputDevices[Mouse])->SetCooperativeLevel( hDlg, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND ) ) )
+    if( FAILED( (_directInputDevices[Mouse])->SetCooperativeLevel( _hDlg, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND ) ) )
 	{
         return;
 	}
+
+	ResetMouseData();
 
 	//Writes an info message to the log.
 	_logger->WriteLog("Mouse initialised.", Logger::MessageType::Info);
@@ -104,13 +108,13 @@ void DirectXInputHandler::InitMouse(HWND hDlg)
 
 ///Initialises the system keyboard.
 ///hDlg: The window for which the keyboard is initialised.
-void DirectXInputHandler::InitKeyboard(HWND hDlg)
+void DirectXInputHandler::InitKeyboard()
 {
 	// Retrieve the system keyboard
 	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, &_directInputDevices[Mouse], NULL ) ) )
     {
         MessageBox( NULL, TEXT( "Keyboard not found." ), TEXT( "Engine LNK2019" ), MB_ICONERROR | MB_OK );
-        EndDialog( hDlg, 0 );
+        EndDialog( _hDlg, 0 );
         return;
     }
 
@@ -139,4 +143,51 @@ void DirectXInputHandler::FreeInput()
 
 	//Writes an info message to the log.
 	_logger->WriteLog("DirectInput freed.", Logger::MessageType::Info);
+}
+
+void DirectXInputHandler::Update()
+{
+	_directInputDevices[Mouse]->Acquire();
+	SetMouseData();
+}
+
+void DirectXInputHandler::ResetMouseData()
+{
+	this->_mouseButton0 = false;
+	this->_mouseButton1 = false;
+	this->_mouseButton2 = false;
+	this->_mousePositionX = 0;
+	this->_mousePositionY = 0;
+}
+
+void DirectXInputHandler::SetMouseData()
+{
+	HRESULT hr = _directInputDevices[Mouse]->GetDeviceState( sizeof( DIMOUSESTATE ), (LPVOID)&_mouseState );
+    if ( FAILED( hr )  )
+	{
+        if ( hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED )
+        {
+            // Device is lost, try to reaquire it
+            _directInputDevices[Mouse]->Acquire();
+        }
+        return;
+    }
+    // Store cursor position
+    POINT pt;
+    GetCursorPos( &pt );
+    ScreenToClient( _hDlg, &pt );
+	_mousePositionX = (long)pt.x;
+    _mousePositionY = (long)pt.y;
+	// Get pressed keys
+    for ( int i = 0; i < 4; i++ )
+    {
+        if ( _mouseState.rgbButtons[i] & 0x80 )
+        {
+			_mouseButton0 = true;
+        }
+        else
+        {
+            _mouseButton0 = FALSE;
+        }
+    }
 }

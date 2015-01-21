@@ -32,16 +32,16 @@ void SceneManager::UpdateAllScenes()
 }
 
 ///Adds a Scene to the Manager's list
-Scene* SceneManager::AddScene(ResourceManager* rsm)
+Scene* SceneManager::AddScene(ResourceManager* rsm, InputHandler* inputHandler)
 {
-	Scene* newScene = new Scene(rsm);
+	Scene* newScene = new Scene(rsm, inputHandler);
 	_scenes.push_front(newScene);
 	return newScene;
 }
 
-Scene* SceneManager::AddSceneFromFile(ResourceManager* rsm, std::string filePath)
+Scene* SceneManager::AddSceneFromFile(ResourceManager* rsm, std::string filePath, InputHandler* inputHandler)
 {
-	Scene* newScene = new Scene(rsm);
+	Scene* newScene = new Scene(rsm, inputHandler);
 	newScene->LoadSceneFromFile(filePath, rsm);
 	_scenes.push_front(newScene);
 	return newScene;
