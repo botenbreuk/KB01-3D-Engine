@@ -15,6 +15,8 @@ protected:
 	float _xPos;
 	float _yPos;
 	float _zPos;
+
+	void SetPosition(float x = 0, float y = 0, float z = 0); // Sets the position in world
 };
 
 #endif

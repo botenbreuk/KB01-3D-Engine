@@ -12,11 +12,14 @@ public:
 	~Model();
 	void Render(Renderer* renderer, ResourceManager* msm);//Makes the Model render itself.
 	void SetMeshName(std::string meshName);
-	void SetPosistion(float x = 0, float y = 0, float z = 0);
+	void SetPosition(float x = 0, float y = 0, float z = 0);
+	void SetScale(float scale);
+	void SetRotation(float rotation);
 	
 	std::string _meshName;//The name of the Mesh this Model uses.
 private:
-	bool _rotate;
+	float _scale;
+	float _rotation;
 	std::string _textureName;//The name of the Texture this model uses if it doesn't use a Mesh.
 
 	void Prepare(std::string filePath, Renderer* renderer, DWORD i);//Prepares this Model for rendering by setting the Materials and Textures.

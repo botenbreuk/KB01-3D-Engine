@@ -5,10 +5,12 @@
 #include <d3dx9.h>
 #include <list>
 #include <map>
+#include <vector>
 
 #include "Renderer.h"
 #include "Mesh.h"
 #include "LoggerPool.h"
+#include "CustomVertex.h"
 
 class DirectXRenderer : public Renderer
 {
@@ -38,8 +40,7 @@ public:
 	void SetupViewMatrix(float z = -5.0f);
 	void SetupProjectionMatrix();
 
-	void SetModelMatrix(float x, float y, float z, float scale, bool check);
-
+	void SetModelMatrix(float x, float y, float z, float scale, float rotation = 0);
 
 	void ClearScreen();//Clear the backbuffer and the zbuffer.
 	void SetTargetSwapChain(HWND hWND);
@@ -50,6 +51,9 @@ public:
 
 	LPD3DXMESH* GetMesh(std::string name);//Returns the Mesh belonging with the name.
 	
+	void SetVertexBuffer(CUSTOMVERTEX* vertices, int size); //Prepares a vertex buffer for rendering.
+	void SetIndexBuffer(short* indices, int size); //Prepares a index buffer for rendering.
+
 	void SetMaterial(std::string filePath, DWORD i);//Prepares a Material for rendering.
 	void SetTexture(std::string filePath, DWORD i);//Prepares a Texture for rendering.
 
@@ -77,6 +81,8 @@ private:
 	
 	LPDIRECT3DVERTEXBUFFER9 _g_pVB; //Directx Vertex buffer
 	LPDIRECT3DINDEXBUFFER9  _g_pIB; //Directx Index buffer
+
+	VOID* pVertices;
 
 	std::map<std::string, DWORD> _g_dwNumMaterials;//A map which stores the amount of Materials in a Mesh.
 

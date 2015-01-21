@@ -43,22 +43,15 @@ void Kernel::Initialize()
 void Kernel::Run()
 {
 	//Create a default scene and custom scene from scenefile
-	Scene* s = _sceneManager->AddScene(_resourceManager);
-	Scene* customS = _sceneManager->AddSceneFromFile(_resourceManager, "CustomSceneFile.txt");
+	Scene* s = _sceneManager->AddSceneFromFile(_resourceManager, "CustomSceneFile.txt");
 	
 	//Creates two windows
 	Window* w = _windowManager->CreateNewWindow();
-	Window* w2 = _windowManager->CreateNewWindow();
 
-	//Connect created scene and window
-	AddConnection(customS, w2);
 	AddConnection(s, w);
 
 	//Initialises 3D
 	_renderers[_usedType]->Init3D(w->GetHWND());
-
-	//Create swapchain for second window
-	_renderers[_usedType]->CreateSwapChain(w2->GetHWND());
 
 	//Initialises Input.
 	_inputHandler->InitInput(w->GetHWND());
