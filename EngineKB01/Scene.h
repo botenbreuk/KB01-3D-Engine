@@ -31,7 +31,7 @@ private:
 	bool CheckFileExists(std::string fileName);
 	
 	Skybox* _skyBox; //Skybox for this scene
-	Terrain* terrain;
+	Terrain* _terrain;
 };
 
 #endif

@@ -92,7 +92,7 @@ void DirectXRenderer::Init3D( HWND hWnd )
 	//_g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
 
 	//// Turn on the zbuffer
-	//_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
+	_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
 	//CREATE SWAPCHAINS HERE!
 	_g_pd3dDevice->GetSwapChain(0, &_swapchains[hWnd]);
@@ -225,11 +225,9 @@ void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
         
     }
 
+	VOID* pVertices;
 	if( FAILED( _g_pVB->Lock( 0, 0, ( void** )&pVertices, 0 ) ) ) {}
-    for(int i = 0; i < size; i++)
-	{
-		memcpy(pVertices, vertices, (sizeof(*vertices) * size));
-	}
+	memcpy(pVertices, vertices, (sizeof(*vertices) * size));
     _g_pVB->Unlock();
 	
 
@@ -238,7 +236,7 @@ void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
 }
 	
 ///Prepares a index buffer for rendering
-void DirectXRenderer::SetIndexBuffer(short* indices, int size)
+void DirectXRenderer::SetIndexBuffer(short* indices, int vertexSize, int size)
 {	
 	// create an index buffer interface called i_buffer
     _g_pd3dDevice->CreateIndexBuffer(size * sizeof(short),
@@ -247,14 +245,15 @@ void DirectXRenderer::SetIndexBuffer(short* indices, int size)
                               D3DPOOL_DEFAULT,
                               &_g_pIB,
                               NULL);
-
-    // lock i_buffer and load the indices into it
-    _g_pIB->Lock(0, 0, (void**)&pVertices, 0);
-	memcpy(pVertices, indices, (sizeof(*indices) * size));
+	
+	VOID* p_Indices;
+	// lock i_buffer and load the indices into it
+    _g_pIB->Lock(0, 0, (void**)&p_Indices, 0);
+	memcpy(p_Indices, indices, size * sizeof(short));
     _g_pIB->Unlock();
 
 	_g_pd3dDevice->SetIndices(_g_pIB);
-	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, (size / 6), 0, size);
+	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexSize, 0, (size / 6) * 2);
 }
 
 ///Prepares a Material for rendering.
@@ -339,7 +338,7 @@ void DirectXRenderer::SetupViewMatrix(float z)
 	// eye five units back along the z-axis and up three units, look at the 
 	// origin, and define "up" to be in the y-direction.
 	
-	D3DXVECTOR3 vEyePt( 0.0f, 10.0f, z );
+	D3DXVECTOR3 vEyePt( 0.0f, 5.0f, z );
 	D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
 	D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
 	D3DXMATRIXA16 matView;

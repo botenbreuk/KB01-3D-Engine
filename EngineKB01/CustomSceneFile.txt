@@ -1,5 +1,5 @@
-Tiger.x 2.0 0.0 0.0
-Tiger.x -2.0 0.0 0.0
-Tiger.x 0.0 0.0 3.0
-Tiger.x 0.0 0.0 -3.0
-HumanFinal.x 0.0 0.0 0.0
+Tiger.x 3.0 1.0 -2.0 1.0 -1.0
+Tiger.x -2.0 0.0 0.0 1.0 0.0
+Tiger.x -2.0 -5.0 3.0 1.0 -0.5
+Tiger.x 2.0 0.0 -3.0 1.2 0.5
+HumanFinal.x 0.0 0.0 0.0 1.0 0.0S

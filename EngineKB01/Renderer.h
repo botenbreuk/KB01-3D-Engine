@@ -41,7 +41,7 @@ public:
 	virtual DWORD GetNumberOfMaterials(std::string filePath) = 0;//Returns the number of Materials in a Mesh.
 
 	virtual void SetVertexBuffer(CUSTOMVERTEX* vertices, int size) = 0; //Prepares a vertex buffer for rendering.
-	virtual void SetIndexBuffer(short* indices, int size) = 0; //Prepares a index buffer for rendering.
+	virtual void SetIndexBuffer(short* indices, int vertexSize, int size) = 0; //Prepares a index buffer for rendering.
 
 	virtual void SetTexture(std::string filePath, DWORD i) = 0;//Prepares a Texture for rendering.
 	virtual void SetMaterial(std::string filePath, DWORD i) = 0;//Prepares a Material for rendering.

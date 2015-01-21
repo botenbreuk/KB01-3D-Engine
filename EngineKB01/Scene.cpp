@@ -8,7 +8,7 @@ Scene::Scene(ResourceManager* rsm)
 {
 	this->LoadSceneFromFile("SceneFile.txt", rsm);
 	this->_skyBox = new Skybox();
-	this->terrain = new Terrain();
+	this->_terrain = new Terrain();
 }
 
 Scene::~Scene()
@@ -28,7 +28,7 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 	renderer->SetupWorldMatrix();
 	renderer->SetupViewMatrix(-18.0f);
 	renderer->SetupProjectionMatrix();
-	terrain->Render(renderer);
+	_terrain->Render(renderer);
 	_skyBox->Render(renderer);
 	
 	std::list<Model*>::const_iterator iter;
