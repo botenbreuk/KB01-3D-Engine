@@ -92,7 +92,7 @@ void DirectXRenderer::Init3D( HWND hWnd )
 	//_g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
 
 	//// Turn on the zbuffer
-	//_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
+	_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
 	//CREATE SWAPCHAINS HERE!
 	_g_pd3dDevice->GetSwapChain(0, &_swapchains[hWnd]);
@@ -219,20 +219,27 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
 {
 	if( FAILED( _g_pd3dDevice->CreateVertexBuffer( size * sizeof( CUSTOMVERTEX ),
-                                                  0, D3DFVF_XYZ|D3DFVF_DIFFUSE,
+                                                  0, D3DFVF_CUSTOMVERTEX,
                                                   D3DPOOL_DEFAULT, &_g_pVB, NULL ) ) )
     {
         
     }
 
 	VOID* pVertices;
-	_g_pVB->Lock(0, size * sizeof(CUSTOMVERTEX), (void**)&pVertices, 0);
-	memcpy(pVertices, vertices, size * sizeof(CUSTOMVERTEX));
+	if( FAILED( _g_pVB->Lock( 0, 0, ( void** )&pVertices, 0 ) ) ) {}
+<<<<<<< HEAD
+	memcpy(pVertices, vertices, (sizeof(*vertices) * size));
+=======
+    for(int i = 0; i < size; i++)
+	{
+		memcpy(pVertices, vertices, (sizeof((*vertices)) * size));
+	}
+>>>>>>> origin/master
     _g_pVB->Unlock();
 	
 
-	_g_pd3dDevice->SetStreamSource(0, _g_pVB, 0, sizeof(CUSTOMVERTEX));
-	_g_pd3dDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+	_g_pd3dDevice->SetStreamSource( 0, _g_pVB, 0, sizeof( CUSTOMVERTEX ) );
+	_g_pd3dDevice->SetFVF( D3DFVF_CUSTOMVERTEX );
 }
 	
 ///Prepares a index buffer for rendering
@@ -248,7 +255,7 @@ void DirectXRenderer::SetIndexBuffer(short* indices, int vertexSize, int size)
 	
 	VOID* p_Indices;
 	// lock i_buffer and load the indices into it
-    _g_pIB->Lock(0, size * sizeof(short), (void**)&p_Indices, 0);
+    _g_pIB->Lock(0, 0, (void**)&p_Indices, 0);
 	memcpy(p_Indices, indices, size * sizeof(short));
     _g_pIB->Unlock();
 
@@ -268,14 +275,6 @@ void DirectXRenderer::SetTexture(std::string filePath, DWORD i)
 	_g_pd3dDevice->SetTexture( 0, _textures[filePath][i] );
 }
 
-///Prepares a Texture for rendering.
-void DirectXRenderer::SetTexture(char* filePath)
-{
-	LPDIRECT3DTEXTURE9 texture;
-	D3DXCreateTextureFromFileA(_g_pd3dDevice, filePath, &texture);
-	_g_pd3dDevice->SetTexture( 0, texture);
-}
-
 
 ///Draw the Mesh subset
 ///filePath: The file path to the Mesh.
@@ -283,12 +282,11 @@ void DirectXRenderer::SetTexture(char* filePath)
 
 void DirectXRenderer::DrawSubset(std::string filePath, DWORD i)
 {
-	_meshes[filePath]->DrawSubset( i );
+		_meshes[filePath]->DrawSubset( i );
 }
 
 ///Returns the 3DDevice.
-LPDIRECT3DDEVICE9 DirectXRenderer::Get3DDevice()
-{
+LPDIRECT3DDEVICE9 DirectXRenderer::Get3DDevice(){
 	return _g_pd3dDevice;
 }
 
@@ -347,7 +345,7 @@ void DirectXRenderer::SetupViewMatrix(float z)
 	// eye five units back along the z-axis and up three units, look at the 
 	// origin, and define "up" to be in the y-direction.
 	
-	D3DXVECTOR3 vEyePt( 0.0f, 10.0f, 48.0f );
+	D3DXVECTOR3 vEyePt( 0.0f, 5.0f, z );
 	D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
 	D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
 	D3DXMATRIXA16 matView;

@@ -67,5 +67,5 @@ void Model::Prepare(std::string filePath, Renderer* renderer, DWORD i)
 	// Set the material and texture for this subset
 	renderer->SetMaterial(filePath, i);
 	renderer->SetTexture(filePath, i);
-	renderer->SetModelMatrix(_xPos, _yPos, _zPos, _scale, _rotation);
+	renderer->SetModelMatrix(_xPos, _yPos, _zPos, _scale, timeGetTime() / 1000.0f);
 }

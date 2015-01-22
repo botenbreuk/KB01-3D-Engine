@@ -44,6 +44,7 @@ public:
 	virtual void SetIndexBuffer(short* indices, int vertexSize, int size) = 0; //Prepares a index buffer for rendering.
 
 	virtual void SetTexture(std::string filePath, DWORD i) = 0;//Prepares a Texture for rendering.
+	virtual void SetTexture(char* filePath) = 0;//Prepares a Texture for rendering.
 	virtual void SetMaterial(std::string filePath, DWORD i) = 0;//Prepares a Material for rendering.
 
 	virtual void DrawSubset(std::string filePath, DWORD i) = 0;//Draws a Mesh and its subsets.
