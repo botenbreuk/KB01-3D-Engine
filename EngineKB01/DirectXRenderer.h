@@ -56,7 +56,6 @@ public:
 
 	void SetMaterial(std::string filePath, DWORD i);//Prepares a Material for rendering.
 	void SetTexture(std::string filePath, DWORD i);//Prepares a Texture for rendering.
-	void SetTexture(std::string filePath); //Prepares a Texture for rendering.
 
 	void DrawSubset(std::string filePath, DWORD i);//Draws a Mesh and its subsets.
 

@@ -25,6 +25,7 @@ private:
 	BYTE* heightData; //Holds the color values for the height
 	CUSTOMVERTEX* cv_Vertices;
 	short* s_Indices;
+	char* _filePath;
 };
 
 #endif

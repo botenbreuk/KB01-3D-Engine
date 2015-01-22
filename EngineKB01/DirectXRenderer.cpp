@@ -218,42 +218,60 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 ///Prepares a vertex buffer for rendering
 void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
 {
+	LPDIRECT3DVERTEXBUFFER9 pVB; //Directx Vertex buffer
+	
 	if( FAILED( _g_pd3dDevice->CreateVertexBuffer( size * sizeof( CUSTOMVERTEX ),
                                                   0, D3DFVF_XYZ|D3DFVF_DIFFUSE,
-                                                  D3DPOOL_DEFAULT, &_g_pVB, NULL ) ) )
+                                                  D3DPOOL_DEFAULT, &pVB, NULL ) ) )
     {
         
     }
 
 	VOID* pVertices;
-	_g_pVB->Lock(0, 0, (void**)&pVertices, 0);
-	memcpy(pVertices, vertices, size * sizeof(CUSTOMVERTEX));
-    _g_pVB->Unlock();
+
+	if (FAILED(pVB->Lock(0, size * sizeof( CUSTOMVERTEX ), (void**)&pVertices, 0)))
+	{
+		MessageBoxA(NULL,"Error trying to lock","FillVertices()",MB_OK);
+	}
+	memcpy(pVertices, vertices, size * sizeof( CUSTOMVERTEX ));
+	pVB->Unlock();
+
+	_g_pd3dDevice->SetStreamSource(0, pVB, 0, sizeof(CUSTOMVERTEX));
+	_g_pd3dDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
 	
 
-	_g_pd3dDevice->SetStreamSource(0, _g_pVB, 0, sizeof(CUSTOMVERTEX));
-	_g_pd3dDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+	pVB->Release();
+	pVertices = NULL;
+	pVB = NULL;
 }
 	
 ///Prepares a index buffer for rendering
 void DirectXRenderer::SetIndexBuffer(short* indices, int vertexSize, int size)
 {	
+	LPDIRECT3DINDEXBUFFER9  pIB; //Directx Index buffer
 	// create an index buffer interface called i_buffer
     _g_pd3dDevice->CreateIndexBuffer(size * sizeof(short),
                               0,
                               D3DFMT_INDEX16,
                               D3DPOOL_DEFAULT,
-                              &_g_pIB,
+                              &pIB,
                               NULL);
 	
 	VOID* p_Indices;
-	// lock i_buffer and load the indices into it
-    _g_pIB->Lock(0, 0, (void**)&p_Indices, 0);
-	memcpy(p_Indices, indices, size * sizeof(short));
-    _g_pIB->Unlock();
 
-	_g_pd3dDevice->SetIndices(_g_pIB);
+	if (FAILED(pIB->Lock(0, size * sizeof(short), (void**)&p_Indices, 0)))
+    {
+        MessageBoxA(NULL,"Error trying to lock","FillIndices()",MB_OK);
+    }
+    memcpy(p_Indices, indices, size * sizeof(short));
+    pIB->Unlock();
+	
+	_g_pd3dDevice->SetIndices(pIB);
 	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexSize, 0, (size / 6) * 2);
+	
+	pIB->Release();
+	p_Indices = NULL;
+	pIB = NULL;
 }
 
 ///Prepares a Material for rendering.
@@ -266,18 +284,6 @@ void DirectXRenderer::SetMaterial(std::string filePath, DWORD i)
 void DirectXRenderer::SetTexture(std::string filePath, DWORD i)
 {
 	_g_pd3dDevice->SetTexture( 0, _textures[filePath][i] );
-}
-
-///Prepares a Texture for rendering.
-void DirectXRenderer::SetTexture(std::string filePath)
-{
-	LPDIRECT3DTEXTURE9 texture;
-	D3DXCreateTextureFromFileA(_g_pd3dDevice, "heightmap.bmp", &texture);
-	_g_pd3dDevice->SetTexture( 0, texture);
-
-	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_SELECTARG1);
-	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);
-	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE); 
 }
 
 
@@ -351,7 +357,7 @@ void DirectXRenderer::SetupViewMatrix(float z)
 	// eye five units back along the z-axis and up three units, look at the 
 	// origin, and define "up" to be in the y-direction.
 	
-	D3DXVECTOR3 vEyePt( 0.0f, 10.0f, 48.0f );
+	D3DXVECTOR3 vEyePt( 0.0f, 20.0f, z );
 	D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
 	D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
 	D3DXMATRIXA16 matView;
@@ -409,14 +415,14 @@ void DirectXRenderer::InitSkybox()
 	long num = 50.0f;
 	CUSTOMVERTEX g_Vertices[] =
 	{
-		{ -num, num, -num, 0.0f, 0.0f },	// left up front
-		{ num, num, -num, 1.0f, 0.0f },		// right up front	
-		{ -num, -num, -num, 0.0f, 1.0f},	// left bottom front
-		{ num, -num, -num, 1.0f, 1.0f },	// right bottom front
-		{ -num, num, num, 0.0f, 0.0f },		// left up back
-		{ num, num, num, 1.0f, 0.0f },		// right up back
-		{ -num, -num, num, 0.0f, 1.0f },	// left bottom back
-		{ num, -num, num, 1.0f, 1.0f },		// right bottom back
+		{ -num, num, -num, 1.0f, 0xffffffff, 0.0f, 0.0f },	// left up front
+		{ num, num, -num, 1.0f, 0xffffffff, 1.0f, 0.0f },		// right up front	
+		{ -num, -num, -num, 1.0f, 0xffffffff, 0.0f, 1.0f},	// left bottom front
+		{ num, -num, -num, 1.0f, 0xffffffff, 1.0f, 1.0f },	// right bottom front
+		{ -num, num, num, 1.0f, 0xffffffff, 0.0f, 0.0f },		// left up back
+		{ num, num, num, 1.0f, 1.0f, 0xffffffff, 0.0f },		// right up back
+		{ -num, -num, num, 0.0f, 1.0f, 0xffffffff, 1.0f },	// left bottom back
+		{ num, -num, num, 1.0f, 1.0f, 0xffffffff, 1.0f },		// right bottom back
 	};
 	
 	_g_pd3dDevice->CreateVertexBuffer( 8 * sizeof( CUSTOMVERTEX ),
@@ -456,8 +462,8 @@ void DirectXRenderer::InitSkybox()
 
 void DirectXRenderer::DrawSkybox()
 {
-		_g_pd3dDevice->SetStreamSource( 0, _g_pVB, 0, sizeof( CUSTOMVERTEX ) );
-		_g_pd3dDevice->SetFVF( D3DFVF_CUSTOMVERTEX );
-		_g_pd3dDevice->SetIndices(_g_pIB);
-		_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+	_g_pd3dDevice->SetStreamSource( 0, _g_pVB, 0, sizeof( CUSTOMVERTEX ) );
+	_g_pd3dDevice->SetFVF( D3DFVF_CUSTOMVERTEX );
+	_g_pd3dDevice->SetIndices(_g_pIB);
+	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 }

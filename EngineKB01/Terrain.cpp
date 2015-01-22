@@ -2,7 +2,8 @@
 
 Terrain::Terrain()
 {
-	if(LoadHeightmap("heightmap.bmp"))
+	_filePath = "heightmap.bmp";
+	if(LoadHeightmap(_filePath))
 	{
 		FillVertices();
 		FillIndices();
@@ -67,10 +68,9 @@ void Terrain::Render(Renderer* renderer)
 {
 	int width = bm.bmWidth;
 	
-	renderer->SetModelMatrix(-64, -10, -32, 1, timeGetTime() / 1000.0f);
+	renderer->SetModelMatrix(0, -30, 0, 0.5, timeGetTime() / 10000.0f);
 	renderer->SetVertexBuffer(cv_Vertices, width*width);
 	renderer->SetIndexBuffer(s_Indices, width*width, (width-1)*(width-1)*6);
-	
 }
 
 void Terrain::FillVertices()
@@ -82,13 +82,19 @@ void Terrain::FillVertices()
 
     for (int x = 0; x < width; x++)
 	{
+		int xPos = -(width / 2);
+		xPos += x;
         for (int y = 0; y < height; y++)
 		{
-            cv_Vertices[y*width + x].x = x;
-            cv_Vertices[y*width + x].y = heightData[y*width + x] / 20;
-            cv_Vertices[y*width + x].z = y;
+			int yPos = -(height / 2);
+			yPos += y;
+            cv_Vertices[y*width + x].x = xPos;
+            cv_Vertices[y*width + x].y = heightData[y*width + x] / 5;
+            cv_Vertices[y*width + x].z = yPos;
             cv_Vertices[y*width + x].rhw = 1.0f;
             cv_Vertices[y*width + x].color = 0xffffffff;
+            cv_Vertices[y*width + x].tu = 0.180;
+            cv_Vertices[y*width + x].tv = 0.680;						
         }
     }
 }
