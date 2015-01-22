@@ -68,7 +68,6 @@ void Terrain::Render(Renderer* renderer)
 	int width = bm.bmWidth;
 	
 	renderer->SetModelMatrix(-64, -10, -32, 1, timeGetTime() / 1000.0f);
-	renderer->SetTexture("heightmap.bmp");
 	renderer->SetVertexBuffer(cv_Vertices, width*width);
 	renderer->SetIndexBuffer(s_Indices, width*width, (width-1)*(width-1)*6);
 	
@@ -81,21 +80,16 @@ void Terrain::FillVertices()
 
 	cv_Vertices = new CUSTOMVERTEX[width*width];
 
-    for (int x = width; x < width; x++)
+    for (int x = 0; x < width; x++)
 	{
-		int xPos = -(width/2);
         for (int y = 0; y < height; y++)
 		{
-			int yPos = -(height/2);
-            cv_Vertices[y*width + x].x = xPos;
+            cv_Vertices[y*width + x].x = x;
             cv_Vertices[y*width + x].y = heightData[y*width + x] / 20;
-            cv_Vertices[y*width + x].z = yPos;
+            cv_Vertices[y*width + x].z = y;
             cv_Vertices[y*width + x].rhw = 1.0f;
-            cv_Vertices[y*width + x].color = heightData[y*width + x];
-
-			yPos + y;
+            cv_Vertices[y*width + x].color = 0xffffffff;
         }
-		xPos + x;
     }
 }
 

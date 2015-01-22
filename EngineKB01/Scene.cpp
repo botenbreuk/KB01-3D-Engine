@@ -7,14 +7,14 @@
 Scene::Scene(ResourceManager* rsm, InputHandler* inputHandler)
 {
 	LoadSceneFromFile("SceneFile.txt", rsm);
-	_skyBox = new Skybox();
+	this->_skyBox = new Skybox();
 	this->_terrain = new Terrain();
 	_inputHandler = inputHandler;
 	_logger = LoggerPool::GetInstance()->GetLogger("Scene");
 }
 
 Scene::~Scene()
-{
+{	
 	delete _skyBox;
 }
 

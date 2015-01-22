@@ -226,7 +226,7 @@ void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
     }
 
 	VOID* pVertices;
-	_g_pVB->Lock(0, size * sizeof(CUSTOMVERTEX), (void**)&pVertices, 0);
+	_g_pVB->Lock(0, 0, (void**)&pVertices, 0);
 	memcpy(pVertices, vertices, size * sizeof(CUSTOMVERTEX));
     _g_pVB->Unlock();
 	
@@ -248,7 +248,7 @@ void DirectXRenderer::SetIndexBuffer(short* indices, int vertexSize, int size)
 	
 	VOID* p_Indices;
 	// lock i_buffer and load the indices into it
-    _g_pIB->Lock(0, size * sizeof(short), (void**)&p_Indices, 0);
+    _g_pIB->Lock(0, 0, (void**)&p_Indices, 0);
 	memcpy(p_Indices, indices, size * sizeof(short));
     _g_pIB->Unlock();
 
@@ -269,11 +269,15 @@ void DirectXRenderer::SetTexture(std::string filePath, DWORD i)
 }
 
 ///Prepares a Texture for rendering.
-void DirectXRenderer::SetTexture(char* filePath)
+void DirectXRenderer::SetTexture(std::string filePath)
 {
 	LPDIRECT3DTEXTURE9 texture;
-	D3DXCreateTextureFromFileA(_g_pd3dDevice, filePath, &texture);
+	D3DXCreateTextureFromFileA(_g_pd3dDevice, "heightmap.bmp", &texture);
 	_g_pd3dDevice->SetTexture( 0, texture);
+
+	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_SELECTARG1);
+	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLORARG1,D3DTA_TEXTURE);
+	_g_pd3dDevice->SetTextureStageState(0,D3DTSS_COLORARG2,D3DTA_DIFFUSE); 
 }
 
 
@@ -383,7 +387,7 @@ void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, flo
 	D3DXMatrixTranslation(&matTranslate, x, y, z);
 
 	// Set up model matrix
-	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
+	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matScale * matTranslate * matRotY) );
 
 }
 
