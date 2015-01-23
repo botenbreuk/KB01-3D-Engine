@@ -14,18 +14,18 @@ class Terrain : Entity
 public:
 	Terrain();
 	~Terrain();
-	void Render(Renderer* renderer);
+	void Render(Renderer* renderer); //Renders the heightmap
 
 private:
 	bool LoadHeightmap(char* argFileName); //Loads the given hightmap
-	void FillVertices();
-	void FillIndices();
+	void FillVertices(); //Fills the vertices pointer
+	void FillIndices(); //Fills the indices pointer
 
-	BITMAP bm;
+	BITMAP bm; //Holds the bitmap information
 	BYTE* heightData; //Holds the color values for the height
-	CUSTOMVERTEX* cv_Vertices;
-	short* s_Indices;
-	char* _filePath;
+	CUSTOMVERTEX* cv_Vertices; //Holds the vertices of the heightmap
+	short* s_Indices; //Holds the indeces of the heigtmap
+	char* _filePath; //Holds the filepath of the heightmap
 };
 
 #endif

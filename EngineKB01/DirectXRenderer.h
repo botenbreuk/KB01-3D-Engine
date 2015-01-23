@@ -25,7 +25,7 @@ public:
 	void InitSkybox();
 	void DrawSkybox();
 
-	void CreateSkyboxTexture();
+	void CreateSkyboxTexture(std::string filePath = "skyboxtexture.jpg");
 	void SetSkyboxTexture();
 
 	LPDIRECT3DDEVICE9 Get3DDevice();//Returns the 3DDevice.

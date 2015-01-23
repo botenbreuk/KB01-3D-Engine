@@ -7,12 +7,9 @@ int main()
 {
 	//Makes a Kernel object.
 	Kernel* kernel = new Kernel();
-    
-	//initialises the components of the Kernel.
-	kernel->Initialize();
 
 	//Starts up the basic loop of the Engine.
-	kernel->Run();
+	kernel->RunBasic();
 
 	//Cleans up the components of the Kernel.
 	kernel->CleanUp();
