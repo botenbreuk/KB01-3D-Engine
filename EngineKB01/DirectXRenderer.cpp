@@ -10,7 +10,7 @@ DirectXRenderer::~DirectXRenderer()
 {
 }
 
-//Uses Skyboxtexture.jpg if parameter filePath is ignored
+///Uses Skyboxtexture.jpg if parameter filePath is ignored
 void DirectXRenderer::CreateSkyboxTexture(std::string filePath)
 {
 	std::wstring temp = std::wstring(filePath.begin(), filePath.end());
@@ -18,7 +18,7 @@ void DirectXRenderer::CreateSkyboxTexture(std::string filePath)
 	D3DXCreateTextureFromFile(_g_pd3dDevice, temp.c_str(), &_g_skyboxTexture);
 }
 
-//_g_skyboxTexture: Texture saved in CreateSkyboxTexture()
+///_g_skyboxTexture: Texture saved in CreateSkyboxTexture()
 void DirectXRenderer::SetSkyboxTexture()
 {
 	_g_pd3dDevice->SetTexture(0, _g_skyboxTexture);
@@ -35,8 +35,8 @@ void DirectXRenderer::ClearScreen()
 
 }
 
-//Switches swapchain (used for rendering to multiple windows)
-//hWND: HWND of relevant window
+///Switches swapchain (used for rendering to multiple windows)
+///hWND: HWND of relevant window
 void DirectXRenderer::SetTargetSwapChain(HWND hWND)
 {
 	LPDIRECT3DSURFACE9 pBackBuffer = NULL;
@@ -95,12 +95,11 @@ void DirectXRenderer::Init3D( HWND hWnd )
 	}
 	_g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
 
-	// Turn on the zbuffer
-	_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
+	// Turn on wireframes
+	//_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
 	//CREATE SWAPCHAINS HERE!
 	_g_pd3dDevice->GetSwapChain(0, &_swapchains[hWnd]);
-	//_g_pd3dDevice->CreateAdditionalSwapChain( &d3dpp, &_g_swapChain_1 );
 
 	// Turn on the zbuffer
 	//_g_pd3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
