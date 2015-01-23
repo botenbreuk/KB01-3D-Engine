@@ -10,6 +10,7 @@ DirectXRenderer::~DirectXRenderer()
 {
 }
 
+//Uses Skyboxtexture.jpg if parameter filePath is ignored
 void DirectXRenderer::CreateSkyboxTexture(std::string filePath)
 {
 	std::wstring temp = std::wstring(filePath.begin(), filePath.end());
@@ -17,6 +18,7 @@ void DirectXRenderer::CreateSkyboxTexture(std::string filePath)
 	D3DXCreateTextureFromFile(_g_pd3dDevice, temp.c_str(), &_g_skyboxTexture);
 }
 
+//_g_skyboxTexture: Texture saved in CreateSkyboxTexture()
 void DirectXRenderer::SetSkyboxTexture()
 {
 	_g_pd3dDevice->SetTexture(0, _g_skyboxTexture);
@@ -33,9 +35,10 @@ void DirectXRenderer::ClearScreen()
 
 }
 
+//Switches swapchain (used for rendering to multiple windows)
+//hWND: HWND of relevant window
 void DirectXRenderer::SetTargetSwapChain(HWND hWND)
 {
-
 	LPDIRECT3DSURFACE9 pBackBuffer = NULL;
 	_swapchains[hWND]->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
 	
@@ -75,7 +78,6 @@ void DirectXRenderer::Init3D( HWND hWnd )
 	}
 
 	// Set up the structure used to create the D3DDevice.
-   
 	ZeroMemory( &d3dpp, sizeof( d3dpp ) );
 	d3dpp.Windowed = TRUE;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -105,7 +107,6 @@ void DirectXRenderer::Init3D( HWND hWnd )
 
 	// Turn on ambient lighting 
 	_g_pd3dDevice->SetRenderState( D3DRS_AMBIENT, 0xffffffff );
-
 	_g_pd3dDevice->SetSamplerState(0,D3DSAMP_MIPFILTER,D3DTEXF_LINEAR); 
 	_g_pd3dDevice->SetSamplerState(0,D3DSAMP_MAGFILTER,D3DTEXF_LINEAR); 
 	_g_pd3dDevice->SetSamplerState(0,D3DSAMP_MINFILTER,D3DTEXF_LINEAR);
@@ -350,8 +351,8 @@ void DirectXRenderer::SetupWorldMatrix()
 	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &matWorld );
 }
 
-//Float z: default parameter at -5.0f.
-//Edit to place camera further or closer
+///Float z: default parameter at -5.0f.
+///Edit to place camera further or closer
 void DirectXRenderer::SetupViewMatrix(float z)
 {
 	// Set up our view matrix. A view matrix can be defined given an eye point,
@@ -406,27 +407,33 @@ DWORD DirectXRenderer::GetNumberOfMaterials(std::string filePath)
 	return _g_dwNumMaterials[filePath];
 }
 
+///Create swapchain, used for rendering to multiple windows
+///hWND: HWND this swapchain is relevant for
 void DirectXRenderer::CreateSwapChain(HWND hWND)
 {
 	_g_pd3dDevice->CreateAdditionalSwapChain( &d3dpp, &_swapchains[hWND]);
 }
 
+///Method to create skybox
 void DirectXRenderer::InitSkybox()
 {
-
+	///Change num to enlarge or shrink Skybox
 	long num = 50.0f;
+
+	///Vertices of giant box
 	CUSTOMVERTEX g_Vertices[] =
 	{
-		{ -num, num, -num, 1.0f, 0xffffffff, 0.0f, 0.0f },	// left up front
+		{ -num, num, -num, 1.0f, 0xffffffff, 0.0f, 0.0f },		// left up front
 		{ num, num, -num, 1.0f, 0xffffffff, 1.0f, 0.0f },		// right up front	
-		{ -num, -num, -num, 1.0f, 0xffffffff, 0.0f, 1.0f},	// left bottom front
-		{ num, -num, -num, 1.0f, 0xffffffff, 1.0f, 1.0f },	// right bottom front
+		{ -num, -num, -num, 1.0f, 0xffffffff, 0.0f, 1.0f},		// left bottom front
+		{ num, -num, -num, 1.0f, 0xffffffff, 1.0f, 1.0f },		// right bottom front
 		{ -num, num, num, 1.0f, 0xffffffff, 0.0f, 0.0f },		// left up back
 		{ num, num, num, 1.0f, 0xffffffff, 1.0f, 0.0f },		// right up back
-		{ -num, -num, num, 0.0f, 0xffffffff, 1.0f, 1.0f },	// left bottom back
+		{ -num, -num, num, 0.0f, 0xffffffff, 1.0f, 1.0f },		// left bottom back
 		{ num, -num, num, 1.0f, 0xffffffff, 1.0f, 1.0f },		// right bottom back
 	};
 	
+	///Create and fill vertexbuffer
 	_g_pd3dDevice->CreateVertexBuffer( 8 * sizeof( CUSTOMVERTEX ),
 												  0, D3DFVF_CUSTOMVERTEX,
 												  D3DPOOL_DEFAULT, &_g_pVB, NULL);
@@ -435,6 +442,8 @@ void DirectXRenderer::InitSkybox()
 	_g_pVB->Lock( 0, sizeof( g_Vertices ), ( void** )&pVertices, 0 );
 	memcpy( pVertices, g_Vertices, sizeof( g_Vertices ) );
 	_g_pVB->Unlock();
+
+	///Defines sides of box
 	short indices[] =
 	{
 		7, 6, 5,    // side 3 Back
@@ -451,6 +460,7 @@ void DirectXRenderer::InitSkybox()
 		2, 6, 7,
 	};
 
+	///Create and fill indexbuffer
 	_g_pd3dDevice->CreateIndexBuffer(36*sizeof(short),
 							  0,
 							  D3DFMT_INDEX16,
@@ -462,6 +472,8 @@ void DirectXRenderer::InitSkybox()
 	_g_pIB->Unlock();
 }
 
+///Draws box from indexbuffer and vertexbuffer
+///Releases both buffers to clear memory
 void DirectXRenderer::DrawSkybox()
 {
 	_g_pd3dDevice->SetStreamSource( 0, _g_pVB, 0, sizeof( CUSTOMVERTEX ) );
@@ -469,6 +481,7 @@ void DirectXRenderer::DrawSkybox()
 	_g_pd3dDevice->SetIndices(_g_pIB);
 	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 
+	///Releases both buffers to clear memory
 	_g_pVB->Release();
 	_g_pVB = NULL;
 
