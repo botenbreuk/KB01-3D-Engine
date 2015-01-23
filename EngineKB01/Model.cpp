@@ -32,9 +32,11 @@ void Model::Render(Renderer* renderer, ResourceManager* msm)
 	}
 }
 
+/// Sets the mesh name of the Model
+/// return: void
 void Model::SetMeshName(std::string meshName)
 {
-	_meshName = meshName;
+	this->_meshName = meshName;
 }
 
 /// Sets the position of an Model
