@@ -91,10 +91,10 @@ void DirectXRenderer::Init3D( HWND hWnd )
 
 		return;
 	}
-	//_g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
+	_g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
 
-	//// Turn on the zbuffer
-	//_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
+	// Turn on the zbuffer
+	_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
 	//CREATE SWAPCHAINS HERE!
 	_g_pd3dDevice->GetSwapChain(0, &_swapchains[hWnd]);
@@ -219,61 +219,58 @@ void DirectXRenderer::LoadTextures(std::string filePath, D3DXMATERIAL* d3dxMater
 
 ///Prepares a vertex buffer for rendering
 void DirectXRenderer::SetVertexBuffer(CUSTOMVERTEX* vertices, int size)
-{
-	LPDIRECT3DVERTEXBUFFER9 pVB; //Directx Vertex buffer
-	
+{	
 	if( FAILED( _g_pd3dDevice->CreateVertexBuffer( size * sizeof( CUSTOMVERTEX ),
                                                   0, D3DFVF_XYZ|D3DFVF_DIFFUSE,
-                                                  D3DPOOL_DEFAULT, &pVB, NULL ) ) )
+                                                  D3DPOOL_DEFAULT, &_g_pVB, NULL ) ) )
     {
         
     }
 
 	VOID* pVertices;
 
-	if (FAILED(pVB->Lock(0, size * sizeof( CUSTOMVERTEX ), (void**)&pVertices, 0)))
+	if (FAILED(_g_pVB->Lock(0, size * sizeof( CUSTOMVERTEX ), (void**)&pVertices, 0)))
 	{
 		MessageBoxA(NULL,"Error trying to lock","FillVertices()",MB_OK);
 	}
 	memcpy(pVertices, vertices, size * sizeof( CUSTOMVERTEX ));
-	pVB->Unlock();
+	_g_pVB->Unlock();
 
-	_g_pd3dDevice->SetStreamSource(0, pVB, 0, sizeof(CUSTOMVERTEX));
+	_g_pd3dDevice->SetStreamSource(0, _g_pVB, 0, sizeof(CUSTOMVERTEX));
 	_g_pd3dDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
 	
 
-	pVB->Release();
+	_g_pVB->Release();
 	pVertices = NULL;
-	pVB = NULL;
+	_g_pVB = NULL;
 }
 	
 ///Prepares a index buffer for rendering
 void DirectXRenderer::SetIndexBuffer(short* indices, int vertexSize, int size)
-{	
-	LPDIRECT3DINDEXBUFFER9  pIB; //Directx Index buffer
+{
 	// create an index buffer interface called i_buffer
     _g_pd3dDevice->CreateIndexBuffer(size * sizeof(short),
                               0,
                               D3DFMT_INDEX16,
                               D3DPOOL_DEFAULT,
-                              &pIB,
+                              &_g_pIB,
                               NULL);
 	
 	VOID* p_Indices;
 
-	if (FAILED(pIB->Lock(0, size * sizeof(short), (void**)&p_Indices, 0)))
+	if (FAILED(_g_pIB->Lock(0, size * sizeof(short), (void**)&p_Indices, 0)))
     {
         MessageBoxA(NULL,"Error trying to lock","FillIndices()",MB_OK);
     }
     memcpy(p_Indices, indices, size * sizeof(short));
-    pIB->Unlock();
+    _g_pIB->Unlock();
 	
-	_g_pd3dDevice->SetIndices(pIB);
+	_g_pd3dDevice->SetIndices(_g_pIB);
 	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, vertexSize, 0, (size / 6) * 2);
 	
-	pIB->Release();
+	_g_pIB->Release();
 	p_Indices = NULL;
-	pIB = NULL;
+	_g_pIB = NULL;
 }
 
 ///Prepares a Material for rendering.
@@ -359,7 +356,7 @@ void DirectXRenderer::SetupViewMatrix(float z)
 	// eye five units back along the z-axis and up three units, look at the 
 	// origin, and define "up" to be in the y-direction.
 	
-	D3DXVECTOR3 vEyePt( 0.0f, 20.0f, z );
+	D3DXVECTOR3 vEyePt( 0.0f, 10.0f, z );
 	D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
 	D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
 	D3DXMATRIXA16 matView;
@@ -384,18 +381,16 @@ void DirectXRenderer::SetModelMatrix(float x, float y, float z, float scale, flo
 {
 	D3DXMATRIXA16 matModel;
 	D3DXMATRIX matRotY;
-	//D3DXMATRIX matRotX;
 	D3DXMATRIX matScale;
 	D3DXMATRIX matTranslate;
 
 	D3DXMatrixRotationY(&matRotY, rotation);
-	//D3DXMatrixRotationY(&matRotX, timeGetTime() / 1000.0f);
 	D3DXMatrixIdentity(&matModel);
 	D3DXMatrixScaling(&matScale, scale, scale, scale);
 	D3DXMatrixTranslation(&matTranslate, x, y, z);
 
 	// Set up model matrix
-	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matScale * matTranslate * matRotY) );
+	_g_pd3dDevice->SetTransform( D3DTS_WORLD, &(matModel * matRotY * matScale * matTranslate) );
 
 }
 

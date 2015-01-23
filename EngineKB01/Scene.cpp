@@ -34,7 +34,7 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 	_skyBox->Render(renderer);
 	
 	std::list<Model*>::const_iterator iter;
-	for(iter = _modelList.begin(); iter != _modelList.end(); iter++)
+	for(iter = _models.begin(); iter != _models.end(); iter++)
 	{
 		(*iter)->Render(renderer, msm);
 	}
@@ -54,7 +54,7 @@ void Scene::Update(){
 	}
 
 	std::list<Entity*>::const_iterator iter;
-	for(iter = _entityList.begin(); iter != _entityList.end(); iter++)
+	for(iter = _entities.begin(); iter != _entities.end(); iter++)
 	{
 		(*iter)->Update();
 	}
@@ -79,7 +79,7 @@ void Scene::RemoveEntity(Entity* entity)
 void Scene::AddModel(Model* model)
 {
 	//mod->SetMeshName(_meshName);
-	_modelList.push_front(model);
+	_models.push_front(model);
 }
 
 ///Loads list of models from a file
@@ -87,7 +87,7 @@ void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 {
 	if(CheckFileExists(fileName))
 	{
-		_modelList.clear();
+		_models.clear();
 		std::ifstream file(fileName);
 		std::string line;
 	
@@ -128,6 +128,9 @@ void Scene::LoadSceneFromFile(std::string fileName, ResourceManager* rsm)
 	else std::cout << "Scene file not found: " << fileName;
 }
 
+///Check if the file exists
+///param filename
+///return: bool
 bool Scene::CheckFileExists(std::string fileName)
 {
     std::ifstream infile(fileName);
