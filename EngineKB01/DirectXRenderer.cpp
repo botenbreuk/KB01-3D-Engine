@@ -468,4 +468,10 @@ void DirectXRenderer::DrawSkybox()
 	_g_pd3dDevice->SetFVF( D3DFVF_CUSTOMVERTEX );
 	_g_pd3dDevice->SetIndices(_g_pIB);
 	_g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+
+	_g_pVB->Release();
+	_g_pVB = NULL;
+
+	_g_pIB->Release();
+	_g_pIB = NULL;
 }
