@@ -14,9 +14,14 @@ public:
 	DirectXInputHandler();
 	~DirectXInputHandler();
 	enum InputHardware {Mouse = 0, Keyboard = 1, XboxController = 2, First = Mouse, Last = XboxController};//The different types of input hardware the handler knows and can use.
-	void InitInput(HWND hDlg);//Initialises DirectInput.
+	void InitInput(Window* w);//Initialises DirectInput.
 	void FreeInput();//Frees up DirectInput.
-	void Update();
+	void Update();//Runs the input cycles.
+
+	struct KeyboardState
+	{
+		byte state[256];
+	};
 
 private:
 	LPDIRECTINPUT8          _g_pDI; // DirectInput interface
@@ -25,8 +30,10 @@ private:
 	void InitMouse();//Initialises the system mouse.
 	void InitKeyboard();//Initialises the system keyboard.
 
-	void ResetMouseData();
-	void SetMouseData();
+	void ReadMouseData();//Reads the mouse data and acts accordingly.
+	void ReadKeyboardData();//Reads the keyboard data and acts accordingly.
+
+	char* TranslateKeyboardData(KeyboardState keyboardState);//Translates the keyboard data to a char*.
 };
 
 #endif

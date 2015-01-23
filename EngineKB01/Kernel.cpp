@@ -54,7 +54,7 @@ void Kernel::Run()
 	_renderers[_usedType]->Init3D(w->GetHWND());
 
 	//Initialises Input.
-	_inputHandler->InitInput(w->GetHWND());
+	_inputHandler->InitInput(w);
 
 	//Loads in the Meshes.
 	_resourceManager->LoadMeshes();
