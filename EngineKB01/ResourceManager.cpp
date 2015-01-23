@@ -56,7 +56,6 @@ void ResourceManager::LoadMesh(std::string meshName, std::string filePath)
 			//Mesh already loaded in
 			_logger->WriteLog(failString2 + " " + GetMeshName(filePath) + "'.", Logger::MessageType::Error);
 		}
-
 	}
 	else
 	{
@@ -145,7 +144,6 @@ void ResourceManager::LoadTexture(std::string textureName, std::string filePath)
 			//Texture already loaded in
 			_logger->WriteLog(failString2 + " " + GetTextureName(filePath) + "'.", Logger::MessageType::Error);
 		}
-
 	}
 	else
 	{

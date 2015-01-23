@@ -2,7 +2,10 @@
 
 Terrain::Terrain()
 {
-	_filePath = "heightmap.bmp";
+	//Sets the filepath
+	_filePath = "island-heightmap.bmp";
+
+	//Loads the heigtmap and checks if the heigtmap is loaded
 	if(LoadHeightmap(_filePath))
 	{
 		FillVertices();
@@ -64,20 +67,32 @@ bool Terrain::LoadHeightmap(char* argFileName)
 	return true;
 }
 
+///Renders the heightmap
+///renderer: pointer to the abstract renderer
+///return: void
 void Terrain::Render(Renderer* renderer)
 {
+	//Width of the heigthmap
 	int width = bm.bmWidth;
 	
+	//Creates a model space to draw the terrain in
 	renderer->SetModelMatrix(0, -30, 0, 0.5, timeGetTime() / 10000.0f);
+	//Creates the vertexbuffer
 	renderer->SetVertexBuffer(cv_Vertices, width*width);
+	//Creates the indexbuffer
 	renderer->SetIndexBuffer(s_Indices, width*width, (width-1)*(width-1)*6);
 }
 
+///Fills the vertices pointer
+///return: void
 void Terrain::FillVertices()
 {
+	//Width of the bmp for the for loop
 	int width = bm.bmWidth;
+	////Height of the bmp for the for loop
 	int height = bm.bmWidth;
 
+	//Create CUSTOMVERTEX array to store the vertices
 	cv_Vertices = new CUSTOMVERTEX[width*width];
 
     for (int x = 0; x < width; x++)
@@ -99,11 +114,16 @@ void Terrain::FillVertices()
     }
 }
 
+///Fills the indeces pointer
+///return: void
 void Terrain::FillIndices()
 {
+	//Width of the bmp for the for loop
 	int width = bm.bmWidth;
+	////Height of the bmp for the for loop
 	int height = bm.bmWidth;
 
+	//Create short array to store the indices
     s_Indices = new short[(width-1)*(height-1)*6];
 
     for (int x = 0; x < width-1; x++)
