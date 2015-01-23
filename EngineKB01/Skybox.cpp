@@ -10,6 +10,7 @@ Skybox::~Skybox()
 {
 }
 
+///Renders skybox
 void Skybox::Render(Renderer* renderer)
 {
 	renderer->SetModelMatrix(25, 25, 25, 1, 0);
