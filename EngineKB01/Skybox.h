@@ -3,7 +3,7 @@
 
 #include "Model.h"
 
-class Skybox : Model
+class Skybox : Entity
 {
 public:
 	Skybox();

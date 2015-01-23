@@ -10,9 +10,11 @@ DirectXRenderer::~DirectXRenderer()
 {
 }
 
-void DirectXRenderer::CreateSkyboxTexture()
+void DirectXRenderer::CreateSkyboxTexture(std::string filePath)
 {
-	D3DXCreateTextureFromFile(_g_pd3dDevice, L"skyboxtexture.jpg", &_g_skyboxTexture);
+	std::wstring temp = std::wstring(filePath.begin(), filePath.end());
+
+	D3DXCreateTextureFromFile(_g_pd3dDevice, temp.c_str(), &_g_skyboxTexture);
 }
 
 void DirectXRenderer::SetSkyboxTexture()
@@ -420,9 +422,9 @@ void DirectXRenderer::InitSkybox()
 		{ -num, -num, -num, 1.0f, 0xffffffff, 0.0f, 1.0f},	// left bottom front
 		{ num, -num, -num, 1.0f, 0xffffffff, 1.0f, 1.0f },	// right bottom front
 		{ -num, num, num, 1.0f, 0xffffffff, 0.0f, 0.0f },		// left up back
-		{ num, num, num, 1.0f, 1.0f, 0xffffffff, 0.0f },		// right up back
-		{ -num, -num, num, 0.0f, 1.0f, 0xffffffff, 1.0f },	// left bottom back
-		{ num, -num, num, 1.0f, 1.0f, 0xffffffff, 1.0f },		// right bottom back
+		{ num, num, num, 1.0f, 0xffffffff, 1.0f, 0.0f },		// right up back
+		{ -num, -num, num, 0.0f, 0xffffffff, 1.0f, 1.0f },	// left bottom back
+		{ num, -num, num, 1.0f, 0xffffffff, 1.0f, 1.0f },		// right bottom back
 	};
 	
 	_g_pd3dDevice->CreateVertexBuffer( 8 * sizeof( CUSTOMVERTEX ),
