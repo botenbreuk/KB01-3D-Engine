@@ -50,7 +50,7 @@ void Scene::Update(){
 
 	if(_inputHandler->GetMouseButton0())
 	{
-		_logger->WriteLog("Mouse pressed, bitch!", Logger::Info);
+		_logger->WriteLog("Mouse0 Down", Logger::Info);
 	}
 
 	std::list<Entity*>::const_iterator iter;
