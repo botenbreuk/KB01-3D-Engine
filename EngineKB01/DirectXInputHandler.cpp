@@ -1,5 +1,11 @@
 #include "DirectXInputHandler.h"
 
+	//Defines the data for the state of the keyboard.
+	/*struct KeyboardState
+	{
+		byte state[256];
+	};*/
+
 	//Defines the data for the state of the mouse.
 	struct MouseState
 	{
@@ -50,9 +56,10 @@ DirectXInputHandler::~DirectXInputHandler()
 
 ///Initialises DirectInput.
 ///hDlg: The window handler for which the input is initialised.
-void DirectXInputHandler::InitInput(HWND hDlg)
+void DirectXInputHandler::InitInput(Window* w)
 {
-	_hDlg = hDlg;
+	_window = w;
+	_hDlg = w->GetHWND();
 
 	//Gives the window the focus so it can find the input devices.
 	HWND WINAPI SetFocus(_hDlg);
@@ -63,14 +70,15 @@ void DirectXInputHandler::InitInput(HWND hDlg)
 	{
 		return;
 	}
-	//InitKeyboard();
-	//TODO: Implement InitXBoxController(hDlg);
+
+	//Initialises the different devices
+	InitMouse();
+	InitKeyboard();
+	//TODO: Implement InitXBoxController();
 
 	//Writes an info message to the log.
 	_logger->WriteLog("DirectInput initialised.", Logger::MessageType::Info);
 
-	//Initialises the different devices
-	InitMouse();
 }
 
 ///Initialises the system mouse.
@@ -101,8 +109,6 @@ void DirectXInputHandler::InitMouse()
         return;
 	}
 
-	ResetMouseData();
-
 	//Writes an info message to the log.
 	_logger->WriteLog("Mouse initialised.", Logger::MessageType::Info);
 }
@@ -112,32 +118,41 @@ void DirectXInputHandler::InitMouse()
 void DirectXInputHandler::InitKeyboard()
 {
 	// Retrieve the system keyboard
-	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, &_directInputDevices[Mouse], NULL ) ) )
+	if( FAILED( _g_pDI->CreateDevice( GUID_SysKeyboard, &_directInputDevices[Keyboard], NULL ) ) )
     {
         MessageBox( NULL, TEXT( "Keyboard not found." ), TEXT( "Engine LNK2019" ), MB_ICONERROR | MB_OK );
         EndDialog( _hDlg, 0 );
         return;
     }
 
+	// A data format specifies which controls on a device we are interested in,
+    // and how they should be reported. This tells DInput that we will be
+    // passing a MouseState structure to IDirectInputDevice::GetDeviceState().
+	if( FAILED( _directInputDevices[Keyboard]->SetDataFormat(&c_dfDIKeyboard) ) )
+	{
+		return;
+	}
+
+	// Set the cooperative level to let DInput know how this device should
+    // interact with the system and with other DInput applications.
+    if( FAILED( (_directInputDevices[Keyboard])->SetCooperativeLevel( _hDlg, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND ) ) )
+	{
+        return;
+	}
+
 	//Writes an info message to the log.
 	_logger->WriteLog("Keyboard initialised.", Logger::MessageType::Info);
 }
 
+///Runs the input cycles.
 void DirectXInputHandler::Update()
 {
-	SetMouseData();
+	ReadMouseData();
+	ReadKeyboardData();
 }
 
-void DirectXInputHandler::ResetMouseData()
-{
-	this->_mouseButton0 = false;
-	this->_mouseButton1 = false;
-	this->_mouseButton2 = false;
-	this->_mousePositionX = 0;
-	this->_mousePositionY = 0;
-}
-
-void DirectXInputHandler::SetMouseData()
+///Reads the mouse data and acts accordingly.
+void DirectXInputHandler::ReadMouseData()
 {
 	HRESULT hr;
 	TCHAR strText[128] = {0}; // Device state text
@@ -179,24 +194,71 @@ void DirectXInputHandler::SetMouseData()
         pOrigin.y = mousestate.lAxisY;
     }
 
-	std::cout << "x:" << mousestate.lAxisX << std::endl << "y:" << mousestate.lAxisY << std::endl;
-
-    /*// Store cursor position
-    POINT pt;
-    GetCursorPos( &pt );
-    ScreenToClient( _hDlg, &pt );
-	_mousePositionX = (long)pt.x;
-    _mousePositionY = (long)pt.y;*/
-
 	// Get pressed keys
 	strText[0] = 0;
-    for ( int i = 0; i < 3; i++ )
-    {
-        if ( mousestate.abButtons[i] & 0x80 )
+		//Left mouse button.
+        if(mousestate.abButtons[0] & 0x80)
         {
-			std::cout << mousestate.abButtons[i];
+			_window->LeftMouseButtonPressed();
         }
-    }
+		//Right mouse button.
+		else if(mousestate.abButtons[1] & 0x80)
+		{
+			_window->RightMouseButtonPressed();
+		}
+		//Middle mouse button.
+		if(mousestate.abButtons[2] & 0x80)
+		{
+			_window->MiddleMouseButtonPressed();
+		}
+}
+
+///Reads the keyboard data and acts accordingly.
+void DirectXInputHandler::ReadKeyboardData()
+{
+	/*
+	KeyboardState keyboardState;
+	if ((_directInputDevices[Keyboard]->GetDeviceState( ((sizeof(unsigned char)) << 8), (void*)keyboardState.state)) != DI_OK)
+	{
+		if ((DIERR_INPUTLOST) && (DIERR_NOTACQUIRED))
+		{
+			// try to (re-)acquire the keyboard interface
+			_directInputDevices[Keyboard]->Acquire();
+		}
+		else // ...some other error
+		{
+			_logger->WriteLog("There was an unspecified problem with the keyboard.", Logger::Warning);
+		}
+	}
+	else
+	{
+		char* c = TranslateKeyboardData(keyboardState);
+		//_window->KeyTyped(c);
+		delete c;
+	}
+	*/
+}
+
+///Translates the keyboard data to a char*.
+///keyboardState: The state of the keyboard.
+char* DirectXInputHandler::TranslateKeyboardData(KeyboardState keyboardState)
+{
+	if(keyboardState.state[DIK_A])
+	{
+		return "a";
+	}
+	else if(keyboardState.state[DIK_B])
+	{
+		return "b";
+	}
+	else if(keyboardState.state[DIK_C])
+	{
+		return "c";
+	}
+	else if(keyboardState.state[DIK_D])
+	{
+		return "d";
+	}
 }
 
 ///Cleans up the input devices and the interface.

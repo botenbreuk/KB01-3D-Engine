@@ -14,7 +14,13 @@ public:
 	HWND GetHWND();
 
 	void SetTitle(std::string title);//Sets the title for the window.
-	void Window::SetSize(int width, int length);//Sets the size of window
+	void SetSize(int width, int length);//Sets the size of window
+
+	void LeftMouseButtonPressed();
+	void RightMouseButtonPressed();
+	void MiddleMouseButtonPressed();
+
+	void KeyTyped(char* c);
 
 private:
 	void SetWinClass();//Registers a Win class

@@ -48,11 +48,6 @@ void Scene::Render(Renderer* renderer, ResourceManager* msm, Window* window)
 void Scene::Update(){
 	_inputHandler->Update();
 
-	if(_inputHandler->GetMouseButton0())
-	{
-		_logger->WriteLog("Mouse0 Down", Logger::Info);
-	}
-
 	std::list<Entity*>::const_iterator iter;
 	for(iter = _entities.begin(); iter != _entities.end(); iter++)
 	{

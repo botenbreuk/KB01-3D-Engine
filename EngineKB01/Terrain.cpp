@@ -107,7 +107,7 @@ void Terrain::FillVertices()
             cv_Vertices[y*width + x].y = heightData[y*width + x] / 5;
             cv_Vertices[y*width + x].z = yPos;
             cv_Vertices[y*width + x].rhw = 1.0f;
-            cv_Vertices[y*width + x].color = 0xffffffff;
+            cv_Vertices[y*width + x].color = 0xff565656;
             cv_Vertices[y*width + x].tu = 0.180;
             cv_Vertices[y*width + x].tv = 0.680;						
         }

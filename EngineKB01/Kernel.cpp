@@ -51,7 +51,7 @@ void Kernel::RunBasic()
 	_renderers[_usedType]->Init3D(w->GetHWND());
 
 	//Initialises Input.
-	_inputHandler->InitInput(w->GetHWND());
+	_inputHandler->InitInput(w);
 
 	//Loads in the Meshes.
 	_resourceManager->LoadMeshes();
@@ -97,6 +97,7 @@ void Kernel::CleanUp()
 	_logger->WriteLog("Kernel cleaned up.", Logger::MessageType::Info);
 }
 
+///Adds connection between a scene and a window
 void Kernel::AddConnection(Scene* scene, Window* window)
 {
 	std::pair<Scene*, Window*> pair;
@@ -104,6 +105,7 @@ void Kernel::AddConnection(Scene* scene, Window* window)
 	_pairs.push_front(pair);
 }
 
+///Creates resourcemanager with the correct renderer type
 void Kernel::CreateResourceManager()
 {
 	_resourceManager = new ResourceManager((DirectXRenderer*)_renderers[_usedType]);
@@ -119,6 +121,7 @@ void Kernel::CreateSceneManager()
 	_sceneManager = new SceneManager();
 }
 
+///Load renderer based on which renderertype is used
 void Kernel::LoadRenderer()
 {
 	//Checks the type of Renderer to use.
@@ -138,6 +141,7 @@ void Kernel::LoadRenderer()
 	}
 }
 
+///Start the main loop
 void Kernel::Start()
 {
 

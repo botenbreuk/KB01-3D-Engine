@@ -63,3 +63,23 @@ LRESULT CALLBACK Window::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
 {
     return DefWindowProc( hWnd, msg, wParam, lParam );
 }
+
+void Window::LeftMouseButtonPressed()
+{
+	std::cout << "Left mouse button pressed.";
+}
+
+void Window::RightMouseButtonPressed()
+{
+	std::cout << "Right mouse button pressed.";
+}
+
+void Window::MiddleMouseButtonPressed()
+{
+	std::cout << "Middle mouse button pressed.";
+}
+
+void Window::KeyTyped(char* c)
+{
+	std::cout << c;
+}
