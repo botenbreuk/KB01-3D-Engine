@@ -95,11 +95,12 @@ void DirectXRenderer::Init3D( HWND hWnd )
 	}
 	_g_pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
 
-	// Turn on wireframes
-	//_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
+	// Turn on the zbuffer
+	_g_pd3dDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
 	//CREATE SWAPCHAINS HERE!
 	_g_pd3dDevice->GetSwapChain(0, &_swapchains[hWnd]);
+	//_g_pd3dDevice->CreateAdditionalSwapChain( &d3dpp, &_g_swapChain_1 );
 
 	// Turn on the zbuffer
 	//_g_pd3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
