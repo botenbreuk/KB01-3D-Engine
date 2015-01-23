@@ -24,7 +24,7 @@ public:
 	virtual void InitSkybox() = 0;
 	virtual void DrawSkybox() = 0;
 	
-	virtual void CreateSkyboxTexture() = 0;
+	virtual void CreateSkyboxTexture(std::string filePath = "skyboxtexture.jpg") = 0;
 	virtual void SetSkyboxTexture() = 0;
 
 	virtual void SetTargetSwapChain(HWND hWND) = 0;

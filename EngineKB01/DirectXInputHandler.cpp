@@ -1,45 +1,5 @@
 #include "DirectXInputHandler.h"
 
-
-DirectXInputHandler::DirectXInputHandler()
-{
-	_logger = LoggerPool::GetInstance()->GetLogger("Input");
-}
-
-
-DirectXInputHandler::~DirectXInputHandler()
-{
-}
-
-///Initialises DirectInput.
-///hDlg: The window handler for which the input is initialised.
-void DirectXInputHandler::InitInput(HWND hDlg)
-{
-	_hDlg = hDlg;
-
-	//Gives the window the focus so it can find the input devices.
-	HWND WINAPI SetFocus(_hDlg);
-
-	// Register with the DirectInput subsystem and get a pointer
-    // to a IDirectInput interface we can use.
-    if( FAILED( DirectInput8Create( GetModuleHandle( NULL ), DIRECTINPUT_VERSION, IID_IDirectInput8, ( VOID** )&_g_pDI, NULL ) ) )
-	{
-		return;
-	}
-	
-	//Initialises the different devices
-	InitMouse();
-	//InitKeyboard();
-	//TODO: Implement InitXBoxController(hDlg);
-
-	//Writes an info message to the log.
-	_logger->WriteLog("DirectInput initialised.", Logger::MessageType::Info);
-}
-
-///Initialises the system mouse.
-///hDlg: The window for which the mouse is initialised.
-void DirectXInputHandler::InitMouse()
-{
 	//Defines the data for the state of the mouse.
 	struct MouseState
 	{
@@ -78,6 +38,46 @@ void DirectXInputHandler::InitMouse()
 		g_aObjectFormats
 	};
 
+DirectXInputHandler::DirectXInputHandler()
+{
+	_logger = LoggerPool::GetInstance()->GetLogger("Input");
+}
+
+
+DirectXInputHandler::~DirectXInputHandler()
+{
+}
+
+///Initialises DirectInput.
+///hDlg: The window handler for which the input is initialised.
+void DirectXInputHandler::InitInput(HWND hDlg)
+{
+	_hDlg = hDlg;
+
+	//Gives the window the focus so it can find the input devices.
+	HWND WINAPI SetFocus(_hDlg);
+
+	// Register with the DirectInput subsystem and get a pointer
+    // to a IDirectInput interface we can use.
+    if( FAILED( DirectInput8Create( GetModuleHandle( NULL ), DIRECTINPUT_VERSION, IID_IDirectInput8, ( VOID** )&_g_pDI, NULL ) ) )
+	{
+		return;
+	}
+	//InitKeyboard();
+	//TODO: Implement InitXBoxController(hDlg);
+
+	//Writes an info message to the log.
+	_logger->WriteLog("DirectInput initialised.", Logger::MessageType::Info);
+
+	//Initialises the different devices
+	InitMouse();
+}
+
+///Initialises the system mouse.
+///hDlg: The window for which the mouse is initialised.
+void DirectXInputHandler::InitMouse()
+{
+
     // Retrieve the system mouse
 	if( FAILED( _g_pDI->CreateDevice( GUID_SysMouse, &_directInputDevices[Mouse], NULL ) ) )
     {
@@ -91,11 +91,12 @@ void DirectXInputHandler::InitMouse()
     // passing a MouseState structure to IDirectInputDevice::GetDeviceState().
     if( FAILED( (_directInputDevices[Mouse])->SetDataFormat( &g_dfMouse ) ) )
 	{
+		return;
 	}
 
     // Set the cooperative level to let DInput know how this device should
     // interact with the system and with other DInput applications.
-    if( FAILED( (_directInputDevices[Mouse])->SetCooperativeLevel( _hDlg, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND ) ) )
+    if( FAILED( (_directInputDevices[Mouse])->SetCooperativeLevel( _hDlg, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND ) ) )
 	{
         return;
 	}
@@ -122,6 +123,82 @@ void DirectXInputHandler::InitKeyboard()
 	_logger->WriteLog("Keyboard initialised.", Logger::MessageType::Info);
 }
 
+void DirectXInputHandler::Update()
+{
+	SetMouseData();
+}
+
+void DirectXInputHandler::ResetMouseData()
+{
+	this->_mouseButton0 = false;
+	this->_mouseButton1 = false;
+	this->_mouseButton2 = false;
+	this->_mousePositionX = 0;
+	this->_mousePositionY = 0;
+}
+
+void DirectXInputHandler::SetMouseData()
+{
+	HRESULT hr;
+	TCHAR strText[128] = {0}; // Device state text
+    MouseState mousestate;           // Custom mouse state 
+
+    static POINT pOrigin = {0};           // Initial position
+    static BOOL bInitialized = FALSE;    // Indicates offsets are valid
+
+	if( NULL == _directInputDevices[Mouse] )
+        return;
+
+	// Poll the device to read the current state
+    hr = _directInputDevices[Mouse]->Poll();
+    if( FAILED( hr ) )
+    {
+        // DInput is telling us that the input stream has been
+        // interrupted. We aren't tracking any state between polls, so
+        // we don't have any special reset that needs to be done. We
+        // just re-acquire and try again.
+        hr = _directInputDevices[Mouse]->Acquire();
+        while( hr == DIERR_INPUTLOST )
+            hr = _directInputDevices[Mouse]->Acquire();
+
+        // hr may be DIERR_OTHERAPPHASPRIO or other errors.  This
+        // may occur when the app is minimized or in the process of 
+        // switching, so just try again later 
+        return;
+    }
+
+	// Get the input's device state
+	if(FAILED(hr = _directInputDevices[Mouse]->GetDeviceState( sizeof( MouseState ), &mousestate )))
+		return; // The device should have been acquired during the Poll()
+
+	// The initial mouse position should be subracted from the current point. 
+    if( !bInitialized )
+    {
+        bInitialized = TRUE;
+        pOrigin.x = mousestate.lAxisX;
+        pOrigin.y = mousestate.lAxisY;
+    }
+
+	std::cout << "x:" << mousestate.lAxisX << std::endl << "y:" << mousestate.lAxisY << std::endl;
+
+    /*// Store cursor position
+    POINT pt;
+    GetCursorPos( &pt );
+    ScreenToClient( _hDlg, &pt );
+	_mousePositionX = (long)pt.x;
+    _mousePositionY = (long)pt.y;*/
+
+	// Get pressed keys
+	strText[0] = 0;
+    for ( int i = 0; i < 3; i++ )
+    {
+        if ( mousestate.abButtons[i] & 0x80 )
+        {
+			std::cout << mousestate.abButtons[i];
+        }
+    }
+}
+
 ///Cleans up the input devices and the interface.
 void DirectXInputHandler::FreeInput()
 {
@@ -143,54 +220,4 @@ void DirectXInputHandler::FreeInput()
 
 	//Writes an info message to the log.
 	_logger->WriteLog("DirectInput freed.", Logger::MessageType::Info);
-}
-
-void DirectXInputHandler::Update()
-{
-	SetMouseData();
-}
-
-void DirectXInputHandler::ResetMouseData()
-{
-	this->_mouseButton0 = false;
-	this->_mouseButton1 = false;
-	this->_mouseButton2 = false;
-	this->_mousePositionX = 0;
-	this->_mousePositionY = 0;
-}
-
-void DirectXInputHandler::SetMouseData()
-{
-	DIMOUSESTATE _mouseState;
-	_directInputDevices[Mouse]->Acquire();
-
-	_directInputDevices[Mouse]->GetDeviceState( sizeof( DIMOUSESTATE ), &_mouseState );
-	/*HRESULT hr = _directInputDevices[Mouse]->GetDeviceState( sizeof( DIMOUSESTATE ), &_mouseState );
-    if ( FAILED( hr )  )
-	{
-        if ( hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED )
-        {
-            // Device is lost, try to reaquire it
-			_directInputDevices[Mouse]->Acquire();
-        }
-        return;
-    }*/
-    // Store cursor position
-    POINT pt;
-    GetCursorPos( &pt );
-    ScreenToClient( _hDlg, &pt );
-	_mousePositionX = (long)pt.x;
-    _mousePositionY = (long)pt.y;
-	// Get pressed keys
-    for ( int i = 0; i < 4; i++ )
-    {
-        if ( _mouseState.rgbButtons[i] & 0x80 )
-        {
-			this->_mouseButton0 = TRUE;
-        }
-        else
-        {
-            this->_mouseButton0 = FALSE;
-        }
-    }
 }
