@@ -40,6 +40,7 @@ Scene* SceneManager::AddScene(ResourceManager* rsm, InputHandler* inputHandler)
 	return newScene;
 }
 
+///Adds a scene from a custom scenefile
 Scene* SceneManager::AddSceneFromFile(ResourceManager* rsm, std::string filePath, InputHandler* inputHandler)
 {
 	Scene* newScene = new Scene(rsm, inputHandler);
